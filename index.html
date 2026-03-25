@@ -794,7 +794,7 @@ let currentProduct = null;
 
 // Atalho de teclado para abrir admin (Alt+A)
 document.addEventListener('keydown', (e) => {
-  if (e.ctrlKey && e.altKey && e.key === 'a') {
+  if (e.altKey && e.key === 'a') {
     e.preventDefault();
     toggleAdminPanel();
   }
