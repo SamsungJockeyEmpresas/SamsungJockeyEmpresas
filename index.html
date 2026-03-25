@@ -87,25 +87,6 @@
       align-items: center;
     }
 
-    .theme-toggle {
-      width: 50px;
-      height: 50px;
-      background: var(--gray-light);
-      border: 1px solid var(--gray-medium);
-      border-radius: 8px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s ease;
-      font-size: 1.3rem;
-    }
-
-    .theme-toggle:hover {
-      background: var(--gray-medium);
-      border-color: var(--samsung-blue);
-    }
-
     .btn-header {
       padding: 12px 28px;
       background: var(--samsung-blue);
@@ -197,19 +178,10 @@
       line-height: 1.8;
     }
 
-    /* SEARCH E COMPARAÇÃO */
-    .controls-section {
-      display: flex;
-      gap: 20px;
-      max-width: 900px;
-      margin: 0 auto 40px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
+    /* SEARCH */
     .search-container {
-      flex: 1;
-      min-width: 300px;
+      max-width: 700px;
+      margin: 0 auto 40px;
     }
 
     #searchInput {
@@ -233,23 +205,6 @@
       outline: none;
       border-bottom-color: var(--samsung-blue);
       box-shadow: 0 2px 0 var(--samsung-blue);
-    }
-
-    .compare-btn {
-      padding: 12px 24px;
-      background: var(--samsung-blue);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 12px rgba(20,40,160,0.2);
-    }
-
-    .compare-btn:hover {
-      background: var(--samsung-blue-dark);
-      transform: translateY(-2px);
     }
 
     /* TABS */
@@ -441,7 +396,6 @@
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      position: relative;
     }
 
     .product-img {
@@ -464,16 +418,6 @@
     .product-img-placeholder {
       font-size: 4rem;
       opacity: 0.2;
-    }
-
-    .compare-checkbox {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      width: 24px;
-      height: 24px;
-      cursor: pointer;
-      accent-color: var(--samsung-blue);
     }
 
     .product-info {
@@ -626,107 +570,78 @@
       font-weight: 700;
     }
 
-    /* COMPARAÇÃO */
-    .compare-modal {
+    /* SPECS VIEW */
+    .specs-container {
       display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0,0,0,0.5);
-      backdrop-filter: blur(4px);
-      z-index: 2000;
-      overflow-y: auto;
+      padding: 60px;
+      max-width: 1600px;
+      margin: 0 auto;
     }
 
-    .compare-modal.show {
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .specs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 40px;
     }
 
-    .compare-content {
+    .specs-card {
       background: var(--white);
-      border-radius: 16px;
-      padding: 40px;
-      max-width: 1200px;
-      width: 90%;
-      max-height: 85vh;
-      overflow-y: auto;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
-      animation: slideUp 0.3s ease-out;
+      border: 1px solid var(--gray-medium);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
     }
 
-    @keyframes slideUp {
-      from {
-        transform: translateY(30px);
-        opacity: 0;
-      }
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
+    .specs-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(20,40,160,0.15);
     }
 
-    .compare-header {
+    .specs-header {
+      background: linear-gradient(135deg, var(--samsung-blue), var(--samsung-blue-dark));
+      color: white;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .specs-header h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .specs-header p {
+      font-size: 0.85rem;
+      opacity: 0.9;
+    }
+
+    .specs-body {
+      padding: 24px;
+    }
+
+    .spec-item {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      margin-bottom: 28px;
-      border-bottom: 2px solid var(--gray-medium);
-      padding-bottom: 18px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--gray-medium);
+      font-size: 0.9rem;
     }
 
-    .compare-header h2 {
+    .spec-item:last-child {
+      border-bottom: none;
+    }
+
+    .spec-label {
+      font-weight: 600;
       color: var(--samsung-blue);
-      font-size: 1.6rem;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
+      flex: 0 0 40%;
     }
 
-    .close-btn {
-      background: var(--gray-light);
-      border: 1px solid var(--gray-medium);
-      color: var(--text-primary);
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 1.3rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s ease;
-      font-weight: 700;
-    }
-
-    .close-btn:hover {
-      background: var(--gray-medium);
-      border-color: var(--samsung-blue);
-      color: var(--samsung-blue);
-    }
-
-    .compare-table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    .compare-table th,
-    .compare-table td {
-      padding: 16px;
-      border: 1px solid var(--gray-medium);
-      text-align: left;
-    }
-
-    .compare-table th {
-      background: var(--samsung-blue);
-      color: white;
-      font-weight: 700;
-    }
-
-    .compare-table tr:hover {
-      background: var(--gray-light);
+    .spec-value {
+      color: var(--text-secondary);
+      text-align: right;
+      flex: 1;
     }
 
     /* FOOTER */
@@ -830,7 +745,8 @@
 
     /* MODAIS */
     .qty-modal,
-    .cart-modal {
+    .cart-modal,
+    .admin-modal {
       display: none;
       position: fixed;
       top: 0;
@@ -844,14 +760,16 @@
     }
 
     .qty-modal.show,
-    .cart-modal.show {
+    .cart-modal.show,
+    .admin-modal.show {
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
     .qty-modal-content,
-    .cart-content {
+    .cart-content,
+    .admin-content {
       background: var(--white);
       border-radius: 16px;
       padding: 40px 36px;
@@ -865,6 +783,23 @@
       max-width: 640px;
       max-height: 85vh;
       overflow-y: auto;
+    }
+
+    .admin-content {
+      max-width: 800px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(30px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
     }
 
     .modal-header {
@@ -884,6 +819,28 @@
       letter-spacing: 0.3px;
     }
 
+    .close-btn {
+      background: var(--gray-light);
+      border: 1px solid var(--gray-medium);
+      color: var(--text-primary);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      font-weight: 700;
+    }
+
+    .close-btn:hover {
+      background: var(--gray-medium);
+      border-color: var(--samsung-blue);
+      color: var(--samsung-blue);
+    }
+
     .form-group {
       display: flex;
       flex-direction: column;
@@ -900,7 +857,8 @@
     }
 
     .form-group input,
-    .form-group select {
+    .form-group select,
+    .form-group textarea {
       padding: 12px 16px;
       border: 1px solid var(--gray-medium);
       border-radius: 8px;
@@ -912,7 +870,8 @@
     }
 
     .form-group input:focus,
-    .form-group select:focus {
+    .form-group select:focus,
+    .form-group textarea:focus {
       outline: none;
       border-color: var(--samsung-blue);
       box-shadow: 0 0 0 3px rgba(20,40,160,0.1);
@@ -1185,6 +1144,10 @@
         padding: 24px;
       }
 
+      .specs-grid {
+        grid-template-columns: 1fr;
+      }
+
       .tabs {
         padding: 24px;
         gap: 12px;
@@ -1228,7 +1191,8 @@
       }
 
       .qty-modal-content,
-      .cart-content {
+      .cart-content,
+      .admin-content {
         padding: 28px 20px;
       }
     }
@@ -1243,7 +1207,6 @@
     <div class="logo-mastercell">Mastercell</div>
   </div>
   <div class="header-right">
-    <button class="theme-toggle" onclick="toggleTheme()" title="Alternar tema">☀️</button>
     <button class="btn-header" onclick="openCart()" style="position: relative;">
       Visualizar Carrinho
       <span class="cart-badge" id="cartBadge" style="display: none;">0</span>
@@ -1258,11 +1221,8 @@
   <h1>Agora sua empresa conta com um portfólio <span class="highlight">completo Samsung</span></h1>
   <p>Soluções desenvolvidas para aumentar a produtividade, mobilidade e segurança do seu negócio.</p>
   
-  <div class="controls-section">
-    <div class="search-container">
-      <input type="text" id="searchInput" placeholder="Buscar produto (Galaxy S25, Watch, Buds...)" onkeyup="searchProducts(this.value)">
-    </div>
-    <button class="compare-btn" onclick="openCompareModal()">Comparar Selecionados</button>
+  <div class="search-container">
+    <input type="text" id="searchInput" placeholder="Buscar produto (Galaxy S25, Watch, Buds...)" onkeyup="searchProducts(this.value)">
   </div>
 </section>
 
@@ -1273,6 +1233,7 @@
 <div class="view-toggle">
   <button class="view-btn active" onclick="setView(currentSection, 'grid')">Grade</button>
   <button class="view-btn" onclick="setView(currentSection, 'table')">Tabela</button>
+  <button class="view-btn" onclick="setView(currentSection, 'specs')">Especificações</button>
 </div>
 
 <!-- GRID VIEW -->
@@ -1290,6 +1251,14 @@
 <div class="table-container" id="table-notebooks"></div>
 <div class="table-container" id="table-wearables"></div>
 <div class="table-container" id="table-acessorios"></div>
+
+<!-- SPECS VIEW -->
+<div class="specs-container" id="specs-smartphones"></div>
+<div class="specs-container" id="specs-dobráveis"></div>
+<div class="specs-container" id="specs-tablets"></div>
+<div class="specs-container" id="specs-notebooks"></div>
+<div class="specs-container" id="specs-wearables"></div>
+<div class="specs-container" id="specs-acessorios"></div>
 
 <!-- MODAL QUANTIDADE -->
 <div class="qty-modal" id="qtyModal">
@@ -1339,14 +1308,41 @@
   </div>
 </div>
 
-<!-- MODAL COMPARAÇÃO -->
-<div class="compare-modal" id="compareModal">
-  <div class="compare-content">
-    <div class="compare-header">
-      <h2>Comparação de Produtos</h2>
-      <button class="close-btn" onclick="closeCompareModal()">✕</button>
+<!-- MODAL ADMIN -->
+<div class="admin-modal" id="adminModal">
+  <div class="admin-content">
+    <div class="modal-header">
+      <h2>Painel Administrativo</h2>
+      <button class="close-btn" onclick="closeAdmin()">✕</button>
     </div>
-    <div id="compareTable"></div>
+
+    <div class="form-group">
+      <label>Selecione a Categoria</label>
+      <select id="adminCategory" onchange="loadAdminProducts()">
+        <option value="smartphones">Smartphones</option>
+        <option value="dobráveis">Dobráveis</option>
+        <option value="tablets">Tablets</option>
+        <option value="notebooks">Notebooks</option>
+        <option value="wearables">Wearables</option>
+        <option value="acessorios">Acessórios</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Selecione o Produto</label>
+      <select id="adminProduct" onchange="loadProductData()">
+        <option value="">Carregando...</option>
+      </select>
+    </div>
+
+    <div id="adminProductForm"></div>
+
+    <div class="modal-actions">
+      <button class="btn btn-primary" onclick="saveProduct()">Salvar Alterações</button>
+      <button class="btn btn-secondary" onclick="exportJSON()">Exportar JSON</button>
+      <button class="btn btn-secondary" onclick="importJSON()">Importar JSON</button>
+      <button class="btn btn-secondary" onclick="closeAdmin()">Fechar</button>
+    </div>
   </div>
 </div>
 
@@ -1376,37 +1372,133 @@
   </svg>
 </a>
 
+<input type="file" id="importFile" style="display:none;" accept=".json" onchange="handleImport(event)">
+
 <script>
 let CATALOG = {};
 let currentSection = 'smartphones';
 let viewState = {};
 let cart = [];
-let compareList = [];
 let currentQtyModal = { category: null, productIdx: null, name: null, price: null, quantity: 1 };
 let isLoading = true;
 
-// DARK MODE
+// ESPECIFICAÇÕES TÉCNICAS
+const SPECS = {
+  'smartphones': {
+    'Galaxy S25': {
+      familia: 'Série S',
+      tela: '6.2" Dynamic AMOLED 2X, 120Hz',
+      processador: 'Snapdragon 8 Elite',
+      ram: '12GB',
+      armazenamento: '256GB',
+      camera: '50MP + 12MP + 10MP',
+      bateria: '4000 mAh',
+      so: 'Android 15'
+    },
+    'Galaxy S25+': {
+      familia: 'Série S',
+      tela: '6.7" Dynamic AMOLED 2X, 120Hz',
+      processador: 'Snapdragon 8 Elite',
+      ram: '12GB',
+      armazenamento: '512GB',
+      camera: '50MP + 12MP + 10MP',
+      bateria: '4900 mAh',
+      so: 'Android 15'
+    },
+    'Galaxy S25 Ultra': {
+      familia: 'Série S',
+      tela: '6.9" Dynamic AMOLED 2X, 120Hz',
+      processador: 'Snapdragon 8 Elite',
+      ram: '16GB',
+      armazenamento: '1TB',
+      camera: '200MP + 50MP + 10MP + 10MP',
+      bateria: '5000 mAh',
+      so: 'Android 15'
+    }
+  },
+  'dobráveis': {
+    'Galaxy Z Fold 6': {
+      familia: 'Dobrável',
+      tela: '7.6" (aberto) / 6.3" (fechado)',
+      processador: 'Snapdragon 8 Gen 3',
+      ram: '12GB',
+      armazenamento: '256GB',
+      camera: '50MP + 12MP + 10MP',
+      bateria: '4400 mAh',
+      so: 'Android 14'
+    },
+    'Galaxy Z Flip 6': {
+      familia: 'Dobrável',
+      tela: '6.7" (aberto) / 3.4" (fechado)',
+      processador: 'Snapdragon 8 Gen 3',
+      ram: '12GB',
+      armazenamento: '256GB',
+      camera: '50MP + 12MP',
+      bateria: '4000 mAh',
+      so: 'Android 14'
+    }
+  },
+  'tablets': {
+    'Galaxy Tab S10': {
+      familia: 'Tab S',
+      tela: '10.9" Dynamic AMOLED, 120Hz',
+      processador: 'Snapdragon 8 Gen 3',
+      ram: '12GB',
+      armazenamento: '256GB',
+      camera: '13MP + 8MP',
+      bateria: '10090 mAh',
+      so: 'Android 14'
+    }
+  },
+  'notebooks': {
+    'Galaxy Book4': {
+      familia: 'Book',
+      tela: '15.6" AMOLED, 120Hz',
+      processador: 'Intel Core Ultra',
+      ram: '16GB',
+      armazenamento: '512GB SSD',
+      camera: '1080p',
+      bateria: '63Wh',
+      so: 'Windows 11'
+    }
+  },
+  'wearables': {
+    'Galaxy Watch7': {
+      familia: 'Watch',
+      tela: '1.4" AMOLED',
+      processador: 'Exynos W1000',
+      ram: '2GB',
+      armazenamento: '32GB',
+      sensores: 'Frequência cardíaca, SpO2, EDA',
+      bateria: '425 mAh',
+      so: 'Wear OS'
+    },
+    'Galaxy Buds3': {
+      familia: 'Buds',
+      driver: '11mm',
+      conexao: 'Bluetooth 5.4',
+      cancelamento: 'ANC adaptativo',
+      bateria: '48 horas (com case)',
+      peso: '4.9g'
+    }
+  },
+  'acessorios': {
+    'Samsung Charger 65W': {
+      familia: 'Carregador',
+      potencia: '65W',
+      conexao: 'USB-C',
+      compatibilidade: 'Universal',
+      tamanho: 'Compacto'
+    }
+  }
+};
+
+// DARK MODE AUTOMÁTICO
 function initTheme() {
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const savedTheme = localStorage.getItem('theme');
-  const isDark = savedTheme ? savedTheme === 'dark' : prefersDark;
-  
-  if (isDark) {
+  if (prefersDark) {
     document.documentElement.classList.add('dark-mode');
-    updateThemeButton();
   }
-}
-
-function toggleTheme() {
-  const isDark = document.documentElement.classList.toggle('dark-mode');
-  localStorage.setItem('theme', isDark ? 'dark' : 'light');
-  updateThemeButton();
-}
-
-function updateThemeButton() {
-  const btn = document.querySelector('.theme-toggle');
-  const isDark = document.documentElement.classList.contains('dark-mode');
-  btn.textContent = isDark ? '🌙' : '☀️';
 }
 
 // SKELETON LOADING
@@ -1498,13 +1590,15 @@ function switchSection(section) {
   document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
   event.target.classList.add('active');
   
-  document.querySelectorAll('.grid, .table-container').forEach(el => el.style.display = 'none');
+  document.querySelectorAll('.grid, .table-container, .specs-container').forEach(el => el.style.display = 'none');
   
   const view = viewState[section] || 'grid';
   if (view === 'grid') {
     document.getElementById(`grid-${section}`).style.display = 'grid';
-  } else {
+  } else if (view === 'table') {
     document.getElementById(`table-${section}`).style.display = 'block';
+  } else if (view === 'specs') {
+    document.getElementById(`specs-${section}`).style.display = 'block';
   }
   
   renderSection(section);
@@ -1521,7 +1615,6 @@ function renderSection(section) {
       grid.innerHTML = data.map((p, idx) => `
         <div class="product-card">
           <div class="product-image-container">
-            <input type="checkbox" class="compare-checkbox" onchange="toggleCompare('${section}', ${idx}, '${p.modelo}', ${p.pix})">
             ${p.img ? `<img class="product-img" src="${p.img}" alt="${p.modelo}" onerror="this.style.display='none'; this.parentNode.querySelector('.product-img-placeholder').style.display='block';">` : ''}
             <div class="product-img-placeholder" style="display:${p.img ? 'none' : 'block'}">Box</div>
           </div>
@@ -1569,6 +1662,35 @@ function renderSection(section) {
       `;
     }
   }
+
+  const specs = document.getElementById(`specs-${section}`);
+  if (specs) {
+    if (data.length === 0) {
+      specs.innerHTML = '<p style="text-align:center;padding:60px 20px;color:var(--text-secondary);">Nenhum produto nesta categoria</p>';
+    } else {
+      specs.innerHTML = `<div class="specs-grid">
+        ${data.map(p => {
+          const specs = SPECS[section]?.[p.modelo] || {};
+          return `
+            <div class="specs-card">
+              <div class="specs-header">
+                <h3>${p.modelo}</h3>
+                <p>${p.familia}</p>
+              </div>
+              <div class="specs-body">
+                ${Object.entries(specs).map(([key, value]) => `
+                  <div class="spec-item">
+                    <span class="spec-label">${key.charAt(0).toUpperCase() + key.slice(1)}</span>
+                    <span class="spec-value">${value}</span>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          `;
+        }).join('')}
+      </div>`;
+    }
+  }
 }
 
 function fmt(price) {
@@ -1584,13 +1706,17 @@ function setView(section, view) {
   viewState[section] = view;
   
   document.querySelectorAll('.view-btn').forEach((btn, i) => {
-    btn.classList.toggle('active', (i === 0 && view === 'grid') || (i === 1 && view === 'table'));
+    btn.classList.toggle('active', (i === 0 && view === 'grid') || (i === 1 && view === 'table') || (i === 2 && view === 'specs'));
   });
   
   const grid = document.getElementById(`grid-${section}`);
   const table = document.getElementById(`table-${section}`);
+  const specs = document.getElementById(`specs-${section}`);
   if (grid) grid.style.display = view === 'grid' ? 'grid' : 'none';
   if (table) table.style.display = view === 'table' ? 'block' : 'none';
+  if (specs) specs.style.display = view === 'specs' ? 'block' : 'none';
+  
+  renderSection(section);
 }
 
 function searchProducts(query) {
@@ -1615,7 +1741,6 @@ function searchProducts(query) {
       grid.innerHTML = filtered.map((p, idx) => `
         <div class="product-card">
           <div class="product-image-container">
-            <input type="checkbox" class="compare-checkbox" onchange="toggleCompare('${currentSection}', ${idx}, '${p.modelo}', ${p.pix})">
             ${p.img ? `<img class="product-img" src="${p.img}" alt="${p.modelo}" onerror="this.style.display='none'; this.parentNode.querySelector('.product-img-placeholder').style.display='block';">` : ''}
             <div class="product-img-placeholder" style="display:${p.img ? 'none' : 'block'}">Box</div>
           </div>
@@ -1635,77 +1760,6 @@ function searchProducts(query) {
       `).join('');
     }
   }
-}
-
-// COMPARAÇÃO
-function toggleCompare(category, productIdx, name, price) {
-  const id = `${category}-${productIdx}`;
-  const index = compareList.findIndex(item => item.id === id);
-  
-  if (index > -1) {
-    compareList.splice(index, 1);
-  } else {
-    compareList.push({ id, category, productIdx, name, price });
-  }
-}
-
-function openCompareModal() {
-  if (compareList.length === 0) {
-    alert('Selecione pelo menos um produto para comparar');
-    return;
-  }
-  
-  const tableHtml = `
-    <table class="compare-table">
-      <thead>
-        <tr>
-          <th>Propriedade</th>
-          ${compareList.map(item => `<th>${item.name}</th>`).join('')}
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Família</td>
-          ${compareList.map(item => {
-            const product = CATALOG.categories[item.category][item.productIdx];
-            return `<td>${product.familia}</td>`;
-          }).join('')}
-        </tr>
-        <tr>
-          <td>Preço à Vista</td>
-          ${compareList.map(item => `<td>${fmt(item.price)}</td>`).join('')}
-        </tr>
-        <tr>
-          <td>6x</td>
-          ${compareList.map(item => {
-            const product = CATALOG.categories[item.category][item.productIdx];
-            return `<td>${product.x6 ? fmt(product.x6) : '—'}</td>`;
-          }).join('')}
-        </tr>
-        <tr>
-          <td>10x</td>
-          ${compareList.map(item => {
-            const product = CATALOG.categories[item.category][item.productIdx];
-            return `<td>${product.x10 ? fmt(product.x10) : '—'}</td>`;
-          }).join('')}
-        </tr>
-        <tr>
-          <td>Promoção</td>
-          ${compareList.map(item => {
-            const product = CATALOG.categories[item.category][item.productIdx];
-            return `<td>${product.obs || '—'}</td>`;
-          }).join('')}
-        </tr>
-      </tbody>
-    </table>
-  `;
-  
-  document.getElementById('compareTable').innerHTML = tableHtml;
-  document.getElementById('compareModal').classList.add('show');
-}
-
-function closeCompareModal() {
-  document.getElementById('compareModal').classList.remove('show');
 }
 
 // QUANTIDADE
@@ -1943,6 +1997,153 @@ function sendByEmail() {
   const body = encodeURIComponent(text);
   const emailUrl = `mailto:samsungb2b@mastercell.com.br?subject=${subject}&body=${body}`;
   window.location.href = emailUrl;
+}
+
+// PAINEL ADMIN
+document.addEventListener('keydown', (e) => {
+  if (e.altKey && e.key === 'a') {
+    e.preventDefault();
+    openAdmin();
+  }
+});
+
+function openAdmin() {
+  document.getElementById('adminModal').classList.add('show');
+  loadAdminProducts();
+}
+
+function closeAdmin() {
+  document.getElementById('adminModal').classList.remove('show');
+}
+
+function loadAdminProducts() {
+  const category = document.getElementById('adminCategory').value;
+  const products = CATALOG.categories[category] || [];
+  const select = document.getElementById('adminProduct');
+  
+  select.innerHTML = products.map((p, idx) => `
+    <option value="${idx}">${p.modelo}</option>
+  `).join('');
+  
+  loadProductData();
+}
+
+function loadProductData() {
+  const category = document.getElementById('adminCategory').value;
+  const productIdx = parseInt(document.getElementById('adminProduct').value);
+  const product = CATALOG.categories[category][productIdx];
+  
+  if (!product) return;
+  
+  const specs = SPECS[category]?.[product.modelo] || {};
+  
+  let specsHTML = '';
+  if (Object.keys(specs).length > 0) {
+    specsHTML = `
+      <div style="margin-top: 24px; padding-top: 24px; border-top: 2px solid var(--gray-medium);">
+        <h3 style="color: var(--samsung-blue); margin-bottom: 16px; font-size: 1.1rem; font-weight: 700;">Especificações Técnicas</h3>
+        ${Object.entries(specs).map(([key, value]) => `
+          <div class="form-group">
+            <label>${key.charAt(0).toUpperCase() + key.slice(1)}</label>
+            <input type="text" id="adminSpec_${key}" value="${value}">
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }
+  
+  const form = document.getElementById('adminProductForm');
+  form.innerHTML = `
+    <div class="form-group">
+      <label>Modelo</label>
+      <input type="text" id="adminModelo" value="${product.modelo}">
+    </div>
+    <div class="form-group">
+      <label>Família</label>
+      <input type="text" id="adminFamilia" value="${product.familia}">
+    </div>
+    <div class="form-group">
+      <label>Preço PIX</label>
+      <input type="number" id="adminPix" value="${product.pix}">
+    </div>
+    <div class="form-group">
+      <label>Preço 6x</label>
+      <input type="number" id="adminX6" value="${product.x6 || ''}">
+    </div>
+    <div class="form-group">
+      <label>Preço 10x</label>
+      <input type="number" id="adminX10" value="${product.x10 || ''}">
+    </div>
+    <div class="form-group">
+      <label>Observação/Promoção</label>
+      <input type="text" id="adminObs" value="${product.obs || ''}">
+    </div>
+    ${specsHTML}
+  `;
+}
+
+function saveProduct() {
+  const category = document.getElementById('adminCategory').value;
+  const productIdx = parseInt(document.getElementById('adminProduct').value);
+  const product = CATALOG.categories[category][productIdx];
+  const modeloAtualizado = document.getElementById('adminModelo').value;
+  
+  CATALOG.categories[category][productIdx] = {
+    modelo: modeloAtualizado,
+    familia: document.getElementById('adminFamilia').value,
+    pix: parseFloat(document.getElementById('adminPix').value),
+    x6: parseFloat(document.getElementById('adminX6').value) || null,
+    x10: parseFloat(document.getElementById('adminX10').value) || null,
+    obs: document.getElementById('adminObs').value,
+    img: product.img
+  };
+  
+  // Salvar especificações
+  const specInputs = document.querySelectorAll('[id^="adminSpec_"]');
+  if (specInputs.length > 0) {
+    if (!SPECS[category]) SPECS[category] = {};
+    SPECS[category][modeloAtualizado] = {};
+    
+    specInputs.forEach(input => {
+      const key = input.id.replace('adminSpec_', '');
+      SPECS[category][modeloAtualizado][key] = input.value;
+    });
+  }
+  
+  renderSection(category);
+  showToast('Produto e especificações salvos com sucesso!');
+}
+
+function exportJSON() {
+  const json = JSON.stringify(CATALOG, null, 2);
+  const blob = new Blob([json], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'precos.json';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function importJSON() {
+  document.getElementById('importFile').click();
+}
+
+function handleImport(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      CATALOG = JSON.parse(e.target.result);
+      renderSection(currentSection);
+      showToast('JSON importado com sucesso!');
+    } catch (err) {
+      alert('Erro ao importar JSON: ' + err.message);
+    }
+  };
+  reader.readAsText(file);
 }
 
 // INICIALIZAR
