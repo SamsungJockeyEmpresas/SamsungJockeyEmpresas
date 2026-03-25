@@ -1,0 +1,143 @@
+{
+  "lastUpdated": "2026-03-25",
+  "currency": "BRL",
+  "categories": {
+    "smartphones": [
+      {
+        "familia": "Linha A",
+        "modelo": "Galaxy A07 128GB",
+        "pix": 938,
+        "x6": 1019,
+        "x10": 1110,
+        "obs": "",
+        "img": "https://images.samsung.com/is/image/samsung/p6pim/za/sm-a075fzggafa/gallery/za-galaxy-a07-sm-a075-sm-a075fzggafa-548575323?$Q90_1248_936_F_PNG$"
+      },
+      {
+        "familia": "Linha A",
+        "modelo": "Galaxy A17 4G 128GB",
+        "pix": 1418,
+        "x6": 1527,
+        "x10": 1582,
+        "obs": "BUDS CORE (R$1,00)",
+        "img": "https://images.samsung.com/is/image/samsung/p6pim/br/sm-a176bzaozto/gallery/br-galaxy-a17-5g-sm-a176-sm-a176bzaozto-548807141?$Q90_1248_936_F_PNG$"
+      },
+      {
+        "familia": "Linha A",
+        "modelo": "Galaxy A17 4G 256GB",
+        "pix": 1598,
+        "x6": 1706,
+        "x10": 1760,
+        "obs": "BUDS CORE (R$1,00)",
+        "img": "https://revendo.ch/cdn/shop/files/samsung-galaxy-a17-5g-exynos-1330-5-nm-a17-5g-black-schwarz-guenstig-gebraucht-kaufen-00.png?v=1756800563"
+      },
+      {
+        "familia": "Linha A",
+        "modelo": "Galaxy A17 5G 128GB",
+        "pix": 1798,
+        "x6": 1905,
+        "x10": 1959,
+        "obs": "BUDS CORE (R$1,00)",
+        "img": "https://images.samsung.com/is/image/samsung/p6pim/br/sm-a176bzaozto/gallery/br-galaxy-a17-5g-sm-a176-sm-a176bzaozto-548807141?$Q90_1248_936_F_PNG$"
+      },
+      {
+        "familia": "Linha A",
+        "modelo": "Galaxy A17 5G 256GB",
+        "pix": 1918,
+        "x6": 2025,
+        "x10": 2078,
+        "obs": "BUDS CORE (R$1,00)",
+        "img": "https://images.samsung.com/is/image/samsung/p6pim/pt/sm-a176bzbdeub/gallery/pt-galaxy-a17-5g-sm-a176-sm-a176bzbdeub-thumb-548536428"
+      },
+      {
+        "familia": "Linha A",
+        "modelo": "Galaxy A36 5G 128GB",
+        "pix": 2228,
+        "x6": 2340,
+        "x10": 2451,
+        "obs": "BUDS CORE ou FIT3 (R$1,00)",
+        "img": "https://images.samsung.com/is/image/samsung/p6pim/br/sm-a366ezkgzto/gallery/br-galaxy-a36-5g-sm-a366-sm-a366ezkgzto-545388586?$Q90_1248_936_F_PNG$"
+      },
+      {
+        "familia": "Linha A",
+        "modelo": "Galaxy A36 5G 256GB",
+        "pix": 2428,
+        "x6": 2538,
+        "x10": 2649,
+        "obs": "BUDS CORE ou FIT3 (R$1,00)",
+        "img": "https://images.samsung.com/is/image/samsung/p6pim/br/sm-a366elvbzto/gallery/br-galaxy-a36-5g-sm-a366-sm-a366elvbzto-thumb-545388491"
+      },
+      {
+        "familia": "Linha A",
+        "modelo": "Galaxy A56 5G 128GB",
+        "pix": 2578,
+        "x6": 2688,
+        "x10": 2798,
+        "obs": "BUDS CORE ou FIT3 (R$1,00)",
+        "img": "https://images.samsung.com/is/image/samsung/p6pim/br/sm-a566ezkazto/gallery/br-galaxy-a56-5g-sm-a566-540642-sm-a566ezkazto-thumb-545718313"
+      },
+      {
+        "familia": "Linha A",
+        "modelo": "Galaxy A56 5G 256GB",
+        "pix": 2778,
+        "x6": 2887,
+        "x10": 2996,
+        "obs": "BUDS CORE ou FIT3 (R$1,00)",
+        "img": "https://images.samsung.com/is/image/samsung/p6pim/br/sm-a566eliazto/gallery/br-galaxy-a56-5g-sm-a566-540642-sm-a566eliazto-545718243?$Q90_1248_936_F_PNG$"
+      },
+      {
+        "familia": "Linha S",
+        "modelo": "Galaxy S25 Fe 128GB",
+        "pix": 4028,
+        "x6": 4196,
+        "x10": 4363,
+        "obs": "BUDS 3 Fe (R$399)",
+        "img": "https://images.samsung.com/is/image/samsung/p6pim/br/sm-s731bdbkzto/gallery/br-galaxy-s25-fe-sm-s731-sm-s731bdbkzto-thumb-549153290"
+      },
+      {
+        "familia": "Linha S",
+        "modelo": "Galaxy S25 Fe 256GB",
+        "pix": 4228,
+        "x6": 4396,
+        "x10": 4562,
+        "obs": "BUDS 3 Fe (R$399)",
+        "img": "https://images.samsung.com/is/image/samsung/p6pim/br/sm-s731bzkkzto/gallery/br-galaxy-s25-fe-sm-s731-sm-s731bzkkzto-549153383?$Q90_1248_936_F_PNG$"
+      },
+      {
+        "familia": "Linha S",
+        "modelo": "Galaxy S25 256GB",
+        "pix": 4828,
+        "x6": 5001,
+        "x10": 5172,
+        "obs": "BUDS 3 (R$399)",
+        "img": "https://images.samsung.com/is/image/samsung/p6pim/br/2501/gallery/br-galaxy-s25-s931-sm-s931bzkkzto-thumb-544654185"
+      },
+      {
+        "familia": "Linha S",
+        "modelo": "Galaxy S25 Ultra 256GB",
+        "pix": 7628,
+        "x6": 7791,
+        "x10": 7955,
+        "obs": "BUDS 3 PRO (R$599)",
+        "img": "https://benchpromos.com.br/_next/image?url=https%3A%2F%2Fi.imgur.com%2Fcdl8xET.png&w=3840&q=75"
+      },
+      {
+        "familia": "Linha S",
+        "modelo": "Galaxy S26 Ultra 256GB",
+        "pix": 13728,
+        "x6": 13728,
+        "x10": 13728,
+        "obs": "BUDS 3 PRO (R$599)",
+        "img": "https://files.tecnoblog.net/wp-content/uploads/2026/02/galaxy-s26-ultra-violeta.png"
+      },
+      {
+        "familia": "Linha S",
+        "modelo": "Galaxy S26 Ultra 512GB",
+        "pix": 16128,
+        "x6": 16128,
+        "x10": 16128,
+        "obs": "BUDS 3 PRO (R$599)",
+        "img": "https://planoscelular.claro.com.br/medias/515Wx515H-productMain-19333-zero.png?context=bWFzdGVyfGltYWdlc3wxNjkyNTB8aW1hZ2UvcG5nfGFHWTVMMmcxWkM4eE1EVTRNekF3T1RJek1EZzNPQzgxTVRWWGVEVXhOVWhmY0hKdlpIVmpkRTFoYVc1Zk1Ua3pNek5mZW1WeWJ5NXdibWN8NWE3YzYyYTJjZDcxZDJmNTcxODcyYTFmYTNiYTIwN2I3YTVkZDRlOTM4NDllNmQ2NDA2ZDM1MmZkZDAzYjYwMA"
+      }
+    ]
+  }
+}
