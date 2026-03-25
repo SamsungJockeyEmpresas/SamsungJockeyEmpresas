@@ -71,19 +71,6 @@
       color: var(--accent);
       letter-spacing: 1px;
     }
-    .admin-btn {
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.2);
-      color: #fff;
-      padding: 8px 12px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 0.8rem;
-      transition: all 0.3s;
-    }
-    .admin-btn:hover {
-      background: rgba(255,255,255,0.2);
-    }
 
     /* HERO */
     .hero {
@@ -194,27 +181,38 @@
       overflow: hidden;
       transition: all 0.3s;
       cursor: pointer;
+      display: flex;
+      flex-direction: column;
     }
     .product-card:hover {
       border-color: var(--accent);
       box-shadow: 0 0 20px rgba(79,195,247,0.3);
       transform: translateY(-5px);
     }
-    .product-img {
-      width: 100%;
-      height: 200px;
-      object-fit: contain;
-      background: rgba(0,0,0,0.3);
-      padding: 10px;
-    }
-    .product-img-placeholder {
+    .product-image-container {
       width: 100%;
       height: 200px;
       background: rgba(0,0,0,0.3);
       display: flex;
       align-items: center;
       justify-content: center;
+      overflow: hidden;
+    }
+    .product-img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      padding: 10px;
+    }
+    .product-img-placeholder {
       font-size: 3rem;
+      opacity: 0.5;
+    }
+    .product-info {
+      padding: 15px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
     }
     .product-familia {
       background: rgba(79,195,247,0.2);
@@ -223,18 +221,18 @@
       font-size: 0.75rem;
       font-weight: 700;
       text-transform: uppercase;
-      margin: 10px;
       border-radius: 4px;
       display: inline-block;
+      margin-bottom: 10px;
+      width: fit-content;
     }
     .product-name {
-      padding: 0 15px;
       font-weight: 600;
       font-size: 0.95rem;
       margin-bottom: 10px;
+      line-height: 1.3;
     }
     .price-pix {
-      padding: 0 15px;
       color: var(--gold);
       font-weight: 700;
       font-size: 1.1rem;
@@ -246,7 +244,6 @@
       display: block;
     }
     .price-parcel {
-      padding: 0 15px;
       font-size: 0.85rem;
       color: rgba(255,255,255,0.7);
       margin-bottom: 5px;
@@ -255,7 +252,7 @@
       background: rgba(255,215,0,0.2);
       color: var(--gold);
       padding: 8px 12px;
-      margin: 10px 15px;
+      margin-top: 10px;
       border-radius: 4px;
       font-size: 0.8rem;
       display: block;
@@ -456,7 +453,6 @@
       </div>
     </div>
     <div class="header-badge" id="updateBadge">📋 Carregando...</div>
-    <button class="admin-btn" onclick="toggleAdminPanel()" title="Painel Admin (Pressione Alt+A)">⚙️ Admin</button>
   </div>
 </header>
 
@@ -496,7 +492,7 @@
 <div class="table-container" id="table-wearables"></div>
 <div class="table-container" id="table-acessorios"></div>
 
-<!-- ADMIN PANEL -->
+<!-- ADMIN PANEL (OCULTO) -->
 <div class="admin-panel" id="adminPanel">
   <div class="admin-content">
     <div class="admin-header">
@@ -572,13 +568,12 @@
 
 <script>
 // ============================================================
-// SISTEMA DE CATÁLOGO COM PAINEL ADMIN
+// SISTEMA DE CATÁLOGO COM PAINEL ADMIN (OCULTO)
 // ============================================================
 
 let CATALOG = {};
 let currentSection = 'smartphones';
 let viewState = {};
-let filterState = {};
 let currentProduct = null;
 
 // Atalho de teclado para abrir admin (Alt+A)
@@ -592,7 +587,6 @@ document.addEventListener('keydown', (e) => {
 // CARREGAR CATÁLOGO
 async function loadCatalog() {
   try {
-    // Tenta carregar do arquivo precos.json local
     const response = await fetch('precos.json');
     if (response.ok) {
       CATALOG = await response.json();
@@ -601,34 +595,9 @@ async function loadCatalog() {
       throw new Error('Arquivo não encontrado');
     }
   } catch (error) {
-    console.log('ℹ️ Usando catálogo padrão embutido');
-    // Se não encontrar, usa o catálogo padrão
-    CATALOG = {
-      lastUpdated: new Date().toISOString().split('T')[0],
-      currency: 'BRL',
-      categories: {
-        smartphones: [
-          { familia:"Linha A", modelo:"Galaxy A07 128GB", pix:938, x6:1019, x10:1110, obs:"", img:"https://images.samsung.com/is/image/samsung/p6pim/za/sm-a075fzggafa/gallery/za-galaxy-a07-sm-a075-sm-a075fzggafa-548575323?$Q90_1248_936_F_PNG$" },
-          { familia:"Linha A", modelo:"Galaxy A17 4G 128GB", pix:1418, x6:1527, x10:1582, obs:"BUDS CORE (R$1,00)", img:"https://images.samsung.com/is/image/samsung/p6pim/br/sm-a176bzaozto/gallery/br-galaxy-a17-5g-sm-a176-sm-a176bzaozto-548807141?$Q90_1248_936_F_PNG$" },
-          { familia:"Linha S", modelo:"Galaxy S25 256GB", pix:4828, x6:5001, x10:5172, obs:"BUDS 3 (R$399)", img:"https://images.samsung.com/is/image/samsung/p6pim/br/2501/gallery/br-galaxy-s25-s931-sm-s931bzkkzto-thumb-544654185" },
-        ],
-        dobráveis: [
-          { familia:"Z Flip", modelo:"Galaxy Z Flip 7 FE 128GB", pix:5328, x6:5498, x10:5668, obs:"", img:'https://images.vodafone.co.uk/gbnnsauqav4t/6FcMA2WDhE7Gcpds8wLC23/80ad648b3a4e2e4ec35baf94547378f9/Samsung_Galaxy_Z_Flip7_FE_white-full-product-front-600.png' },
-        ],
-        tablets: [
-          { familia:"Tab A11", modelo:"Galaxy Tab A11 64gb WiFi", pix:1235, x6:1347, x10:1460, obs:"", img:"https://images.samsung.com/is/image/samsung/p6pim/br/sm-x133nzsazto/gallery/br-galaxy-tab-a11-sm-x130-sm-x133nzsazto-549252587?$Q90_1248_936_F_PNG$" },
-        ],
-        notebooks: [
-          { familia:"Book Go", modelo:"Galaxy Book Go Snapdragon", pix:3998, x6:4131, x10:4198, obs:"", img:"https://images.samsung.com/is/image/samsung/p6pim/br/np340xla-k0abr/gallery/br-samsung-book-np340xla-k0abr-front-silver-thumb-547344186" },
-        ],
-        wearables: [
-          { familia:"Watch Ultra", modelo:"Galaxy Watch Ultra LTE 47mm", pix:3862, x6:null, x10:3967, obs:"", img:"https://images.samsung.com/is/image/samsung/p6pim/br/f2507/gallery/br-galaxy-watch-ultra-2025-l705-sm-l705fzapzto-547659469?$Q90_1248_936_F_PNG$" },
-        ],
-        acessorios: [
-          { familia:"Áudio", modelo:"Fone P2", pix:99, x6:149, x10:null, obs:"", img:"https://images.samsung.com/is/image/samsung/br-earphones-tuned-by-akg-eo-ig955-eo-ig955bsegbr-black-69491354?$624_624_PNG$" },
-        ]
-      }
-    };
+    console.error('Erro ao carregar precos.json:', error);
+    alert('⚠️ Erro: Certifique-se de que o arquivo precos.json está na mesma pasta do HTML');
+    return;
   }
 
   // Atualizar badge
@@ -684,9 +653,11 @@ function renderSection(section) {
   if (grid) {
     grid.innerHTML = data.map((p, idx) => `
       <div class="product-card">
-        ${p.img ? `<img class="product-img" src="${p.img}" alt="${p.modelo}" onerror="this.parentNode.querySelector('.product-img-placeholder').style.display='flex';this.style.display='none'">` : ''}
-        <div class="product-img-placeholder" style="display:${p.img ? 'none' : 'flex'}">📦</div>
-        <div style="padding: 15px;">
+        <div class="product-image-container">
+          ${p.img ? `<img class="product-img" src="${p.img}" alt="${p.modelo}" onerror="this.style.display='none'; this.parentNode.querySelector('.product-img-placeholder').style.display='block';">` : ''}
+          <div class="product-img-placeholder" style="display:${p.img ? 'none' : 'block'}">📦</div>
+        </div>
+        <div class="product-info">
           <div class="product-familia">${p.familia}</div>
           <div class="product-name">${p.modelo}</div>
           <div class="price-pix">${fmt(p.pix)} <span>PIX/Débito</span></div>
@@ -769,27 +740,33 @@ function searchProducts(query) {
     );
     
     const grid = document.getElementById(`grid-${section}`);
-    if (grid && filtered.length > 0) {
-      grid.innerHTML = filtered.map(p => `
-        <div class="product-card">
-          ${p.img ? `<img class="product-img" src="${p.img}" alt="${p.modelo}" onerror="this.parentNode.querySelector('.product-img-placeholder').style.display='flex';this.style.display='none'">` : ''}
-          <div class="product-img-placeholder" style="display:${p.img ? 'none' : 'flex'}">📦</div>
-          <div style="padding: 15px;">
-            <div class="product-familia">${p.familia}</div>
-            <div class="product-name">${p.modelo}</div>
-            <div class="price-pix">${fmt(p.pix)} <span>PIX/Débito</span></div>
-            ${p.x6 ? `<div class="price-parcel">6x: ${fmt(p.x6)}</div>` : ''}
-            ${p.x10 ? `<div class="price-parcel">10x: ${fmt(p.x10)}</div>` : ''}
-            ${p.obs ? `<div class="obs-badge">🎁 ${p.obs}</div>` : ''}
+    if (grid) {
+      if (filtered.length > 0) {
+        grid.innerHTML = filtered.map(p => `
+          <div class="product-card">
+            <div class="product-image-container">
+              ${p.img ? `<img class="product-img" src="${p.img}" alt="${p.modelo}" onerror="this.style.display='none'; this.parentNode.querySelector('.product-img-placeholder').style.display='block';">` : ''}
+              <div class="product-img-placeholder" style="display:${p.img ? 'none' : 'block'}">📦</div>
+            </div>
+            <div class="product-info">
+              <div class="product-familia">${p.familia}</div>
+              <div class="product-name">${p.modelo}</div>
+              <div class="price-pix">${fmt(p.pix)} <span>PIX/Débito</span></div>
+              ${p.x6 ? `<div class="price-parcel">6x: ${fmt(p.x6)}</div>` : ''}
+              ${p.x10 ? `<div class="price-parcel">10x: ${fmt(p.x10)}</div>` : ''}
+              ${p.obs ? `<div class="obs-badge">🎁 ${p.obs}</div>` : ''}
+            </div>
           </div>
-        </div>
-      `).join('');
+        `).join('');
+      } else {
+        grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #999;">Nenhum produto encontrado</p>';
+      }
     }
   });
 }
 
 // ============================================================
-// PAINEL ADMIN
+// PAINEL ADMIN (OCULTO - ATALHO: Alt+A)
 // ============================================================
 
 function toggleAdminPanel() {
