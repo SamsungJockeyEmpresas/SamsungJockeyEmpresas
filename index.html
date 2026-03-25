@@ -1335,6 +1335,11 @@
       </select>
     </div>
 
+    <div style="display: flex; gap: 12px; margin-bottom: 24px; border-bottom: 2px solid var(--gray-medium); padding-bottom: 18px;">
+      <button class="view-btn active" onclick="switchAdminTab('preco')" style="flex: 1; border: 1px solid var(--gray-medium);">Preços</button>
+      <button class="view-btn" onclick="switchAdminTab('specs')" style="flex: 1; border: 1px solid var(--gray-medium);">Especificações</button>
+    </div>
+
     <div id="adminProductForm"></div>
 
     <div class="modal-actions">
@@ -1952,7 +1957,7 @@ function generateCotationText() {
   text += '\n' + '═'.repeat(70) + '\n\n';
   
   text += 'INFORMAÇÕES IMPORTANTES:\n';
-  text += '• Cotação válida por 30 dias\n';
+  text += '• Cotação válida por 7 dias\n';
   text += '• Sujeita a confirmação de disponibilidade em estoque\n';
   text += '• Condições comerciais e prazos de entrega serão informados na proposta\n';
   text += '• Solicitamos confirmação de interesse para prosseguimento\n\n';
@@ -2028,6 +2033,15 @@ function loadAdminProducts() {
   loadProductData();
 }
 
+let adminCurrentTab = 'preco';
+
+function switchAdminTab(tab) {
+  adminCurrentTab = tab;
+  document.querySelectorAll('.admin-tab-btn').forEach(btn => btn.classList.remove('active'));
+  event.target.classList.add('active');
+  loadProductData();
+}
+
 function loadProductData() {
   const category = document.getElementById('adminCategory').value;
   const productIdx = parseInt(document.getElementById('adminProduct').value);
@@ -2036,50 +2050,77 @@ function loadProductData() {
   if (!product) return;
   
   const specs = SPECS[category]?.[product.modelo] || {};
+  const form = document.getElementById('adminProductForm');
   
-  let specsHTML = '';
-  if (Object.keys(specs).length > 0) {
-    specsHTML = `
-      <div style="margin-top: 24px; padding-top: 24px; border-top: 2px solid var(--gray-medium);">
-        <h3 style="color: var(--samsung-blue); margin-bottom: 16px; font-size: 1.1rem; font-weight: 700;">Especificações Técnicas</h3>
-        ${Object.entries(specs).map(([key, value]) => `
-          <div class="form-group">
-            <label>${key.charAt(0).toUpperCase() + key.slice(1)}</label>
-            <input type="text" id="adminSpec_${key}" value="${value}">
-          </div>
-        `).join('')}
+  if (adminCurrentTab === 'preco') {
+    form.innerHTML = `
+      <div class="form-group">
+        <label>Modelo</label>
+        <input type="text" id="adminModelo" value="${product.modelo}">
+      </div>
+      <div class="form-group">
+        <label>Família</label>
+        <input type="text" id="adminFamilia" value="${product.familia}">
+      </div>
+      <div class="form-group">
+        <label>Preço PIX</label>
+        <input type="number" id="adminPix" value="${product.pix}">
+      </div>
+      <div class="form-group">
+        <label>Preço 6x</label>
+        <input type="number" id="adminX6" value="${product.x6 || ''}">
+      </div>
+      <div class="form-group">
+        <label>Preço 10x</label>
+        <input type="number" id="adminX10" value="${product.x10 || ''}">
+      </div>
+      <div class="form-group">
+        <label>Observação/Promoção</label>
+        <input type="text" id="adminObs" value="${product.obs || ''}">
       </div>
     `;
+  } else if (adminCurrentTab === 'specs') {
+    let specsHTML = `
+      <div style="background: var(--gray-light); border-radius: 10px; padding: 20px; margin-bottom: 24px;">
+        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 16px;">Edite as especificações técnicas do produto abaixo:</p>
+    `;
+    
+    if (Object.keys(specs).length > 0) {
+      specsHTML += Object.entries(specs).map(([key, value]) => `
+        <div class="form-group">
+          <label>${key.charAt(0).toUpperCase() + key.slice(1)}</label>
+          <input type="text" id="adminSpec_${key}" value="${value}">
+        </div>
+      `).join('');
+    } else {
+      specsHTML += '<p style="color: var(--text-secondary); font-style: italic;">Nenhuma especificação cadastrada para este produto</p>';
+    }
+    
+    specsHTML += `
+      </div>
+      <button class="btn btn-secondary" onclick="addNewSpec()" style="margin-bottom: 24px; width: 100%;">Adicionar Nova Especificação</button>
+    `;
+    
+    form.innerHTML = specsHTML;
   }
+}
+
+function addNewSpec() {
+  const specName = prompt('Nome da especificação (ex: Tela, Processador, RAM):');
+  if (!specName) return;
   
-  const form = document.getElementById('adminProductForm');
-  form.innerHTML = `
-    <div class="form-group">
-      <label>Modelo</label>
-      <input type="text" id="adminModelo" value="${product.modelo}">
-    </div>
-    <div class="form-group">
-      <label>Família</label>
-      <input type="text" id="adminFamilia" value="${product.familia}">
-    </div>
-    <div class="form-group">
-      <label>Preço PIX</label>
-      <input type="number" id="adminPix" value="${product.pix}">
-    </div>
-    <div class="form-group">
-      <label>Preço 6x</label>
-      <input type="number" id="adminX6" value="${product.x6 || ''}">
-    </div>
-    <div class="form-group">
-      <label>Preço 10x</label>
-      <input type="number" id="adminX10" value="${product.x10 || ''}">
-    </div>
-    <div class="form-group">
-      <label>Observação/Promoção</label>
-      <input type="text" id="adminObs" value="${product.obs || ''}">
-    </div>
-    ${specsHTML}
+  const specValue = prompt('Valor da especificação:');
+  if (!specValue) return;
+  
+  const input = document.createElement('div');
+  input.className = 'form-group';
+  input.innerHTML = `
+    <label>${specName}</label>
+    <input type="text" id="adminSpec_${specName.toLowerCase().replace(/\s+/g, '_')}" value="${specValue}">
   `;
+  
+  document.getElementById('adminProductForm').appendChild(input);
+  showToast('Especificação adicionada! Clique em Salvar para confirmar.');
 }
 
 function saveProduct() {
@@ -2106,7 +2147,9 @@ function saveProduct() {
     
     specInputs.forEach(input => {
       const key = input.id.replace('adminSpec_', '');
-      SPECS[category][modeloAtualizado][key] = input.value;
+      if (input.value.trim()) {
+        SPECS[category][modeloAtualizado][key] = input.value;
+      }
     });
   }
   
