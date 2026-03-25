@@ -812,6 +812,210 @@
       margin-bottom: 15px;
       opacity: 0.5;
     }
+
+    /* MODAL QUANTIDADE */
+    .qty-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.8);
+      z-index: 2000;
+      overflow-y: auto;
+      backdrop-filter: blur(5px);
+    }
+
+    .qty-modal.show {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .qty-modal-content {
+      background: linear-gradient(135deg, rgba(45,45,68,0.95) 0%, rgba(26,26,46,0.95) 100%);
+      border: 2px solid var(--primary-light);
+      border-radius: 20px;
+      padding: 40px 30px;
+      max-width: 500px;
+      width: 90%;
+      backdrop-filter: blur(10px);
+      animation: slideUp 0.3s ease-out;
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(30px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .qty-modal-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .qty-modal-header h2 {
+      color: var(--primary-light);
+      font-size: 1.5rem;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .qty-modal-header p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .qty-modal-price {
+      background: rgba(79,195,247,0.1);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 15px;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .qty-modal-price-label {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .qty-modal-price-value {
+      color: var(--accent);
+      font-size: 2rem;
+      font-weight: 700;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .qty-selector {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 30px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .qty-decrease-btn,
+    .qty-increase-btn {
+      width: 50px;
+      height: 50px;
+      border: 2px solid var(--primary-light);
+      background: rgba(79,195,247,0.1);
+      color: var(--primary-light);
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1.5rem;
+      font-weight: 700;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .qty-decrease-btn:hover,
+    .qty-increase-btn:hover {
+      background: rgba(79,195,247,0.2);
+      transform: scale(1.1);
+    }
+
+    .qty-display {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--text);
+      min-width: 60px;
+      text-align: center;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .qty-modal-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .qty-modal-actions .btn {
+      flex: 1;
+      padding: 14px 20px;
+      font-size: 1rem;
+    }
+
+    .btn-confirm {
+      background: linear-gradient(135deg, var(--primary), rgba(79,195,247,0.3));
+      color: var(--text);
+      border: 1px solid var(--primary-light);
+    }
+
+    .btn-confirm:hover {
+      box-shadow: 0 0 20px rgba(79,195,247,0.4);
+      transform: translateY(-2px);
+    }
+
+    .btn-cancel {
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-cancel:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: var(--primary-light);
+    }
+
+    /* TOAST NOTIFICAÇÃO */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, rgba(37,211,102,0.9) 0%, rgba(31,173,95,0.9) 100%);
+      color: white;
+      padding: 16px 24px;
+      border-radius: 12px;
+      font-weight: 600;
+      z-index: 3000;
+      border: 1px solid rgba(255,255,255,0.2);
+      box-shadow: 0 8px 24px rgba(37,211,102,0.3);
+      animation: slideInUp 0.3s ease-out;
+    }
+
+    @keyframes slideInUp {
+      from {
+        transform: translateX(-50%) translateY(30px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .toast.hide {
+      animation: slideOutDown 0.3s ease-out forwards;
+    }
+
+    @keyframes slideOutDown {
+      from {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+      }
+      to {
+        transform: translateX(-50%) translateY(30px);
+        opacity: 0;
+      }
+    }
   </style>
 </head>
 <body>
@@ -896,6 +1100,32 @@
   <p>© 2026 Samsung Jockey Plaza — Catálogo B2B Corporativo | Preços sujeitos a alteração sem aviso prévio</p>
 </footer>
 
+<!-- MODAL QUANTIDADE -->
+<div class="qty-modal" id="qtyModal">
+  <div class="qty-modal-content">
+    <div class="qty-modal-header">
+      <h2 id="qtyProductName">Produto</h2>
+      <p>Selecione a quantidade desejada</p>
+    </div>
+
+    <div class="qty-modal-price">
+      <div class="qty-modal-price-label">Preço Unitário</div>
+      <div class="qty-modal-price-value" id="qtyProductPrice">R$ 0</div>
+    </div>
+
+    <div class="qty-selector">
+      <button class="qty-decrease-btn" onclick="decreaseQty()">−</button>
+      <div class="qty-display" id="qtyDisplay">1</div>
+      <button class="qty-increase-btn" onclick="increaseQty()">+</button>
+    </div>
+
+    <div class="qty-modal-actions">
+      <button class="btn btn-confirm" onclick="confirmAddToCart()">✓ Adicionar ao Carrinho</button>
+      <button class="btn btn-cancel" onclick="closeQtyModal()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
 <!-- CARRINHO FLUTUANTE -->
 <div class="cart-float" onclick="openCart()" title="Abrir carrinho">
   <svg viewBox="0 0 24 24" fill="currentColor">
@@ -905,7 +1135,7 @@
 </div>
 
 <!-- WHATSAPP -->
-<a href="https://wa.me/5541989031156?text=Olá! Tenho interesse no catálogo B2B Samsung Jockey Plaza." 
+<a href="https://wa.me/41989031156?text=Olá! Tenho interesse no catálogo B2B Samsung Jockey Plaza." 
    class="whatsapp-float" target="_blank" title="Falar no WhatsApp">
   <svg viewBox="0 0 24 24" fill="currentColor">
     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
@@ -1008,7 +1238,7 @@ function renderSection(section) {
               ${p.x10 ? `<div class="price-parcel"><span>10x</span> <span>${fmt(p.x10)}</span></div>` : ''}
             </div>
             ${p.obs ? `<div class="obs-badge">🎁 ${p.obs}</div>` : ''}
-            <button class="btn btn-primary" onclick="addToCart('${section}', ${idx}, '${p.modelo}', ${p.pix})">🛒 Adicionar</button>
+            <button class="btn btn-primary" onclick="openQtyModal('${section}', ${idx}, '${p.modelo}', ${p.pix})">🛒 Adicionar</button>
           </div>
         </div>
       `).join('');
@@ -1103,7 +1333,7 @@ function searchProducts(query) {
               ${p.x10 ? `<div class="price-parcel"><span>10x</span> <span>${fmt(p.x10)}</span></div>` : ''}
             </div>
             ${p.obs ? `<div class="obs-badge">🎁 ${p.obs}</div>` : ''}
-            <button class="btn btn-primary" onclick="addToCart('${currentSection}', ${idx}, '${p.modelo}', ${p.pix})">🛒 Adicionar</button>
+            <button class="btn btn-primary" onclick="openQtyModal('${currentSection}', ${idx}, '${p.modelo}', ${p.pix})">🛒 Adicionar</button>
           </div>
         </div>
       `).join('');
@@ -1114,6 +1344,75 @@ function searchProducts(query) {
 // ============================================================
 // CARRINHO DE COMPRAS
 // ============================================================
+
+let currentQtyModal = {
+  category: null,
+  productIdx: null,
+  name: null,
+  price: null,
+  quantity: 1
+};
+
+function openQtyModal(category, productIdx, name, price) {
+  currentQtyModal = { category, productIdx, name, price, quantity: 1 };
+  document.getElementById('qtyProductName').textContent = name;
+  document.getElementById('qtyProductPrice').textContent = fmt(price);
+  document.getElementById('qtyDisplay').textContent = '1';
+  document.getElementById('qtyModal').classList.add('show');
+}
+
+function closeQtyModal() {
+  document.getElementById('qtyModal').classList.remove('show');
+  currentQtyModal.quantity = 1;
+}
+
+function increaseQty() {
+  currentQtyModal.quantity++;
+  document.getElementById('qtyDisplay').textContent = currentQtyModal.quantity;
+}
+
+function decreaseQty() {
+  if (currentQtyModal.quantity > 1) {
+    currentQtyModal.quantity--;
+    document.getElementById('qtyDisplay').textContent = currentQtyModal.quantity;
+  }
+}
+
+function confirmAddToCart() {
+  const { category, productIdx, name, price, quantity } = currentQtyModal;
+  const product = CATALOG.categories[category][productIdx];
+  const cartItem = cart.find(item => item.id === `${category}-${productIdx}`);
+  
+  if (cartItem) {
+    cartItem.quantity += quantity;
+  } else {
+    cart.push({
+      id: `${category}-${productIdx}`,
+      category,
+      productIdx,
+      name,
+      price,
+      quantity,
+      familia: product.familia
+    });
+  }
+  
+  updateCartBadge();
+  showToast(`✅ ${quantity}x ${name} adicionado ao carrinho!`);
+  closeQtyModal();
+}
+
+function showToast(message) {
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.textContent = message;
+  document.body.appendChild(toast);
+  
+  setTimeout(() => {
+    toast.classList.add('hide');
+    setTimeout(() => toast.remove(), 300);
+  }, 2500);
+}
 
 function addToCart(category, productIdx, name, price) {
   const product = CATALOG.categories[category][productIdx];
@@ -1134,7 +1433,6 @@ function addToCart(category, productIdx, name, price) {
   }
   
   updateCartBadge();
-  alert(`✅ ${name} adicionado ao carrinho!`);
 }
 
 function updateCartBadge() {
@@ -1251,7 +1549,7 @@ function sendToWhatsApp() {
   message += '_Enviado via Catálogo B2B Samsung Jockey Plaza_';
   
   const encodedMessage = encodeURIComponent(message);
-  const whatsappUrl = `https://wa.me/5541989031156?text=${encodedMessage}`;
+  const whatsappUrl = `https://wa.me/41989031156?text=${encodedMessage}`;
   window.open(whatsappUrl, '_blank');
 }
 
