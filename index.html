@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Samsung B2B - Mastercell | Soluções Corporativas</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
@@ -17,19 +17,37 @@
       --text-primary: #2C3E50;
       --text-secondary: #7F8C8D;
       --accent: #0066CC;
+      --success: #22c55e;
+      --card-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    /* Suporte a Dark Mode Automático */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --white: #0f172a;
+        --gray-light: #1e293b;
+        --gray-medium: #334155;
+        --text-primary: #f8fafc;
+        --text-secondary: #94a3b8;
+        --card-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      }
+      header { background: #020617 !important; }
+      .product-card { background: #1e293b !important; border-color: #334155 !important; }
+      #searchInput { color: white; border-bottom-color: #334155; }
     }
 
     body {
       font-family: 'Open Sans', sans-serif;
-      background: var(--white);
+      background: var(--gray-light);
       color: var(--text-primary);
       line-height: 1.6;
+      transition: background 0.3s ease;
     }
 
     /* HEADER */
     header {
       background: var(--white);
-      padding: 24px 60px;
+      padding: 15px 60px;
       border-bottom: 1px solid var(--gray-medium);
       display: flex;
       justify-content: space-between;
@@ -37,1513 +55,326 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    }
-
-    .header-left {
-      display: flex;
-      align-items: center;
-      gap: 40px;
+      box-shadow: var(--card-shadow);
     }
 
     .logo-samsung {
       font-family: 'Montserrat', sans-serif;
-      font-size: 1.8rem;
+      font-size: 1.5rem;
       font-weight: 800;
-      letter-spacing: 0.5px;
       color: var(--text-primary);
     }
 
-    .logo-samsung .b2b {
-      color: var(--samsung-blue);
-      margin-left: 10px;
-    }
+    .logo-samsung span { color: var(--samsung-blue); }
 
-    .logo-mastercell {
-      background: linear-gradient(135deg, var(--samsung-blue), var(--samsung-blue-dark));
+    /* BADGE DO CARRINHO */
+    .cart-btn-wrapper { position: relative; }
+    .cart-badge {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: #ef4444;
       color: white;
-      padding: 10px 20px;
+      font-size: 0.7rem;
+      font-weight: bold;
+      padding: 2px 6px;
+      border-radius: 10px;
+      border: 2px solid var(--white);
+    }
+
+    /* HERO & SKELETON */
+    .hero { padding: 60px 20px; text-align: center; }
+    
+    .skeleton {
+      background: linear-gradient(90deg, var(--gray-medium) 25%, var(--gray-light) 50%, var(--gray-medium) 75%);
+      background-size: 200% 100%;
+      animation: skeleton-loading 1.5s infinite;
       border-radius: 8px;
-      font-size: 0.85rem;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      box-shadow: 0 4px 12px rgba(20,40,160,0.2);
     }
 
-    .header-right {
-      display: flex;
-      gap: 20px;
-      align-items: center;
+    @keyframes skeleton-loading {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
     }
 
-    .btn-header {
-      padding: 12px 28px;
-      background: var(--samsung-blue);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 0.95rem;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 12px rgba(20,40,160,0.2);
-    }
-
-    .btn-header:hover {
-      background: var(--samsung-blue-dark);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(20,40,160,0.3);
-    }
-
-    /* HERO */
-    .hero {
-      background: linear-gradient(135deg, var(--gray-light) 0%, var(--white) 100%);
-      padding: 80px 60px;
-      text-align: center;
-    }
-
-    .hero-tagline {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.85rem;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--samsung-blue);
-      margin-bottom: 20px;
-    }
-
-    .hero-divider {
-      width: 60px;
-      height: 3px;
-      background: linear-gradient(90deg, var(--samsung-blue), transparent);
-      margin: 0 auto 30px;
-    }
-
-    .hero h1 {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 4rem;
-      font-weight: 800;
-      margin-bottom: 24px;
-      color: var(--text-primary);
-      line-height: 1.2;
-      letter-spacing: -0.5px;
-    }
-
-    .hero h1 .highlight {
-      color: var(--samsung-blue);
-    }
-
-    .hero p {
-      font-size: 1.15rem;
-      color: var(--text-secondary);
-      max-width: 900px;
-      margin: 0 auto 60px;
-      font-weight: 400;
-      line-height: 1.8;
-    }
-
-    /* SEARCH */
-    .search-container {
-      max-width: 700px;
-      margin: 0 auto 40px;
-    }
-
-    #searchInput {
-      width: 100%;
-      padding: 16px 24px;
-      border: none;
-      border-bottom: 2px solid var(--gray-medium);
-      border-radius: 0;
-      font-size: 1rem;
-      font-family: 'Open Sans', sans-serif;
-      background: transparent;
-      transition: all 0.3s ease;
-      color: var(--text-primary);
-    }
-
-    #searchInput::placeholder {
-      color: var(--text-secondary);
-    }
-
-    #searchInput:focus {
-      outline: none;
-      border-bottom-color: var(--samsung-blue);
-      box-shadow: 0 2px 0 var(--samsung-blue);
-    }
-
-    /* TABS */
-    .tabs {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-      padding: 60px 60px;
+    /* PRODUCT CARD ENHANCEMENTS */
+    .product-card {
       background: var(--white);
-      border-bottom: 1px solid var(--gray-medium);
-    }
-
-    .tab-btn {
-      padding: 14px 32px;
-      border: 2px solid var(--gray-medium);
-      background: var(--white);
-      color: var(--text-primary);
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-weight: 600;
-      font-size: 0.95rem;
-      letter-spacing: 0.3px;
+      border-radius: 12px;
+      padding: 20px;
+      border: 1px solid var(--gray-medium);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
     }
 
-    .tab-btn::before {
-      content: '';
+    .product-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+      border-color: var(--samsung-blue);
+    }
+
+    .tag-b2b {
       position: absolute;
-      bottom: -2px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: var(--samsung-blue);
-      transition: width 0.3s ease;
-    }
-
-    .tab-btn:hover {
-      border-color: var(--samsung-blue);
-      color: var(--samsung-blue);
-    }
-
-    .tab-btn:hover::before {
-      width: 100%;
-    }
-
-    .tab-btn.active {
-      background: var(--samsung-blue);
+      top: 10px;
+      right: 10px;
+      background: var(--success);
       color: white;
-      border-color: var(--samsung-blue);
-    }
-
-    .tab-btn.active::before {
-      width: 100%;
-    }
-
-    /* VIEW TOGGLE */
-    .view-toggle {
-      display: flex;
-      justify-content: flex-end;
-      gap: 12px;
-      padding: 24px 60px;
-      background: var(--gray-light);
-      border-bottom: 1px solid var(--gray-medium);
-    }
-
-    .view-btn {
-      padding: 10px 20px;
-      border: 1px solid var(--gray-medium);
-      background: var(--white);
-      color: var(--text-primary);
-      border-radius: 6px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-weight: 600;
-      font-size: 0.9rem;
-    }
-
-    .view-btn:hover {
-      border-color: var(--samsung-blue);
-      color: var(--samsung-blue);
-    }
-
-    .view-btn.active {
-      background: var(--samsung-blue);
-      color: white;
-      border-color: var(--samsung-blue);
+      font-size: 0.65rem;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-weight: bold;
     }
 
     /* GRID */
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 40px;
-      padding: 60px;
-      max-width: 1600px;
-      margin: 0 auto;
-    }
-
-    .product-card {
-      background: var(--white);
-      border: 1px solid var(--gray-medium);
-      border-radius: 12px;
-      overflow: hidden;
-      transition: all 0.4s ease;
-      display: flex;
-      flex-direction: column;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    }
-
-    .product-card:hover {
-      border-color: var(--samsung-blue);
-      transform: translateY(-8px);
-      box-shadow: 0 12px 32px rgba(20,40,160,0.15);
-    }
-
-    .product-image-container {
-      width: 100%;
-      height: 260px;
-      background: linear-gradient(135deg, var(--gray-light) 0%, var(--gray-medium) 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-
-    .product-img {
-      max-width: 90%;
-      max-height: 90%;
-      object-fit: contain;
-      transition: transform 0.4s ease;
-    }
-
-    .product-card:hover .product-img {
-      transform: scale(1.08);
-    }
-
-    .product-img-placeholder {
-      font-size: 4rem;
-      opacity: 0.2;
-    }
-
-    .product-info {
-      padding: 28px;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .product-familia {
-      background: rgba(20,40,160,0.08);
-      color: var(--samsung-blue);
-      padding: 8px 14px;
-      font-size: 0.7rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      border-radius: 6px;
-      display: inline-block;
-      width: fit-content;
-      letter-spacing: 0.8px;
-      border-left: 3px solid var(--samsung-blue);
-    }
-
-    .product-name {
-      font-weight: 600;
-      font-size: 1.15rem;
-      line-height: 1.4;
-      color: var(--text-primary);
-    }
-
-    .price-section {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-top: 16px;
-      padding-top: 16px;
-      border-top: 1px solid var(--gray-medium);
-    }
-
-    .price-label {
-      font-size: 0.75rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--samsung-blue);
-    }
-
-    .price-pix {
-      color: var(--samsung-blue);
-      font-weight: 700;
-      font-size: 1.6rem;
-      font-family: 'Montserrat', sans-serif;
-    }
-
-    .price-parcel {
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .obs-badge {
-      background: rgba(255,193,7,0.15);
-      color: #F57F17;
-      padding: 10px 14px;
-      margin-top: 12px;
-      border-radius: 6px;
-      font-size: 0.8rem;
-      border-left: 3px solid #F57F17;
-      font-weight: 600;
-      letter-spacing: 0.3px;
-    }
-
-    .btn {
-      padding: 14px 20px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      font-family: 'Open Sans', sans-serif;
-      font-size: 0.95rem;
-      margin-top: 16px;
-      width: 100%;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .btn-primary {
-      background: var(--samsung-blue);
-      color: white;
-      box-shadow: 0 4px 12px rgba(20,40,160,0.2);
-    }
-
-    .btn-primary:hover {
-      background: var(--samsung-blue-dark);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(20,40,160,0.3);
-    }
-
-    /* TABLE */
-    .table-container {
-      display: none;
-      overflow-x: auto;
-      padding: 60px;
-      max-width: 1600px;
-      margin: 0 auto;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      background: var(--white);
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    }
-
-    th {
-      background: var(--samsung-blue);
-      padding: 18px 20px;
-      text-align: left;
-      font-weight: 700;
-      color: white;
-      border-bottom: 2px solid var(--gray-medium);
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    td {
-      padding: 16px 20px;
-      border-bottom: 1px solid var(--gray-medium);
-      font-size: 0.95rem;
-      color: var(--text-primary);
-    }
-
-    tr:hover {
-      background: var(--gray-light);
-    }
-
-    .td-familia {
-      color: var(--samsung-blue);
-      font-weight: 600;
-    }
-
-    .td-pix {
-      color: var(--samsung-blue);
-      font-weight: 700;
-    }
-
-    /* FOOTER */
-    footer {
-      background: var(--samsung-blue-dark);
-      color: white;
-      padding: 60px;
-      text-align: center;
-      margin-top: 80px;
-    }
-
-    footer p {
-      font-size: 0.95rem;
-      letter-spacing: 0.3px;
-      line-height: 1.8;
-    }
-
-    footer p:first-child {
-      font-weight: 600;
-      margin-bottom: 15px;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 25px;
+      padding: 40px 60px;
     }
 
     /* BOTÕES FLUTUANTES */
-    .cart-float {
+    .float-container {
       position: fixed;
-      bottom: 30px;
-      right: 30px;
-      width: 70px;
-      height: 70px;
-      background: var(--samsung-blue);
+      bottom: 25px;
+      right: 25px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      z-index: 1000;
+    }
+
+    .btn-float {
+      width: 55px;
+      height: 55px;
       border-radius: 50%;
+      border: none;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      box-shadow: 0 4px 16px rgba(20,40,160,0.3);
-      transition: all 0.3s ease;
-      border: 2px solid white;
-      z-index: 50;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      transition: transform 0.2s;
     }
 
-    .cart-float:hover {
-      transform: scale(1.15);
-      box-shadow: 0 8px 24px rgba(20,40,160,0.4);
-    }
-
-    .email-float {
-      position: fixed;
-      bottom: 115px;
-      right: 30px;
-      width: 70px;
-      height: 70px;
-      background: #EA4335;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      box-shadow: 0 4px 16px rgba(234,67,53,0.3);
-      transition: all 0.3s ease;
-      border: 2px solid white;
-      z-index: 50;
-    }
-
-    .email-float:hover {
-      transform: scale(1.15);
-      box-shadow: 0 8px 24px rgba(234,67,53,0.4);
-    }
-
-    .whatsapp-float {
-      position: fixed;
-      bottom: 200px;
-      right: 30px;
-      width: 70px;
-      height: 70px;
-      background: #25D366;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      box-shadow: 0 4px 16px rgba(37,211,102,0.3);
-      transition: all 0.3s ease;
-      border: 2px solid white;
-      z-index: 50;
-    }
-
-    .whatsapp-float:hover {
-      transform: scale(1.15);
-      box-shadow: 0 8px 24px rgba(37,211,102,0.4);
-    }
-
-    .cart-float svg,
-    .email-float svg,
-    .whatsapp-float svg {
-      width: 35px;
-      height: 35px;
-      fill: white;
-    }
+    .btn-float:hover { transform: scale(1.1); }
+    .btn-whatsapp { background: #25D366; }
+    .btn-cart { background: var(--samsung-blue); color: white; }
 
     /* MODAIS */
-    .qty-modal,
-    .cart-modal {
+    .modal {
       display: none;
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0,0,0,0.5);
-      backdrop-filter: blur(4px);
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(5px);
       z-index: 2000;
-      overflow-y: auto;
-    }
-
-    .qty-modal.show,
-    .cart-modal.show {
-      display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    .qty-modal-content,
-    .cart-content {
+    .modal-content {
       background: var(--white);
-      border-radius: 16px;
-      padding: 40px 36px;
-      max-width: 520px;
+      padding: 30px;
+      border-radius: 20px;
       width: 90%;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
-      animation: slideUp 0.3s ease-out;
-    }
-
-    .cart-content {
-      max-width: 640px;
-      max-height: 85vh;
+      max-width: 500px;
+      max-height: 90vh;
       overflow-y: auto;
     }
 
-    @keyframes slideUp {
-      from {
-        transform: translateY(30px);
-        opacity: 0;
-      }
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
-
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 28px;
-      border-bottom: 2px solid var(--gray-medium);
-      padding-bottom: 18px;
-    }
-
-    .modal-header h2 {
-      color: var(--samsung-blue);
-      font-size: 1.6rem;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      letter-spacing: 0.3px;
-    }
-
-    .close-btn {
-      background: var(--gray-light);
-      border: 1px solid var(--gray-medium);
-      color: var(--text-primary);
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 1.3rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s ease;
-      font-weight: 700;
-    }
-
-    .close-btn:hover {
-      background: var(--gray-medium);
-      border-color: var(--samsung-blue);
-      color: var(--samsung-blue);
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin-bottom: 18px;
-    }
-
-    .form-group label {
-      color: var(--samsung-blue);
-      font-weight: 700;
+    .price-discount {
+      color: var(--success);
       font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
+      font-weight: bold;
+      display: none; /* Mostra apenas se qtd > 10 */
     }
 
-    .form-group input,
-    .form-group select {
-      padding: 12px 16px;
-      border: 1px solid var(--gray-medium);
-      border-radius: 8px;
-      background: var(--white);
-      color: var(--text-primary);
-      font-size: 0.95rem;
-      font-family: 'Open Sans', sans-serif;
-      transition: all 0.3s ease;
-    }
-
-    .form-group input:focus,
-    .form-group select:focus {
-      outline: none;
-      border-color: var(--samsung-blue);
-      box-shadow: 0 0 0 3px rgba(20,40,160,0.1);
-    }
-
-    .qty-selector {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 24px;
-      margin: 36px 0;
-      background: var(--gray-light);
-      border-radius: 12px;
-      padding: 24px;
-    }
-
-    .qty-btn {
-      width: 52px;
-      height: 52px;
-      border: 2px solid var(--samsung-blue);
-      background: white;
-      color: var(--samsung-blue);
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 1.6rem;
-      font-weight: 700;
-      transition: all 0.3s ease;
-    }
-
-    .qty-btn:hover {
-      background: var(--samsung-blue);
-      color: white;
-      transform: scale(1.1);
-    }
-
-    .qty-display {
-      font-size: 2.2rem;
-      font-weight: 700;
-      color: var(--text-primary);
-      min-width: 70px;
-      text-align: center;
-      font-family: 'Montserrat', sans-serif;
-    }
-
-    .cart-items {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      margin-bottom: 24px;
-    }
-
-    .cart-item {
-      background: var(--gray-light);
-      border: 1px solid var(--gray-medium);
-      border-radius: 10px;
-      padding: 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .cart-item-info {
-      flex: 1;
-    }
-
-    .cart-item-name {
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-bottom: 6px;
-      font-size: 0.95rem;
-    }
-
-    .cart-item-price {
-      color: var(--samsung-blue);
-      font-weight: 700;
-      font-size: 1.15rem;
-    }
-
-    .cart-item-controls {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .qty-input {
-      width: 52px;
-      text-align: center;
-      padding: 8px;
-      border: 1px solid var(--gray-medium);
-      background: white;
-      color: var(--text-primary);
-      border-radius: 6px;
-      font-weight: 600;
-    }
-
-    .remove-btn {
-      width: 36px;
-      height: 36px;
-      border: 1px solid #EA4335;
-      background: rgba(234,67,53,0.1);
-      color: #EA4335;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: 700;
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .remove-btn:hover {
-      background: rgba(234,67,53,0.2);
-    }
-
-    .cart-total {
-      background: var(--gray-light);
-      border: 1px solid var(--gray-medium);
-      border-radius: 10px;
-      padding: 22px;
-      margin-bottom: 24px;
-    }
-
-    .cart-total-row {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 12px;
-      font-size: 0.95rem;
-      color: var(--text-primary);
-    }
-
-    .cart-total-row.final {
-      border-top: 2px solid var(--gray-medium);
-      padding-top: 12px;
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: var(--samsung-blue);
-    }
-
-    .modal-actions {
-      display: flex;
-      gap: 12px;
-      flex-direction: column;
-    }
-
-    .modal-actions .btn {
-      margin-top: 0;
-    }
-
-    .btn-secondary {
-      background: var(--gray-light);
-      color: var(--text-primary);
-      border: 1px solid var(--gray-medium);
-      box-shadow: none;
-    }
-
-    .btn-secondary:hover {
-      background: var(--gray-medium);
-      border-color: var(--samsung-blue);
-      color: var(--samsung-blue);
-    }
-
-    .btn-email {
-      background: #EA4335;
-      color: white;
-      box-shadow: 0 4px 12px rgba(234,67,53,0.2);
-    }
-
-    .btn-email:hover {
-      background: #C5221F;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 18px rgba(234,67,53,0.3);
-    }
-
-    .toast {
-      position: fixed;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #25D366;
-      color: white;
-      padding: 18px 28px;
-      border-radius: 10px;
-      font-weight: 600;
-      z-index: 3000;
-      box-shadow: 0 4px 16px rgba(37,211,102,0.3);
-      animation: slideInUp 0.3s ease-out;
-      letter-spacing: 0.3px;
-    }
-
-    @keyframes slideInUp {
-      from {
-        transform: translateX(-50%) translateY(30px);
-        opacity: 0;
-      }
-      to {
-        transform: translateX(-50%) translateY(0);
-        opacity: 1;
-      }
-    }
-
-    .toast.hide {
-      animation: slideOutDown 0.3s ease-out forwards;
-    }
-
-    @keyframes slideOutDown {
-      from {
-        transform: translateX(-50%) translateY(0);
-        opacity: 1;
-      }
-      to {
-        transform: translateX(-50%) translateY(30px);
-        opacity: 0;
-      }
-    }
-
-    .empty-state {
-      grid-column: 1 / -1;
-      text-align: center;
-      padding: 80px 20px;
-      color: var(--text-secondary);
-    }
-
-    .empty-state-icon {
-      font-size: 4rem;
-      margin-bottom: 20px;
-      opacity: 0.3;
-    }
-
-    .empty-state p {
-      font-size: 1.1rem;
-      font-weight: 500;
-    }
-
-    .cart-empty {
-      text-align: center;
-      padding: 50px 20px;
-      color: var(--text-secondary);
-    }
-
-    .cart-empty-icon {
-      font-size: 3.5rem;
-      margin-bottom: 16px;
-      opacity: 0.3;
-    }
-
-    /* RESPONSIVE */
+    /* RESPONSIVIDADE */
     @media (max-width: 768px) {
-      header {
-        flex-direction: column;
-        gap: 16px;
-        padding: 16px 20px;
-      }
-
-      .hero {
-        padding: 60px 20px;
-      }
-
-      .hero h1 {
-        font-size: 2.2rem;
-      }
-
-      .hero p {
-        font-size: 1rem;
-      }
-
-      .grid {
-        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-        gap: 24px;
-        padding: 24px;
-      }
-
-      .tabs {
-        padding: 24px;
-        gap: 12px;
-      }
-
-      .tab-btn {
-        padding: 12px 20px;
-        font-size: 0.85rem;
-      }
-
-      .view-toggle {
-        padding: 16px 20px;
-      }
-
-      .cart-float {
-        bottom: 20px;
-        right: 20px;
-        width: 60px;
-        height: 60px;
-      }
-
-      .email-float {
-        bottom: 95px;
-        right: 20px;
-        width: 60px;
-        height: 60px;
-      }
-
-      .whatsapp-float {
-        bottom: 170px;
-        right: 20px;
-        width: 60px;
-        height: 60px;
-      }
-
-      .cart-float svg,
-      .email-float svg,
-      .whatsapp-float svg {
-        width: 28px;
-        height: 28px;
-      }
-
-      .qty-modal-content,
-      .cart-content {
-        padding: 28px 20px;
-      }
+      header { padding: 15px 20px; }
+      .grid { padding: 20px; }
     }
   </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <header>
-  <div class="header-left">
-    <div class="logo-samsung">SAMSUNG <span class="b2b">B2B</span></div>
-    <div class="logo-mastercell">Mastercell</div>
-  </div>
-  <div class="header-right">
-    <button class="btn-header" onclick="openCart()">Visualizar Carrinho</button>
+  <div class="logo-samsung">SAMSUNG <span>B2B</span></div>
+  <div class="cart-btn-wrapper" onclick="openCart()">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--text-primary)"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+    <div id="cartBadge" class="cart-badge" style="display: none;">0</div>
   </div>
 </header>
 
-<!-- HERO -->
 <section class="hero">
-  <div class="hero-tagline">Catálogo B2B Samsung</div>
-  <div class="hero-divider"></div>
-  <h1>Agora sua empresa conta com um portfólio <span class="highlight">completo Samsung</span></h1>
-  <p>Soluções desenvolvidas para aumentar a produtividade, mobilidade e segurança do seu negócio.</p>
-  
-  <div class="search-container">
-    <input type="text" id="searchInput" placeholder="Buscar produto (Galaxy S25, Watch, Buds...)" onkeyup="searchProducts(this.value)">
+  <h1>Soluções Corporativas <span>Premium</span></h1>
+  <p>Compare especificações e solicite cotações em volume para sua empresa.</p>
+  <div style="max-width: 600px; margin: 30px auto;">
+    <input type="text" id="searchInput" placeholder="O que sua empresa precisa hoje?" 
+           style="width: 100%; padding: 15px; border: none; border-bottom: 2px solid var(--gray-medium); background: transparent; font-size: 1.1rem; text-align: center;"
+           onkeyup="filterProducts(this.value)">
   </div>
 </section>
 
-<!-- TABS -->
-<div class="tabs" id="tabsContainer"></div>
-
-<!-- VIEW TOGGLE -->
-<div class="view-toggle">
-  <button class="view-btn active" onclick="setView(currentSection, 'grid')">Grade</button>
-  <button class="view-btn" onclick="setView(currentSection, 'table')">Tabela</button>
+<div class="grid" id="mainGrid">
+  <div class="skeleton" style="height: 350px;"></div>
+  <div class="skeleton" style="height: 350px;"></div>
+  <div class="skeleton" style="height: 350px;"></div>
 </div>
 
-<!-- GRID VIEW -->
-<div class="grid" id="grid-smartphones"></div>
-<div class="grid" id="grid-dobráveis" style="display:none;"></div>
-<div class="grid" id="grid-tablets" style="display:none;"></div>
-<div class="grid" id="grid-notebooks" style="display:none;"></div>
-<div class="grid" id="grid-wearables" style="display:none;"></div>
-<div class="grid" id="grid-acessorios" style="display:none;"></div>
+<div class="float-container">
+  <button class="btn-float btn-whatsapp" onclick="window.open('https://wa.me/41989031156')">
+    <svg width="30" height="30" fill="white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </button>
+</div>
 
-<!-- TABLE VIEW -->
-<div class="table-container" id="table-smartphones"></div>
-<div class="table-container" id="table-dobráveis"></div>
-<div class="table-container" id="table-tablets"></div>
-<div class="table-container" id="table-notebooks"></div>
-<div class="table-container" id="table-wearables"></div>
-<div class="table-container" id="table-acessorios"></div>
-
-<!-- MODAL QUANTIDADE -->
-<div class="qty-modal" id="qtyModal">
-  <div class="qty-modal-content">
-    <div class="modal-header">
-      <h2 id="qtyProductName">Produto</h2>
-      <button class="close-btn" onclick="closeQtyModal()">✕</button>
-    </div>
-
-    <div style="background: var(--gray-light); border-radius: 10px; padding: 18px; text-align: center; margin-bottom: 32px;">
-      <div style="color: var(--text-secondary); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; font-weight: 700;">Preço Unitário</div>
-      <div style="color: var(--samsung-blue); font-size: 2.2rem; font-weight: 700; font-family: 'Montserrat', sans-serif;" id="qtyProductPrice">R$ 0</div>
-    </div>
-
-    <div class="qty-selector">
-      <button class="qty-btn" onclick="decreaseQty()">−</button>
-      <div class="qty-display" id="qtyDisplay">1</div>
-      <button class="qty-btn" onclick="increaseQty()">+</button>
-    </div>
-
-    <div class="modal-actions">
-      <button class="btn btn-primary" onclick="confirmAddToCart()">Adicionar ao Carrinho</button>
-      <button class="btn btn-secondary" onclick="closeQtyModal()">Cancelar</button>
-    </div>
+<div id="mainModal" class="modal" onclick="if(event.target==this) closeModal()">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <div id="modalBody"></div>
   </div>
 </div>
-
-<!-- MODAL CARRINHO -->
-<div class="cart-modal" id="cartModal">
-  <div class="cart-content">
-    <div class="modal-header">
-      <h2>Seu Carrinho</h2>
-      <button class="close-btn" onclick="closeCart()">✕</button>
-    </div>
-    
-    <div class="cart-items" id="cartItems">
-      <div class="cart-empty"><div class="cart-empty-icon"></div><p>Seu carrinho está vazio</p></div>
-    </div>
-    
-    <div id="cartTotals"></div>
-    
-    <div class="modal-actions">
-      <button class="btn btn-primary" onclick="sendToWhatsApp()">Solicitar Proposta via WhatsApp</button>
-      <button class="btn btn-email" onclick="sendByEmail()">Enviar por E-mail</button>
-      <button class="btn btn-secondary" onclick="closeCart()">Continuar Comprando</button>
-    </div>
-  </div>
-</div>
-
-<!-- FOOTER -->
-<footer>
-  <p>Samsung B2B - Mastercell | Soluções Corporativas para sua Empresa</p>
-  <p>Atendimento especializado: samsungb2b@mastercell.com.br | (41) 98903-1156</p>
-</footer>
-
-<!-- BOTÕES FLUTUANTES -->
-<div class="cart-float" onclick="openCart()" title="Abrir carrinho">
-  <svg viewBox="0 0 24 24" fill="currentColor">
-    <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
-  </svg>
-</div>
-
-<button class="email-float" onclick="sendByEmail()" title="Enviar cotação por e-mail">
-  <svg viewBox="0 0 24 24" fill="currentColor">
-    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-  </svg>
-</button>
-
-<a href="https://wa.me/41989031156?text=Olá! Tenho interesse no catálogo B2B Samsung Jockey Plaza." 
-   class="whatsapp-float" target="_blank" title="Falar no WhatsApp">
-  <svg viewBox="0 0 24 24" fill="currentColor">
-    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-  </svg>
-</a>
 
 <script>
-let CATALOG = {};
-let currentSection = 'smartphones';
-let viewState = {};
+let CATALOG = { categories: {} };
 let cart = [];
-let currentQtyModal = { category: null, productIdx: null, name: null, price: null, quantity: 1 };
 
-async function loadCatalog() {
+// Carregamento com tratamento de erro
+async function init() {
   try {
-    const response = await fetch('precos.json');
-    if (response.ok) {
-      CATALOG = await response.json();
-      console.log('Catálogo carregado com sucesso');
-    } else {
-      throw new Error('Arquivo não encontrado');
-    }
-  } catch (error) {
-    console.error('Erro ao carregar precos.json:', error);
-    alert('Erro: Certifique-se de que o arquivo precos.json está na mesma pasta do HTML');
-    return;
+    const res = await fetch('precos.json');
+    if (!res.ok) throw new Error();
+    CATALOG = await res.json();
+    renderProducts();
+  } catch (e) {
+    document.getElementById('mainGrid').innerHTML = `
+      <div style="grid-column: 1/-1; text-align: center; padding: 50px;">
+        <h3>Ops! Erro ao carregar o catálogo.</h3>
+        <p>Verifique se o arquivo 'precos.json' está na mesma pasta.</p>
+      </div>`;
   }
-
-  renderTabs();
-  renderSection(currentSection);
 }
 
-function renderTabs() {
-  const container = document.getElementById('tabsContainer');
-  const sections = Object.keys(CATALOG.categories || {});
+function renderProducts(filter = "") {
+  const grid = document.getElementById('mainGrid');
+  grid.innerHTML = "";
   
-  container.innerHTML = sections.map(section => `
-    <button class="tab-btn ${section === currentSection ? 'active' : ''}" 
-            onclick="switchSection('${section}')">
-      ${getTabLabel(section)}
-    </button>
-  `).join('');
-}
+  Object.keys(CATALOG.categories).forEach(cat => {
+    CATALOG.categories[cat].forEach((p, idx) => {
+      if (filter && !p.modelo.toLowerCase().includes(filter.toLowerCase())) return;
 
-function getTabLabel(section) {
-  const labels = {
-    'smartphones': 'Smartphones',
-    'dobráveis': 'Dobráveis',
-    'tablets': 'Tablets',
-    'notebooks': 'Notebooks',
-    'wearables': 'Wearables',
-    'acessorios': 'Acessórios'
-  };
-  return labels[section] || section;
-}
-
-function switchSection(section) {
-  currentSection = section;
-  document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-  event.target.classList.add('active');
-  
-  document.querySelectorAll('.grid, .table-container').forEach(el => el.style.display = 'none');
-  
-  const view = viewState[section] || 'grid';
-  if (view === 'grid') {
-    document.getElementById(`grid-${section}`).style.display = 'grid';
-  } else {
-    document.getElementById(`table-${section}`).style.display = 'block';
-  }
-  
-  renderSection(section);
-}
-
-function renderSection(section) {
-  const data = CATALOG.categories[section] || [];
-  
-  const grid = document.getElementById(`grid-${section}`);
-  if (grid) {
-    if (data.length === 0) {
-      grid.innerHTML = '<div class="empty-state"><div class="empty-state-icon"></div><p>Nenhum produto nesta categoria</p></div>';
-    } else {
-      grid.innerHTML = data.map((p, idx) => `
-        <div class="product-card">
-          <div class="product-image-container">
-            ${p.img ? `<img class="product-img" src="${p.img}" alt="${p.modelo}" onerror="this.style.display='none'; this.parentNode.querySelector('.product-img-placeholder').style.display='block';">` : ''}
-            <div class="product-img-placeholder" style="display:${p.img ? 'none' : 'block'}">Box</div>
-          </div>
-          <div class="product-info">
-            <div class="product-familia">${p.familia}</div>
-            <div class="product-name">${p.modelo}</div>
-            <div class="price-section">
-              <div class="price-label">Preço à Vista</div>
-              <div class="price-pix">${fmt(p.pix)}</div>
-              ${p.x6 ? `<div class="price-parcel"><span>ou 6x de</span> <span>${fmt(p.x6)}</span></div>` : ''}
-              ${p.x10 ? `<div class="price-parcel"><span>ou 10x de</span> <span>${fmt(p.x10)}</span></div>` : ''}
-            </div>
-            ${p.obs ? `<div class="obs-badge">Promoção: ${p.obs}</div>` : ''}
-            <button class="btn btn-primary" onclick="openQtyModal('${section}', ${idx}, '${p.modelo}', ${p.pix})">Adicionar ao Carrinho</button>
-          </div>
+      const card = document.createElement('div');
+      card.className = 'product-card';
+      card.innerHTML = `
+        <span class="tag-b2b">Solução Empresa</span>
+        <div style="height: 180px; display: flex; align-items: center; justify-content: center; margin-bottom: 15px;">
+          <img src="${p.img || ''}" alt="${p.modelo}" loading="lazy" style="max-height: 100%; max-width: 100%;" 
+               onerror="this.src='https://via.placeholder.com/200?text=Samsung'">
         </div>
-      `).join('');
-    }
-  }
-
-  const tbl = document.getElementById(`table-${section}`);
-  if (tbl) {
-    if (data.length === 0) {
-      tbl.innerHTML = '<p style="text-align:center;padding:60px 20px;color:var(--text-secondary);">Nenhum produto nesta categoria</p>';
-    } else {
-      tbl.innerHTML = `
-        <table>
-          <thead><tr>
-            <th>Família</th><th>Modelo</th>
-            <th>Preço à Vista</th><th>6x</th><th>10x</th><th>Promoção</th>
-          </tr></thead>
-          <tbody>
-            ${data.map(p => `
-              <tr>
-                <td class="td-familia">${p.familia}</td>
-                <td>${p.modelo}</td>
-                <td class="td-pix">${fmt(p.pix)}</td>
-                <td>${p.x6 ? fmt(p.x6) : '—'}</td>
-                <td>${p.x10 ? fmt(p.x10) : '—'}</td>
-                <td style="color:var(--text-secondary);font-size:0.85rem">${p.obs || ''}</td>
-              </tr>
-            `).join('')}
-          </tbody>
-        </table>
+        <div style="font-size: 0.75rem; color: var(--samsung-blue); font-weight: bold; text-transform: uppercase;">${p.familia}</div>
+        <div style="font-weight: bold; margin: 5px 0 15px 0; font-size: 1.1rem;">${p.modelo}</div>
+        <div style="border-top: 1px solid var(--gray-medium); padding-top: 15px;">
+          <small>A partir de</small>
+          <div style="font-size: 1.4rem; font-weight: 800; color: var(--samsung-blue);">${fmt(p.pix)}</div>
+          <button onclick="showQtySelector('${cat}', ${idx})" 
+                  style="width: 100%; background: var(--samsung-blue); color: white; border: none; padding: 12px; border-radius: 8px; margin-top: 15px; cursor: pointer; font-weight: bold;">
+            Cotar Volume
+          </button>
+        </div>
       `;
-    }
-  }
-}
-
-function fmt(price) {
-  if (!price) return '—';
-  return new Intl.NumberFormat('pt-BR', {
-    style: 'currency',
-    currency: 'BRL',
-    minimumFractionDigits: 0
-  }).format(price);
-}
-
-function setView(section, view) {
-  viewState[section] = view;
-  
-  document.querySelectorAll('.view-btn').forEach((btn, i) => {
-    btn.classList.toggle('active', (i === 0 && view === 'grid') || (i === 1 && view === 'table'));
-  });
-  
-  const grid = document.getElementById(`grid-${section}`);
-  const table = document.getElementById(`table-${section}`);
-  if (grid) grid.style.display = view === 'grid' ? 'grid' : 'none';
-  if (table) table.style.display = view === 'table' ? 'block' : 'none';
-}
-
-function searchProducts(query) {
-  if (!query.trim()) {
-    renderSection(currentSection);
-    return;
-  }
-  
-  query = query.toLowerCase();
-  const data = CATALOG.categories[currentSection] || [];
-  const filtered = data.filter(p => 
-    p.modelo.toLowerCase().includes(query) || 
-    p.familia.toLowerCase().includes(query) ||
-    (p.obs && p.obs.toLowerCase().includes(query))
-  );
-  
-  const grid = document.getElementById(`grid-${currentSection}`);
-  if (grid) {
-    if (filtered.length === 0) {
-      grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1"><div class="empty-state-icon"></div><p>Nenhum produto encontrado para "' + query + '"</p></div>';
-    } else {
-      grid.innerHTML = filtered.map((p, idx) => `
-        <div class="product-card">
-          <div class="product-image-container">
-            ${p.img ? `<img class="product-img" src="${p.img}" alt="${p.modelo}" onerror="this.style.display='none'; this.parentNode.querySelector('.product-img-placeholder').style.display='block';">` : ''}
-            <div class="product-img-placeholder" style="display:${p.img ? 'none' : 'block'}">Box</div>
-          </div>
-          <div class="product-info">
-            <div class="product-familia">${p.familia}</div>
-            <div class="product-name">${p.modelo}</div>
-            <div class="price-section">
-              <div class="price-label">Preço à Vista</div>
-              <div class="price-pix">${fmt(p.pix)}</div>
-              ${p.x6 ? `<div class="price-parcel"><span>ou 6x de</span> <span>${fmt(p.x6)}</span></div>` : ''}
-              ${p.x10 ? `<div class="price-parcel"><span>ou 10x de</span> <span>${fmt(p.x10)}</span></div>` : ''}
-            </div>
-            ${p.obs ? `<div class="obs-badge">Promoção: ${p.obs}</div>` : ''}
-            <button class="btn btn-primary" onclick="openQtyModal('${currentSection}', ${idx}, '${p.modelo}', ${p.pix})">Adicionar ao Carrinho</button>
-          </div>
-        </div>
-      `).join('');
-    }
-  }
-}
-
-function openQtyModal(category, productIdx, name, price) {
-  currentQtyModal = { category, productIdx, name, price, quantity: 1 };
-  document.getElementById('qtyProductName').textContent = name;
-  document.getElementById('qtyProductPrice').textContent = fmt(price);
-  document.getElementById('qtyDisplay').textContent = '1';
-  document.getElementById('qtyModal').classList.add('show');
-}
-
-function closeQtyModal() {
-  document.getElementById('qtyModal').classList.remove('show');
-  currentQtyModal.quantity = 1;
-}
-
-function increaseQty() {
-  currentQtyModal.quantity++;
-  document.getElementById('qtyDisplay').textContent = currentQtyModal.quantity;
-}
-
-function decreaseQty() {
-  if (currentQtyModal.quantity > 1) {
-    currentQtyModal.quantity--;
-    document.getElementById('qtyDisplay').textContent = currentQtyModal.quantity;
-  }
-}
-
-function confirmAddToCart() {
-  const { category, productIdx, name, price, quantity } = currentQtyModal;
-  const product = CATALOG.categories[category][productIdx];
-  const cartItem = cart.find(item => item.id === `${category}-${productIdx}`);
-  
-  if (cartItem) {
-    cartItem.quantity += quantity;
-  } else {
-    cart.push({
-      id: `${category}-${productIdx}`,
-      category,
-      productIdx,
-      name,
-      price,
-      quantity,
-      familia: product.familia
+      grid.appendChild(card);
     });
-  }
-  
-  updateCartBadge();
-  showToast(`${quantity}x ${name} adicionado ao carrinho`);
-  closeQtyModal();
+  });
 }
 
-function showToast(message) {
-  const toast = document.createElement('div');
-  toast.className = 'toast';
-  toast.textContent = message;
-  document.body.appendChild(toast);
-  
-  setTimeout(() => {
-    toast.classList.add('hide');
-    setTimeout(() => toast.remove(), 300);
-  }, 2500);
+function showQtySelector(cat, idx) {
+  const p = CATALOG.categories[cat][idx];
+  const modalBody = document.getElementById('modalBody');
+  modalBody.innerHTML = `
+    <h2>${p.modelo}</h2>
+    <p style="color: var(--text-secondary); margin-bottom: 20px;">Selecione a quantidade para sua empresa:</p>
+    <input type="number" id="qtyInput" value="1" min="1" 
+           style="width: 100%; padding: 15px; font-size: 1.5rem; text-align: center; border-radius: 10px; border: 2px solid var(--samsung-blue); margin-bottom: 10px;"
+           oninput="checkBulkDiscount(this.value)">
+    <div id="bulkAlert" class="price-discount">✓ Aplicado desconto de 5% para volumes acima de 10 unidades!</div>
+    <button onclick="addToCart('${cat}', ${idx})" 
+            style="width: 100%; background: var(--success); color: white; border: none; padding: 15px; border-radius: 10px; margin-top: 20px; font-weight: bold; cursor: pointer;">
+      Adicionar à Proposta
+    </button>
+  `;
+  document.getElementById('mainModal').style.display = 'flex';
 }
 
-function updateCartBadge() {
-  const total = cart.reduce((sum, item) => sum + item.quantity, 0);
+function checkBulkDiscount(val) {
+  const alert = document.getElementById('bulkAlert');
+  alert.style.display = val >= 10 ? 'block' : 'none';
+}
+
+function addToCart(cat, idx) {
+  const p = CATALOG.categories[cat][idx];
+  const qty = parseInt(document.getElementById('qtyInput').value);
+  
+  // Lógica B2B: Desconto progressivo
+  let finalPrice = p.pix;
+  if (qty >= 10) finalPrice = p.pix * 0.95;
+
+  cart.push({ ...p, qty, finalPrice });
+  updateBadge();
+  closeModal();
+}
+
+function updateBadge() {
+  const badge = document.getElementById('cartBadge');
+  const total = cart.reduce((acc, item) => acc + item.qty, 0);
+  badge.innerText = total;
+  badge.style.display = total > 0 ? 'block' : 'none';
 }
 
 function openCart() {
-  const modal = document.getElementById('cartModal');
-  modal.classList.add('show');
-  renderCart();
-}
-
-function closeCart() {
-  const modal = document.getElementById('cartModal');
-  modal.classList.remove('show');
-}
-
-function renderCart() {
-  const itemsContainer = document.getElementById('cartItems');
-  const totalContainer = document.getElementById('cartTotals');
+  if (cart.length === 0) { alert("Sua proposta está vazia!"); return; }
   
-  if (cart.length === 0) {
-    itemsContainer.innerHTML = '<div class="cart-empty"><div class="cart-empty-icon"></div><p>Seu carrinho está vazio</p></div>';
-    totalContainer.innerHTML = '';
-    return;
-  }
-  
-  let totalPix = 0;
-  let totalItems = 0;
-  
-  itemsContainer.innerHTML = cart.map((item, idx) => {
-    const subtotal = item.price * item.quantity;
-    totalPix += subtotal;
-    totalItems += item.quantity;
-    
-    return `
-      <div class="cart-item">
-        <div class="cart-item-info">
-          <div class="cart-item-name">${item.name}</div>
-          <div class="cart-item-price">${fmt(item.price)}</div>
-        </div>
-        <div class="cart-item-controls">
-          <button class="qty-btn" onclick="updateQty(${idx}, -1)" style="width:36px;height:36px;font-size:1rem;padding:0;">−</button>
-          <input type="number" class="qty-input" value="${item.quantity}" onchange="setQty(${idx}, this.value)" min="1">
-          <button class="qty-btn" onclick="updateQty(${idx}, 1)" style="width:36px;height:36px;font-size:1rem;padding:0;">+</button>
-          <button class="remove-btn" onclick="removeFromCart(${idx})">✕</button>
-        </div>
-      </div>
-    `;
-  }).join('');
-  
-  totalContainer.innerHTML = `
-    <div class="cart-total">
-      <div class="cart-total-row">
-        <span>Subtotal (${totalItems} item${totalItems > 1 ? 's' : ''}):</span>
-        <span>${fmt(totalPix)}</span>
-      </div>
-      <div class="cart-total-row final">
-        <span>Total:</span>
-        <span>${fmt(totalPix)}</span>
-      </div>
-    </div>
-  `;
-}
-
-function updateQty(idx, change) {
-  cart[idx].quantity += change;
-  if (cart[idx].quantity <= 0) {
-    removeFromCart(idx);
-  } else {
-    renderCart();
-  }
-}
-
-function setQty(idx, value) {
-  const qty = parseInt(value);
-  if (qty > 0) {
-    cart[idx].quantity = qty;
-    renderCart();
-  }
-}
-
-function removeFromCart(idx) {
-  cart.splice(idx, 1);
-  renderCart();
-}
-
-function generateCotationText() {
-  let text = 'SOLICITAÇÃO DE COTAÇÃO - SAMSUNG B2B\n';
-  text += '═'.repeat(70) + '\n\n';
-  
-  const today = new Date().toLocaleDateString('pt-BR');
-  text += `Data da Solicitação: ${today}\n`;
-  text += `Empresa Solicitante: [Seu Negócio]\n\n`;
-  
-  text += 'PRODUTOS SOLICITADOS:\n';
-  text += '─'.repeat(70) + '\n\n';
-  
+  const modalBody = document.getElementById('modalBody');
   let total = 0;
-  let itemCount = 0;
   
-  cart.forEach((item, idx) => {
-    const subtotal = item.price * item.quantity;
+  let html = `<h2>Resumo da Proposta</h2><div style="margin: 20px 0;">`;
+  cart.forEach((item, i) => {
+    const subtotal = item.finalPrice * item.qty;
     total += subtotal;
-    itemCount++;
-    
-    text += `${idx + 1}. ${item.name}\n`;
-    text += `   Família: ${item.familia}\n`;
-    text += `   Quantidade: ${item.quantity} unidade(s)\n`;
-    text += `   Valor Unitário: ${fmt(item.price)}\n`;
-    text += `   Valor Total: ${fmt(subtotal)}\n\n`;
+    html += `
+      <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--gray-medium); padding: 10px 0;">
+        <div><strong>${item.qty}x</strong> ${item.modelo}</div>
+        <div>${fmt(subtotal)}</div>
+      </div>`;
   });
   
-  text += '─'.repeat(70) + '\n\n';
-  text += 'RESUMO DA COTAÇÃO:\n';
-  text += `Total de Itens: ${itemCount}\n`;
-  text += `Valor Total: ${fmt(total)}\n`;
-  text += '\n' + '═'.repeat(70) + '\n\n';
+  html += `</div>
+    <div style="display: flex; justify-content: space-between; font-size: 1.3rem; font-weight: 800; color: var(--samsung-blue); margin-bottom: 25px;">
+      <span>Total Estimado:</span>
+      <span>${fmt(total)}</span>
+    </div>
+    <button onclick="sendToWhatsApp()" style="width: 100%; background: #25D366; color: white; border: none; padding: 15px; border-radius: 10px; font-weight: bold; cursor: pointer;">
+      Enviar para Consultor B2B
+    </button>
+    <button onclick="cart=[]; updateBadge(); closeModal();" style="width: 100%; background: transparent; color: #ef4444; border: none; margin-top: 10px; cursor: pointer;"> Limpar Proposta </button>
+  `;
   
-  text += 'INFORMAÇÕES IMPORTANTES:\n';
-  text += '• Cotação válida por 30 dias\n';
-  text += '• Sujeita a confirmação de disponibilidade em estoque\n';
-  text += '• Condições comerciais e prazos de entrega serão informados na proposta\n';
-  text += '• Solicitamos confirmação de interesse para prosseguimento\n\n';
-  
-  text += 'ATENDIMENTO ESPECIALIZADO B2B:\n';
-  text += '• Condições comerciais exclusivas\n';
-  text += '• Projetos sob medida\n';
-  text += '• Suporte consultivo\n';
-  text += '• Pós-venda dedicado\n\n';
-  
-  text += 'Atenciosamente,\n';
-  text += 'Samsung B2B - Mastercell\n';
-  text += 'Departamento Comercial\n';
-  text += 'Telefone: (41) 98903-1156\n';
-  text += 'E-mail: samsungb2b@mastercell.com.br\n\n';
-  
-  text += 'Gerado através do Catálogo B2B Samsung';
-  
-  return { text, total };
+  modalBody.innerHTML = html;
+  document.getElementById('mainModal').style.display = 'flex';
 }
 
 function sendToWhatsApp() {
-  if (cart.length === 0) {
-    alert('Adicione produtos ao carrinho primeiro!');
-    return;
-  }
-  
-  const { text } = generateCotationText();
-  const message = text.replace(/\n/g, '%0A');
-  const whatsappUrl = `https://wa.me/41989031156?text=${message}`;
-  window.open(whatsappUrl, '_blank');
+  let msg = "Olá Mastercell! Gostaria de uma cotação B2B para:\n\n";
+  cart.forEach(item => {
+    msg += `• ${item.qty}x ${item.modelo} (${fmt(item.finalPrice)} un.)\n`;
+  });
+  window.open(`https://wa.me/41989031156?text=${encodeURIComponent(msg)}`);
 }
 
-function sendByEmail() {
-  if (cart.length === 0) {
-    alert('Adicione produtos ao carrinho primeiro!');
-    return;
-  }
-  
-  const { text } = generateCotationText();
-  const subject = encodeURIComponent('Solicitação de Cotação B2B Samsung');
-  const body = encodeURIComponent(text);
-  const emailUrl = `mailto:samsungb2b@mastercell.com.br?subject=${subject}&body=${body}`;
-  window.location.href = emailUrl;
-}
+function filterProducts(val) { renderProducts(val); }
+function closeModal() { document.getElementById('mainModal').style.display = 'none'; }
+function fmt(val) { return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(val); }
 
-document.addEventListener('DOMContentLoaded', loadCatalog);
+init();
 </script>
-
 </body>
 </html>
