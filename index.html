@@ -90,14 +90,15 @@
     }
 
     @media (max-width: 768px) {
-      header { padding: 15px 20px; }
+      header { padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
       header.scrolled { padding: 10px 20px; }
       .logo-divider, .b2b-tag { display: none; }
-      .logo-container { gap: 10px; }
+      .logo-container { gap: 10px; flex: 1; }
       .logo-samsung { font-size: 1.1rem; }
       .logo-mastercell { height: 20px; }
       .btn-header span { display: none; }
-      .btn-header { padding: 12px; border-radius: 50%; min-width: 44px; min-height: 44px; justify-content: center; }
+      .btn-header { padding: 12px; border-radius: 50%; min-width: 44px; min-height: 44px; justify-content: center; display: flex; align-items: center; flex-shrink: 0; }
+      .header-right { display: flex; align-items: center; }
     }
 
     /* ADAPTABILIDADE PARA TELAS PEQUENAS (iPhone SE, etc) */
