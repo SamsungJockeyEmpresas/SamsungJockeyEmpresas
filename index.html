@@ -69,17 +69,7 @@
       margin-left: 10px;
     }
 
-    .logo-mastercell {
-      background: linear-gradient(135deg, var(--samsung-blue), var(--samsung-blue-dark));
-      color: white;
-      padding: 10px 20px;
-      border-radius: 8px;
-      font-size: 0.85rem;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      box-shadow: 0 4px 12px rgba(20,40,160,0.2);
-    }
+
 
     .header-right {
       display: flex;
@@ -1120,6 +1110,11 @@
 
     /* RESPONSIVE */
     @media (max-width: 768px) {
+      .header-logo {
+        height: 24px !important;
+        margin-left: 12px !important;
+      }
+
       header {
         flex-direction: column;
         gap: 16px;
@@ -1204,7 +1199,7 @@
 <header>
   <div class="header-left">
     <div class="logo-samsung">SAMSUNG <span class="b2b">B2B</span></div>
-    <img src="https://www.area17.com.br/admin/fotos/estabelecimentos/samsung-experience-store-47257_6151b31a3ed75.png" alt="Samsung Experience Store" style="height: 50px; object-fit: contain;">
+    <img src="https://www.area17.com.br/admin/fotos/estabelecimentos/samsung-experience-store-47257_6151b31a3ed75.png" alt="Samsung Experience Store" style="height: 32px; object-fit: contain; opacity: 0.8; margin-left: 20px;" class="header-logo">
   </div>
   <div class="header-right">
     <button class="btn-header" onclick="openCart()" style="position: relative;">
