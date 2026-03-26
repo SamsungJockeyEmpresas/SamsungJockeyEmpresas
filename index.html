@@ -1414,7 +1414,7 @@
             <h3 class="product-name">${p.modelo}</h3>
             <div class="price-container">
               <div class="price-pix">${fmt(p.pix)}</div>
-              <div class="price-installments">ou 10x de ${fmt((p.x10_total || p.pix * 1.15) / 10)}</div>
+              <div class="price-installments">ou 10x de ${fmt((p.x10 || p.pix * 1.15) / 10)}</div>
             </div>
             <div class="card-controls" onclick="event.stopPropagation()">
               <div class="card-qty-selector">
@@ -1422,7 +1422,7 @@
                 <input type="number" class="card-qty-input" id="${inputId}" value="1" min="1" onchange="validateQty(this)">
                 <div class="card-qty-btn" onclick="updateCardQty('${inputId}', 1)">+</div>
               </div>
-              <button class="btn-add" onclick="addWithQty('${safeModel}', ${p.pix}, ${p.x6_total || p.pix * 1.08}, ${p.x10_total || p.pix * 1.15}, '${inputId}')">Adicionar</button>
+              <button class="btn-add" onclick="addWithQty('${safeModel}', ${p.pix}, ${p.x6 || p.pix * 1.08}, ${p.x10 || p.pix * 1.15}, '${inputId}')">Adicionar</button>
             </div>
           </div>
         </div>
@@ -1549,7 +1549,7 @@
   function addToCart(name, price, qty, x6, x10) {
     const existing = cart.find(item => item.name === name);
     if (existing) existing.qty += qty;
-    else cart.push({name, price, qty, x6_total: x6, x10_total: x10});
+    else cart.push({name, price, qty, x6: x6, x10: x10});
     updateCartBadge();
     renderCartItems();
     showToast(`${qty}x ${name} adicionado!`);
@@ -1602,8 +1602,8 @@
     }).join('');
 
     const totalPix = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
-    const totalX6 = cart.reduce((acc, item) => acc + (item.x6_total * item.qty), 0);
-    const totalX10 = cart.reduce((acc, item) => acc + (item.x10_total * item.qty), 0);
+    const totalX6 = cart.reduce((acc, item) => acc + ((item.x6 || item.price * 1.08) * item.qty), 0);
+    const totalX10 = cart.reduce((acc, item) => acc + ((item.x10 || item.price * 1.15) * item.qty), 0);
 
     summaryDiv.innerHTML = `
       <div class="summary-panel">
@@ -1663,8 +1663,8 @@
     const companyName = document.getElementById('companyName').value || "[Seu Negócio]";
     const date = new Date().toLocaleDateString('pt-BR');
     const totalPix = cart.reduce((acc, i) => acc + (i.price * i.qty), 0);
-    const totalX6 = cart.reduce((acc, i) => acc + (i.x6_total * i.qty), 0);
-    const totalX10 = cart.reduce((acc, i) => acc + (i.x10_total * i.qty), 0);
+    const totalX6 = cart.reduce((acc, i) => acc + ((i.x6 || i.price * 1.08) * i.qty), 0);
+    const totalX10 = cart.reduce((acc, i) => acc + ((i.x10 || i.price * 1.15) * i.qty), 0);
     const totalItems = cart.reduce((acc, i) => acc + i.qty, 0);
 
     let msg = `SOLICITAÇÃO DE COTAÇÃO - SAMSUNG B2B\n`;
@@ -1679,8 +1679,8 @@
       msg += `   Quantidade: ${item.qty} unidade(s)\n`;
       msg += `   Valor Unitário (PIX): ${fmt(item.price)}\n`;
       msg += `   Valor Total (PIX): ${fmt(item.price * item.qty)}\n`;
-      msg += `   Valor Total (6x): ${fmt(item.x6_total * item.qty)}\n`;
-      msg += `   Valor Total (10x): ${fmt(item.x10_total * item.qty)}\n`;
+      msg += `   Valor Total (6x): ${fmt((item.x6 || item.price * 1.08) * item.qty)}\n`;
+      msg += `   Valor Total (10x): ${fmt((item.x10 || item.price * 1.15) * item.qty)}\n`;
       if (idx < cart.length - 1) msg += `──────────────────────────────────────────────────────────────────────\n`;
     });
 
