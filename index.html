@@ -105,6 +105,59 @@
       background: var(--samsung-blue);
     }
 
+    /* MODAL DE QUANTIDADE PREMIUM */
+    .qty-modal {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -40%);
+      width: 400px;
+      background: var(--white);
+      border-radius: 20px;
+      box-shadow: 0 30px 100px rgba(0,0,0,0.2);
+      z-index: 3000;
+      padding: 40px;
+      display: none;
+      opacity: 0;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      text-align: center;
+    }
+
+    .qty-modal.active {
+      transform: translate(-50%, -50%);
+      opacity: 1;
+      display: block;
+    }
+
+    .qty-modal h3 { font-family: 'Montserrat', sans-serif; font-size: 1.2rem; font-weight: 800; margin-bottom: 10px; }
+    .qty-modal p { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 30px; }
+
+    .qty-selector-large {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 25px;
+      margin-bottom: 40px;
+    }
+
+    .qty-btn-large {
+      width: 45px;
+      height: 45px;
+      background: var(--gray-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--samsung-blue);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .qty-btn-large:hover { background: var(--samsung-blue); color: white; }
+    .qty-val-large { font-size: 2rem; font-weight: 800; font-family: 'Montserrat', sans-serif; min-width: 60px; }
+
     .cart-badge {
       background: #ff4757;
       color: white;
@@ -612,8 +665,8 @@
   </div>
   <div class="header-right">
     <button class="btn-header" onclick="openCart()">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4H6zM3 6h18M16 10a4 4 0 01-8 0"/></svg>
-      CARRINHO <span id="cartBadge" class="cart-badge" style="display:none">0</span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+      COTAÇÃO <span id="cartBadge" class="cart-badge" style="display:none">0</span>
     </button>
   </div>
 </header>
@@ -691,11 +744,11 @@
   </div>
 </footer>
 
-<!-- CARRINHO LATERAL -->
+<!-- CARRINHO LATERAL (LISTA DE COTAÇÃO) -->
 <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
 <div class="cart-drawer" id="cartDrawer">
   <div class="cart-header">
-    <h2>Seu Carrinho B2B</h2>
+    <h2>Minha Lista de Cotação</h2>
     <div class="close-cart" onclick="closeCart()">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
     </div>
@@ -710,25 +763,39 @@
     </div>
     <button class="btn-checkout btn-whatsapp" onclick="checkoutWhatsApp()">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.72.937 3.659 1.431 5.63 1.433h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-      Orçamento via WhatsApp
+      Solicitar via WhatsApp
     </button>
     <button class="btn-checkout btn-email" onclick="checkoutEmail()">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-      Orçamento via E-mail
+      Solicitar via E-mail
     </button>
   </div>
+</div>
+
+<!-- MODAL QUANTIDADE -->
+<div class="qty-modal" id="qtyModal">
+  <h3 id="qtyModalTitle">Adicionar à Cotação</h3>
+  <p id="qtyModalSub">Selecione a quantidade desejada para sua empresa.</p>
+  <div class="qty-selector-large">
+    <div class="qty-btn-large" onclick="changeModalQty(-1)">-</div>
+    <div class="qty-val-large" id="modalQtyVal">1</div>
+    <div class="qty-btn-large" onclick="changeModalQty(1)">+</div>
+  </div>
+  <button class="btn-add" id="confirmAddBtn" style="margin-top:0">Confirmar Seleção</button>
+  <p style="margin-top:20px; font-size:0.7rem; cursor:pointer; text-decoration:underline;" onclick="closeQtyModal()">Cancelar</p>
 </div>
 
 <!-- TOAST -->
 <div class="toast" id="toast">
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-  <span id="toastMsg">Produto adicionado!</span>
+  <span id="toastMsg">Adicionado à cotação!</span>
 </div>
 
 <script>
   let CATALOG = { categories: {} };
   let currentCategory = '';
   let cart = [];
+  let tempProduct = null;
 
   // Simulação de carregamento de dados (Normalmente viria de um fetch)
   async function init() {
@@ -779,7 +846,7 @@
             <div class="price-pix-label">à vista no PIX</div>
             <div class="price-parcel">ou 10x de <span>${fmt(p.pix/10)}</span> sem juros</div>
           </div>
-          <button class="btn-add" onclick="addToCart('${p.modelo}', ${p.pix})">Adicionar ao Carrinho</button>
+          <button class="btn-add" onclick="openQtyModal('${p.modelo}', ${p.pix})">Adicionar à Cotação</button>
         </div>
       </div>
     `).join('');
@@ -802,16 +869,41 @@
     return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 0 }).format(v);
   }
 
-  function addToCart(name, price) {
+  function openQtyModal(name, price) {
+    tempProduct = { name, price, qty: 1 };
+    document.getElementById('qtyModalTitle').innerText = name;
+    document.getElementById('modalQtyVal').innerText = '1';
+    document.getElementById('qtyModal').classList.add('active');
+    document.getElementById('cartOverlay').classList.add('active');
+    
+    document.getElementById('confirmAddBtn').onclick = () => {
+      addToCart(tempProduct.name, tempProduct.price, tempProduct.qty);
+      closeQtyModal();
+    };
+  }
+
+  function closeQtyModal() {
+    document.getElementById('qtyModal').classList.remove('active');
+    if (!document.getElementById('cartDrawer').classList.contains('active')) {
+      document.getElementById('cartOverlay').classList.remove('active');
+    }
+  }
+
+  function changeModalQty(delta) {
+    tempProduct.qty = Math.max(1, tempProduct.qty + delta);
+    document.getElementById('modalQtyVal').innerText = tempProduct.qty;
+  }
+
+  function addToCart(name, price, qty) {
     const existing = cart.find(item => item.name === name);
     if (existing) {
-      existing.qty++;
+      existing.qty += qty;
     } else {
-      cart.push({name, price, qty: 1});
+      cart.push({name, price, qty});
     }
     updateCartBadge();
     renderCartItems();
-    showToast(`${name} adicionado ao carrinho!`);
+    showToast(`${name} adicionado à cotação!`);
   }
 
   function updateCartBadge() {
@@ -835,7 +927,9 @@
 
   function closeCart() {
     document.getElementById('cartDrawer').classList.remove('active');
-    document.getElementById('cartOverlay').classList.remove('active');
+    if (!document.getElementById('qtyModal').classList.contains('active')) {
+      document.getElementById('cartOverlay').classList.remove('active');
+    }
   }
 
   function renderCartItems() {
@@ -883,9 +977,10 @@
 
   function checkoutWhatsApp() {
     if (cart.length === 0) return;
-    let text = "Olá, gostaria de uma cotação para os seguintes itens:\n\n";
-    cart.forEach(item => text += `- ${item.qty}x ${item.name}: ${fmt(item.price * item.qty)}\n`);
-    text += `\n*Total Estimado: ${document.getElementById('cartTotal').innerText}*`;
+    let text = "Olá Mastercell, gostaria de uma cotação B2B para os seguintes itens:\n\n";
+    cart.forEach(item => text += `- ${item.qty}x ${item.name}\n`);
+    text += `\nTotal Estimado: ${document.getElementById('cartTotal').innerText}`;
+    text += `\n\nPor favor, enviem as condições comerciais para o meu negócio.`;
     const url = `https://wa.me/5541989031156?text=${encodeURIComponent(text)}`;
     window.open(url, '_blank');
   }
@@ -893,10 +988,10 @@
   function checkoutEmail() {
     if (cart.length === 0) return;
     let subject = "Solicitação de Orçamento B2B - Mastercell";
-    let body = "Olá Mastercell,\n\nGostaria de solicitar uma cotação para os seguintes itens:\n\n";
-    cart.forEach(item => body += `- ${item.qty}x ${item.name}: ${fmt(item.price * item.qty)}\n`);
+    let body = "Olá Mastercell,\n\nGostaria de solicitar uma cotação corporativa para os seguintes itens:\n\n";
+    cart.forEach(item => body += `- ${item.qty}x ${item.name}\n`);
     body += `\nTotal Estimado: ${document.getElementById('cartTotal').innerText}\n`;
-    body += "\nPor favor, enviem as condições comerciais para o meu negócio.";
+    body += "\nPor favor, enviem as condições comerciais e prazos de faturamento para o meu negócio.";
     const mailto = `mailto:samsungb2b@mastercell.com.br?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     window.location.href = mailto;
   }
