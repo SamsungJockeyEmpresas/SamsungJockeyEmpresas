@@ -64,7 +64,7 @@
       user-select: none;
       -webkit-user-select: none;
       transition: background-color 0.5s ease, color 0.5s ease;
-    }
+    }}
     
     /* Permitir seleção apenas em campos de entrada */
     input, textarea { user-select: text; -webkit-user-select: text; }
@@ -350,19 +350,17 @@
     .search-input {
       width: 100%;
       padding: 20px 30px 20px 60px;
-      border: 1px solid var(--border-color);
+      border: 1px solid var(--gray-medium);
       border-radius: 50px;
-      font-family: 'Open Sans', sans-serif;
       font-size: 1rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
       outline: none;
-      transition: var(--transition);
-      background: var(--gray-light);
+      transition: all 0.3s ease;
     }
 
     .search-input:focus {
-      background: var(--white);
       border-color: var(--samsung-blue);
-      box-shadow: 0 10px 25px rgba(3, 78, 162, 0.1);
+      box-shadow: 0 10px 40px rgba(3, 78, 162, 0.1);
     }
 
     .search-icon {
@@ -370,51 +368,43 @@
       left: 25px;
       top: 50%;
       transform: translateY(-50%);
-      color: var(--text-secondary);
+      color: var(--samsung-blue);
     }
 
-    /* TABS */
+    /* CATEGORY TABS */
     .tabs-container {
       display: flex;
       justify-content: center;
       gap: 15px;
-      margin: 40px 0;
+      margin: 60px 0 40px;
       flex-wrap: wrap;
-      padding: 0 20px;
     }
 
     .tab-btn {
       padding: 12px 25px;
-      border-radius: 50px;
-      border: 1px solid var(--border-color);
+      border: 1px solid var(--gray-medium);
       background: var(--white);
+      border-radius: 50px;
       font-family: 'Montserrat', sans-serif;
       font-weight: 700;
       font-size: 0.8rem;
-      color: var(--text-secondary);
       cursor: pointer;
-      transition: var(--transition);
+      transition: all 0.3s ease;
+      color: var(--text-secondary);
       text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .tab-btn:hover {
-      border-color: var(--samsung-blue);
-      color: var(--samsung-blue);
     }
 
     .tab-btn.active {
       background: var(--samsung-blue);
-      color: var(--white);
+      color: white;
       border-color: var(--samsung-blue);
-      box-shadow: 0 8px 20px rgba(3, 78, 162, 0.2);
     }
 
     /* PRODUCT GRID */
     .product-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 30px;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 25px;
       padding: 0 5%;
       max-width: 1400px;
       margin: 0 auto 80px;
@@ -457,64 +447,85 @@
       position: relative;
       overflow: hidden;
     }
+
     .btn-header::after, .btn-whatsapp::after, .btn-email::after, .btn-add::after {
-      content: "";
+      content: '';
       position: absolute;
       top: -50%;
-      left: -50%;
-      width: 200%;
+      left: -60%;
+      width: 20%;
       height: 200%;
-      background: linear-gradient(
-        to bottom right,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 0.1) 40%,
-        rgba(255, 255, 255, 0.4) 50%,
-        rgba(255, 255, 255, 0.1) 60%,
-        rgba(255, 255, 255, 0) 100%
-      );
-      transform: rotate(45deg);
-      transition: all 0.3s;
-      opacity: 0;
+      background: rgba(255, 255, 255, 0.2);
+      transform: rotate(30deg);
+      transition: none;
+      animation: shine 4s infinite;
     }
-    .btn-header:hover::after, .btn-whatsapp:hover::after, .btn-email:hover::after, .btn-add:hover::after {
-      animation: shine 1.5s infinite;
-      opacity: 1;
-    }
+
     @keyframes shine {
-      0% { left: -100%; top: -100%; }
-      100% { left: 100%; top: 100%; }
+      0% { left: -60%; }
+      20% { left: 120%; }
+      100% { left: 120%; }
     }
 
-    .product-image-container {
-      height: 250px;
-      background: var(--gray-light);
+    /* SKELETON LOADING */
+    .skeleton {
+      background: linear-gradient(90deg, var(--gray-medium) 25%, var(--gray-light) 50%, var(--gray-medium) 75%);
+      background-size: 200% 100%;
+      animation: skeleton-loading 1.5s infinite;
+    }
+
+    @keyframes skeleton-loading {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    .skeleton-card {
+      height: 450px;
+      border-radius: 12px;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
       display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 30px;
-      position: relative;
+      flex-direction: column;
+      overflow: hidden;
     }
 
-    .product-img {
-      max-height: 100%;
-      max-width: 100%;
-      object-fit: contain;
-      transition: var(--transition);
-    }
+    .skeleton-img { height: 240px; width: 100%; }
+    .skeleton-info { padding: 25px; display: flex; flex-direction: column; gap: 10px; }
+    .skeleton-text { height: 15px; border-radius: 4px; }
+    .skeleton-title { height: 25px; width: 80%; border-radius: 4px; }
+    .skeleton-price { height: 30px; width: 60%; border-radius: 4px; }
+    .skeleton-btns { height: 45px; width: 100%; border-radius: 8px; margin-top: 10px; }
 
     .knox-badge {
       position: absolute;
       top: 15px;
       left: 15px;
-      background: rgba(3, 78, 162, 0.08);
+      background: rgba(3, 78, 162, 0.1);
       color: var(--samsung-blue);
       padding: 4px 10px;
       border-radius: 4px;
       font-size: 0.6rem;
       font-weight: 800;
-      letter-spacing: 1px;
-      border: 1px solid rgba(3, 78, 162, 0.1);
-      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      z-index: 2;
+    }
+
+    .product-image-container {
+      height: 240px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+      background: #fcfcfc;
+    }
+
+    .product-img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      transition: transform 0.4s ease;
     }
 
     .product-info {
@@ -575,8 +586,7 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      background: var(--white);
-      border-radius: 4px;
+      font-weight: 800;
       color: var(--samsung-blue);
       user-select: none;
       font-size: 1.2rem;
@@ -659,9 +669,8 @@
     .details-drawer {
       position: fixed;
       top: 0;
-      right: -100%;
+      right: -600px;
       width: 600px;
-      max-width: 100%;
       height: 100%;
       background: rgba(255, 255, 255, 0.98) !important;
       backdrop-filter: blur(50px) !important;
@@ -669,12 +678,12 @@
       box-shadow: -30px 0 80px rgba(0,0,0,0.15) !important;
       z-index: 2500;
       transition: right 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-      display: none;
+      display: flex;
       flex-direction: column;
       padding: 0;
       border-left: 1px solid rgba(255, 255, 255, 0.5) !important;
     }
-    .details-drawer.active { right: 0; display: flex; }
+    .details-drawer.active { right: 0; }
 
     /* GRID DE ESPECIFICAÇÕES TÉCNICAS */
     .specs-grid {
@@ -739,46 +748,60 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.03);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .details-img-container::after {
+      content: '';
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      background: var(--samsung-blue);
+      filter: blur(120px);
+      opacity: 0.05;
+      z-index: 0;
     }
 
     .details-img {
-      max-height: 350px;
       max-width: 100%;
+      max-height: 320px;
       object-fit: contain;
-      filter: drop-shadow(0 20px 40px rgba(0,0,0,0.1));
+      filter: drop-shadow(0 25px 50px rgba(0,0,0,0.15));
+      position: relative;
+      z-index: 1;
+      transition: transform 0.5s ease;
+    }
+
+    .details-img:hover { transform: scale(1.05); }
+
+    .details-header {
+      padding: 30px 40px;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255,255,255,0.5);
+    }
+
+    .details-body {
+      padding: 40px;
+      flex: 1;
+      overflow-y: auto;
     }
 
     .price-badge {
       display: inline-block;
-      padding: 6px 15px;
       background: var(--samsung-blue);
       color: white;
+      padding: 6px 14px;
       border-radius: 50px;
-      font-size: 0.65rem;
+      font-size: 0.7rem;
       font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      margin-bottom: 15px;
-    }
-
-    .btn-compare-ghost {
-      background: transparent;
-      color: var(--samsung-blue);
-      border: 1px solid var(--samsung-blue);
-      padding: 15px 30px;
-      border-radius: 50px;
-      font-family: 'Montserrat';
-      font-weight: 800;
-      font-size: 0.8rem;
-      cursor: pointer;
-      transition: all 0.3s;
       text-transform: uppercase;
       letter-spacing: 1px;
-    }
-
-    .btn-compare-ghost:hover {
-      background: var(--samsung-blue);
-      color: white;
+      margin-bottom: 15px;
     }
 
     /* LAYOUT DUAS COLUNAS CHECKOUT */
@@ -790,7 +813,53 @@
     }
 
     @media (max-width: 768px) {
-      .details-drawer { width: 100%; padding: 30px 20px; }
+      .cart-drawer {
+        top: auto;
+        bottom: -100%;
+        left: 0;
+        transform: none;
+        width: 100%;
+        height: 90vh; /* Altura mais equilibrada */
+        border-radius: 24px 24px 0 0 !important;
+        max-width: none;
+        transition: bottom 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+      }
+      .cart-drawer.active {
+        bottom: 0;
+        transform: none;
+      }
+      .checkout-container {
+        grid-template-columns: 1fr;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      .details-drawer { 
+        width: 100%; 
+        right: -100%; 
+        border-radius: 24px 24px 0 0 !important;
+        height: 90vh;
+        top: auto;
+        bottom: -100%;
+        transition: bottom 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+      }
+      .details-drawer.active { bottom: 0; right: 0; }
+      
+      .product-grid { padding: 0 12px; gap: 10px; }
+      .tabs-container { 
+        padding: 0 12px; 
+        justify-content: flex-start; 
+        overflow-x: auto; 
+        white-space: nowrap; 
+        flex-wrap: nowrap; 
+        padding-bottom: 8px;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+      .tabs-container::-webkit-scrollbar { display: none; }
+      
+      /* AJUSTES DE ESCALA MOBILE PARA CONFORTO */
+      .details-body { padding: 25px 20px !important; }
+      .details-header { padding: 20px !important; }
       .details-img-container { padding: 30px !important; margin-bottom: 20px !important; }
       .details-img { max-height: 220px !important; }
       .details-title { font-size: 1.6rem !important; }
@@ -808,124 +877,207 @@
       .summary-panel { padding: 20px !important; border-radius: 20px !important; }
       .summary-row { font-size: 0.8rem !important; margin-bottom: 8px !important; }
       
-      .cart-drawer {
-        width: 100%;
-        height: 100%;
-        border-radius: 0 !important;
-        top: 0;
-        left: 0;
-        transform: none;
-      }
-      .cart-drawer.active { transform: none; }
+      .btn-checkout { padding: 12px !important; font-size: 0.8rem !important; }
       
-      .checkout-container {
-        grid-template-columns: 1fr;
-        overflow-y: auto;
-      }
-
-      .product-grid { 
-        padding: 0 15px; 
-        gap: 15px; 
-        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-      }
-      .product-card {
-        border-radius: 8px;
-        min-height: 420px;
+      /* AJUSTE DE TOQUE PARA BOTÕES NO MOBILE */
+      .qty-btn, .btn-header, .btn-checkout, .tab-btn {
+        min-height: 44px;
         display: flex;
-        flex-direction: column;
-      }
-      .product-info {
-        padding: 15px;
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-      }
-      .card-controls {
-        flex-direction: column;
-        align-items: stretch;
-      }
-      .card-qty-selector {
-        width: 100%;
-        margin-bottom: 8px;
-      }
-      .btn-add {
-        width: 100%;
+        align-items: center;
+        justify-content: center;
       }
     }
 
-    /* GHOST COMPARE OVERLAY */
+    /* AJUSTE PARA TABLETS (iPad, etc) */
+    @media (min-width: 769px) and (max-width: 1100px) {
+      .cart-drawer { width: 95%; height: 90vh; }
+      .checkout-container { grid-template-columns: 1fr 1fr; }
+      .details-drawer { width: 80%; }
+    }
+
+    .details-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--gray-medium);
+    }
+    .details-body { flex: 1; overflow-y: auto; }
+    .details-img { width: 100%; height: 250px; object-fit: contain; margin-bottom: 20px; }
+    .details-title { font-family: 'Montserrat'; font-weight: 800; font-size: 1.4rem; color: var(--mastercell-black); margin-bottom: 10px; }
+    .details-spec-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(0,0,0,0.05); font-size: 0.85rem; }
+    .details-spec-label { font-weight: 700; color: var(--text-secondary); }
+    .details-spec-val { font-weight: 600; color: var(--mastercell-black); }
+
+    .btn-compare-ghost {
+      margin-top: 30px;
+      width: 100%;
+      padding: 15px;
+      border: 1px solid var(--samsung-blue);
+      background: transparent;
+      color: var(--samsung-blue);
+      border-radius: 8px;
+      font-family: 'Montserrat';
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .btn-compare-ghost:hover { background: var(--samsung-blue); color: white; }
+
+    /* 
+       PROTEÇÃO DE CÓDIGO (CODE GUARD) - MATHEUS LIMA FREITAS
+       MODO SELEÇÃO COMPARAR (GHOST COMPARE)
+       NÃO ALTERAR: Pointer-events, animação de pulso e z-index.
+    */
     .selection-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(3, 78, 162, 0.9);
-      backdrop-filter: blur(15px);
-      z-index: 4000;
+      background: rgba(3, 78, 162, 0.05);
+      z-index: 1500;
       display: none;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      color: white;
-      text-align: center;
+      pointer-events: none; /* Permite clicar nos produtos por baixo */
     }
     .selection-overlay.active { display: flex; }
+    .selection-msg {
+      background: var(--samsung-blue);
+      color: white;
+      padding: 12px 25px;
+      border-radius: 50px;
+      font-family: 'Montserrat';
+      font-weight: 800;
+      font-size: 0.8rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      pointer-events: auto;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    .selection-overlay.active { display: flex; }
+    .selection-msg {
+      background: var(--mastercell-black);
+      color: white;
+      padding: 20px 40px;
+      border-radius: 50px;
+      font-family: 'Montserrat';
+      font-weight: 800;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
 
-    /* COMPARISON TABLE MODAL */
+    /* COMPARATIVO TÉCNICO IMERSIVO ELITE */
     .compare-modal {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: white;
-      z-index: 4500;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      z-index: 6000;
       display: none;
-      flex-direction: column;
-      padding: 60px;
+      padding: 60px 5%;
       overflow-y: auto;
+      animation: fadeIn 0.5s ease;
     }
-    .compare-modal.active { display: flex; }
+    .compare-modal.active { display: block; }
 
-    .compare-table {
-      width: 100%;
-      border-collapse: separate;
-      border-spacing: 0;
-      margin-top: 40px;
+    @media (max-width: 768px) {
+      .compare-modal { padding: 40px 15px; }
+      .compare-header-ui h2 { font-size: 1.4rem !important; }
+      .compare-header-ui p { font-size: 0.75rem !important; }
+      .compare-table-wrapper { 
+        overflow-x: auto; 
+        margin: 0 -15px; 
+        padding: 0 15px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .compare-table { min-width: 600px; }
+      .compare-row-label { width: 140px !important; font-size: 0.65rem !important; padding: 15px !important; }
+      .compare-product-card { padding: 20px 10px !important; min-height: 180px !important; }
+      .compare-img { height: 100px !important; }
+      .compare-product-card div { font-size: 0.8rem !important; }
+      .compare-table td { padding: 15px !important; font-size: 0.8rem !important; }
     }
 
-    .compare-table th {
-      padding: 30px;
-      background: var(--gray-light);
-      border-bottom: 2px solid var(--samsung-blue);
+    .compare-header-ui {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 50px;
     }
 
-    .compare-table td {
-      padding: 25px;
-      border-bottom: 1px solid var(--gray-medium);
+    .compare-table-wrapper { width: 100%; }
+
+    .compare-table { 
+      width: 100%; 
+      border-collapse: separate; 
+      border-spacing: 0 15px; 
+      margin-top: 30px; 
+    }
+
+    .compare-table tr {
+      background: white;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+      transition: all 0.3s ease;
+    }
+
+    .compare-table tr:hover {
+      transform: scale(1.005);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    }
+
+    .compare-table th, .compare-table td { 
+      padding: 25px; 
       text-align: center;
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--mastercell-black);
+      border: none;
+    }
+
+    .compare-table th { 
+      font-family: 'Montserrat'; 
+      font-weight: 800; 
+      color: var(--samsung-blue);
+      background: transparent;
     }
 
     .compare-row-label {
       text-align: left !important;
-      font-weight: 800 !important;
-      color: var(--text-secondary) !important;
+      font-weight: 800;
+      color: var(--mastercell-black);
       text-transform: uppercase;
-      font-size: 0.75rem !important;
-      letter-spacing: 1.5px;
-      background: #fafafa;
+      font-size: 0.75rem;
+      letter-spacing: 1px;
       width: 250px;
+      border-radius: 15px 0 0 15px;
+      background: rgba(248, 249, 250, 0.8) !important;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .compare-product-card {
+      background: white;
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      border: 1px solid rgba(0,0,0,0.03);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
     }
 
     .compare-img {
-      height: 200px;
+      height: 120px;
       object-fit: contain;
-      margin-bottom: 20px;
       filter: drop-shadow(0 10px 20px rgba(0,0,0,0.1));
     }
 
@@ -980,6 +1132,10 @@
       font-family: 'Montserrat';
     }
 
+    .cart-drawer.active {
+      right: 0;
+    }
+
     .cart-overlay {
       position: fixed;
       top: 0;
@@ -999,7 +1155,7 @@
       opacity: 1;
     }
 
-    /* DESIGN CARRINHO ORIGINAL */
+    /* NOVO DESIGN CARRINHO PREMIUM */
     .cart-header {
       padding: 30px 40px;
       background: var(--white);
@@ -1192,79 +1348,654 @@
     .btn-email { background: var(--mastercell-black); color: white; }
     .btn-email:hover { background: #333; transform: translateY(-2px); }
 
-    /* TOAST */
+    /* DESIGN BUSCA GLOBAL ULTRA PREMIUM */
+    .search-results-global {
+      position: absolute;
+      top: calc(100% + 15px);
+      left: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border-radius: 24px;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      box-shadow: 0 30px 70px rgba(0,0,0,0.15);
+      z-index: 1100;
+      max-height: 500px;
+      overflow-y: auto;
+      display: none;
+      padding: 15px;
+      animation: searchFadeIn 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    /* ABA DE COTAÇÃO LUXURY DESIGN */
+    .cart-drawer {
+      background: rgba(255, 255, 255, 0.92) !important;
+      backdrop-filter: blur(30px) !important;
+      -webkit-backdrop-filter: blur(30px) !important;
+      border-left: 1px solid rgba(255, 255, 255, 0.3) !important;
+    }
+
+    .cart-item-card {
+      background: rgba(255, 255, 255, 0.6) !important;
+      border: 1px solid rgba(0,0,0,0.03) !important;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.02) !important;
+      border-radius: 16px !important;
+      padding: 20px !important;
+      margin-bottom: 12px !important;
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1) !important;
+    }
+
+    .cart-item-card:hover {
+      transform: translateY(-3px) scale(1.02);
+      background: white !important;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.06) !important;
+      border-color: var(--samsung-blue) !important;
+    }
+
+    .cart-item-img {
+      width: 85px !important;
+      height: 85px !important;
+      padding: 10px !important;
+      background: #fdfdfd !important;
+      border-radius: 12px !important;
+      object-fit: contain !important;
+    }
+
+    .summary-panel {
+      background: linear-gradient(145deg, #f8f9fa, #ffffff) !important;
+      border: 1px solid rgba(0,0,0,0.05) !important;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.03) !important;
+      padding: 25px !important;
+      border-radius: 20px !important;
+    }
+
+    .summary-row.total {
+      background: var(--samsung-blue) !important;
+      color: white !important;
+      padding: 15px 20px !important;
+      border-radius: 12px !important;
+      margin-top: 15px !important;
+      border-top: none !important;
+      box-shadow: 0 10px 20px rgba(3, 78, 162, 0.2) !important;
+    }
+
+    .summary-row.total span { color: white !important; }
+
+    .btn-checkout {
+      height: 60px !important;
+      border-radius: 16px !important;
+      font-size: 1rem !important;
+      letter-spacing: 1px !important;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1) !important;
+    }
+
+    /* SEARCH MODE ACTIVE STYLES */
+    .search-mode-active .tab-btn, 
+    .search-mode-active .hero-tagline, 
+    .search-mode-active .hero h1, 
+    .search-mode-active .hero p {
+      opacity: 0.3;
+      filter: blur(2px);
+      transition: all 0.5s ease;
+    }
+
+    .search-mode-active .product-grid {
+      animation: fadeInUpSearch 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    @keyframes fadeInUpSearch {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes searchFadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .search-results-global.active { display: block; }
+
+    /* Custom Scrollbar para a busca */
+    .search-results-global::-webkit-scrollbar { width: 6px; }
+    .search-results-global::-webkit-scrollbar-track { background: transparent; }
+    .search-results-global::-webkit-scrollbar-thumb { background: var(--gray-medium); border-radius: 10px; }
+
+    .search-result-item {
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      cursor: pointer;
+      border-radius: 12px;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      margin-bottom: 5px;
+    }
+
+    .search-result-item:hover {
+      background: var(--white);
+      transform: translateX(5px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      border-left: 4px solid var(--samsung-blue);
+    }
+
+    .search-result-img-container {
+      width: 55px;
+      height: 55px;
+      background: #f9f9f9;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      flex-shrink: 0;
+    }
+
+    .search-result-img { width: 100%; height: 100%; object-fit: contain; }
+
+    .search-result-info { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+
+    .search-result-name { font-size: 0.95rem; font-weight: 700; color: var(--mastercell-black); letter-spacing: -0.3px; }
+
+    .search-result-meta { display: flex; align-items: center; gap: 8px; }
+
+    .search-result-cat { 
+      font-size: 0.6rem; 
+      color: var(--samsung-blue); 
+      text-transform: uppercase; 
+      font-weight: 800; 
+      background: rgba(3, 78, 162, 0.08);
+      padding: 2px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    .search-result-price-tag {
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    .search-result-price-label { font-size: 0.55rem; color: var(--text-secondary); font-weight: 700; text-transform: uppercase; display: block; }
+    .search-result-price-val { font-size: 0.9rem; font-weight: 800; color: var(--samsung-blue); }
+
+    .search-no-results {
+      padding: 40px 20px;
+      text-align: center;
+      color: var(--text-secondary);
+    }
+
+    .search-no-results svg { margin-bottom: 15px; opacity: 0.2; }
+    .search-no-results p { font-weight: 700; font-size: 0.9rem; }
+
+    .cart-item-remove {
+      color: #ff4757;
+      cursor: pointer;
+      opacity: 0.6;
+      transition: opacity 0.2s;
+    }
+
+    .cart-item-remove:hover { opacity: 1; }
+
+    .cart-item-qty-control {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--gray-light);
+      padding: 4px 8px;
+      border-radius: 50px;
+    }
+
+    .qty-btn {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-weight: 800;
+      color: var(--samsung-blue);
+      border-radius: 50%;
+      transition: background 0.2s;
+    }
+
+    .qty-btn:hover { background: var(--gray-medium); }
+
+    .qty-val { font-weight: 800; font-size: 0.85rem; min-width: 20px; text-align: center; }
+
+    .cart-company-field {
+      padding: 20px 40px;
+      background: #fdfdfd;
+      border-top: 1px solid var(--gray-medium);
+    }
+
+    .cart-company-field label {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+
+    .cart-company-field input {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid var(--gray-medium);
+      border-radius: 8px;
+      font-family: 'Open Sans';
+      font-weight: 600;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .cart-company-field input:focus { border-color: var(--samsung-blue); }
+
+    .cart-footer {
+      padding: 30px 40px 40px;
+      background: var(--white);
+      border-top: 1px solid var(--gray-medium);
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .summary-panel {
+      background: var(--gray-light);
+      padding: 20px;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      font-weight: 600;
+    }
+
+    .summary-row.total {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #ccc;
+      color: var(--samsung-blue);
+      font-size: 1.1rem;
+      font-weight: 800;
+    }
+
+    .btn-checkout {
+      width: 100%;
+      padding: 16px;
+      border-radius: 12px;
+      border: none;
+      font-family: 'Montserrat';
+      font-weight: 800;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-whatsapp { background: #25D366; color: white; }
+    .btn-whatsapp:hover { background: #128C7E; transform: translateY(-2px); }
+    .btn-email { background: var(--mastercell-black); color: white; }
+    .btn-email:hover { background: #333; transform: translateY(-2px); }
+
+    /* DESIGN BUSCA GLOBAL ULTRA PREMIUM */
+    .search-results-global {
+      position: absolute;
+      top: calc(100% + 15px);
+      left: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border-radius: 24px;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      box-shadow: 0 30px 70px rgba(0,0,0,0.15);
+      z-index: 1100;
+      max-height: 500px;
+      overflow-y: auto;
+      display: none;
+      padding: 15px;
+      animation: searchFadeIn 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    /* ABA DE COTAÇÃO LUXURY DESIGN */
+    .cart-drawer {
+      background: rgba(255, 255, 255, 0.92) !important;
+      backdrop-filter: blur(30px) !important;
+      -webkit-backdrop-filter: blur(30px) !important;
+      border-left: 1px solid rgba(255, 255, 255, 0.3) !important;
+    }
+
+    .cart-item-card {
+      background: rgba(255, 255, 255, 0.6) !important;
+      border: 1px solid rgba(0,0,0,0.03) !important;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.02) !important;
+      border-radius: 16px !important;
+      padding: 20px !important;
+      margin-bottom: 12px !important;
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1) !important;
+    }
+
+    .cart-item-card:hover {
+      transform: translateY(-3px) scale(1.02);
+      background: white !important;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.06) !important;
+      border-color: var(--samsung-blue) !important;
+    }
+
+    .cart-item-img {
+      width: 85px !important;
+      height: 85px !important;
+      padding: 10px !important;
+      background: #fdfdfd !important;
+      border-radius: 12px !important;
+      object-fit: contain !important;
+    }
+
+    .summary-panel {
+      background: linear-gradient(145deg, #f8f9fa, #ffffff) !important;
+      border: 1px solid rgba(0,0,0,0.05) !important;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.03) !important;
+      padding: 25px !important;
+      border-radius: 20px !important;
+    }
+
+    .summary-row.total {
+      background: var(--samsung-blue) !important;
+      color: white !important;
+      padding: 15px 20px !important;
+      border-radius: 12px !important;
+      margin-top: 15px !important;
+      border-top: none !important;
+      box-shadow: 0 10px 20px rgba(3, 78, 162, 0.2) !important;
+    }
+
+    .summary-row.total span { color: white !important; }
+
+    .btn-checkout {
+      height: 60px !important;
+      border-radius: 16px !important;
+      font-size: 1rem !important;
+      letter-spacing: 1px !important;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1) !important;
+    }
+
+    /* SEARCH MODE ACTIVE STYLES */
+    .search-mode-active .tab-btn, 
+    .search-mode-active .hero-tagline, 
+    .search-mode-active .hero h1, 
+    .search-mode-active .hero p {
+      opacity: 0.3;
+      filter: blur(2px);
+      transition: all 0.5s ease;
+    }
+
+    .search-mode-active .product-grid {
+      animation: fadeInUpSearch 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    @keyframes fadeInUpSearch {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes searchFadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .search-results-global.active { display: block; }
+
+    /* Custom Scrollbar para a busca */
+    .search-results-global::-webkit-scrollbar { width: 6px; }
+    .search-results-global::-webkit-scrollbar-track { background: transparent; }
+    .search-results-global::-webkit-scrollbar-thumb { background: var(--gray-medium); border-radius: 10px; }
+
+    .search-result-item {
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      cursor: pointer;
+      border-radius: 12px;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      margin-bottom: 5px;
+    }
+
+    .search-result-item:hover {
+      background: var(--white);
+      transform: translateX(5px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      border-left: 4px solid var(--samsung-blue);
+    }
+
+    .search-result-img-container {
+      width: 55px;
+      height: 55px;
+      background: #f9f9f9;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      flex-shrink: 0;
+    }
+
+    .search-result-img { width: 100%; height: 100%; object-fit: contain; }
+
+    .search-result-info { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+
+    .search-result-name { font-size: 0.95rem; font-weight: 700; color: var(--mastercell-black); letter-spacing: -0.3px; }
+
+    .search-result-meta { display: flex; align-items: center; gap: 8px; }
+
+    .search-result-cat { 
+      font-size: 0.6rem; 
+      color: var(--samsung-blue); 
+      text-transform: uppercase; 
+      font-weight: 800; 
+      background: rgba(3, 78, 162, 0.08);
+      padding: 2px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    .search-result-price-tag {
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    .search-result-price-label { font-size: 0.55rem; color: var(--text-secondary); font-weight: 700; text-transform: uppercase; display: block; }
+    .search-result-price-val { font-size: 0.9rem; font-weight: 800; color: var(--samsung-blue); }
+
+    .search-no-results {
+      padding: 40px 20px;
+      text-align: center;
+      color: var(--text-secondary);
+    }
+
+    .search-no-results svg { margin-bottom: 15px; opacity: 0.2; }
+    .search-no-results p { font-weight: 700; font-size: 0.9rem; }
+
+    .qty-btn {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--white);
+      border-radius: 50%;
+      cursor: pointer;
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--samsung-blue);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      user-select: none;
+    }
+
+    .qty-val {
+      font-size: 0.9rem;
+      font-weight: 800;
+      min-width: 20px;
+      text-align: center;
+    }
+
+    .remove-item {
+      color: #ff4757;
+      font-size: 0.65rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-transform: uppercase;
+      margin-top: 8px;
+      display: block;
+      text-align: right;
+    }
+
+    .cart-footer {
+      padding-top: 20px;
+      border-top: 1px solid var(--gray-medium);
+    }
+
+    .cart-total {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 800;
+      font-size: 1.1rem;
+      margin-bottom: 25px;
+    }
+
+    .btn-checkout {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 8px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 0.85rem;
+      cursor: pointer;
+      margin-bottom: 12px;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+    }
+
+    .btn-whatsapp { background: #25D366; color: white; }
+    .btn-whatsapp:hover { background: #128C7E; transform: translateY(-2px); }
+    
+    .btn-email { background: var(--mastercell-black); color: white; }
+    .btn-email:hover { background: var(--samsung-blue); transform: translateY(-2px); }
+
+    /* CAMPO EMPRESA NO CARRINHO */
+    .cart-company-field {
+      margin-bottom: 20px;
+      padding: 15px;
+      background: var(--gray-light);
+      border-radius: 8px;
+    }
+    .cart-company-field label {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--samsung-blue);
+      margin-bottom: 8px;
+    }
+    .cart-company-field input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid var(--gray-medium);
+      border-radius: 4px;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+    }
+    .cart-company-field input:focus {
+      border-color: var(--samsung-blue);
+    }
+
+    /* TOAST NOTIFICATION */
     .toast {
       position: fixed;
-      bottom: 40px;
-      left: 50%;
-      transform: translateX(-50%) translateY(100px);
+      bottom: 30px;
+      right: 30px;
       background: var(--mastercell-black);
       color: white;
-      padding: 15px 30px;
-      border-radius: 50px;
-      font-weight: 700;
-      font-size: 0.85rem;
-      z-index: 6000;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-      transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+      padding: 15px 25px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      transform: translateY(100px);
       opacity: 0;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 3000;
     }
-    .toast.active { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+    .toast.active {
+      transform: translateY(0);
+      opacity: 1;
+    }
 
     /* FAQ SECTION */
     .faq-section {
-      max-width: 900px;
+      max-width: 1000px;
       margin: 100px auto;
       padding: 0 20px;
     }
-
     .faq-title {
       font-family: 'Montserrat', sans-serif;
       font-weight: 800;
-      font-size: 2rem;
+      font-size: 1.8rem;
+      color: var(--samsung-blue);
       text-align: center;
       margin-bottom: 50px;
-      color: var(--mastercell-black);
+      text-transform: uppercase;
     }
-
     .faq-item {
-      background: var(--white);
-      border: 1px solid var(--gray-medium);
-      border-radius: 16px;
-      margin-bottom: 15px;
-      overflow: hidden;
-      transition: var(--transition);
+      border-bottom: 1px solid var(--gray-medium);
+      margin-bottom: 10px;
     }
-
     .faq-question {
-      padding: 25px 30px;
+      padding: 20px 0;
       cursor: pointer;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      font-family: 'Montserrat', sans-serif;
       font-weight: 700;
+      font-size: 1rem;
       color: var(--mastercell-black);
     }
-
     .faq-answer {
-      padding: 0 30px;
       max-height: 0;
       overflow: hidden;
-      transition: all 0.4s ease;
+      transition: max-height 0.3s ease-out, padding 0.3s ease;
+      font-size: 0.9rem;
       color: var(--text-secondary);
-      font-size: 0.95rem;
+      line-height: 1.6;
     }
-
-    .faq-item.active {
-      border-color: var(--samsung-blue);
-      box-shadow: 0 10px 30px rgba(3, 78, 162, 0.05);
-    }
-
     .faq-item.active .faq-answer {
-      padding-bottom: 25px;
       max-height: 200px;
+      padding-bottom: 20px;
     }
-
     .faq-icon {
       width: 20px;
       height: 20px;
@@ -1351,6 +2082,87 @@
     }
     
     .footer-logos:hover { opacity: 1; }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+      header { 
+        padding: 15px 20px; 
+        flex-direction: column; 
+        gap: 15px;
+        text-align: center;
+      }
+      .logo-container {
+        flex-direction: column;
+        gap: 10px;
+      }
+      .logo-divider {
+        display: none;
+      }
+      .top-bar { display: none; }
+      .hero { padding: 60px 20px; }
+      .hero::after { left: 20%; right: 20%; }
+      .hero h1 { font-size: 2.2rem; }
+      .product-grid { 
+        padding: 0 15px; 
+        gap: 15px; 
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      }
+      .product-card {
+        border-radius: 8px;
+      }
+      .product-image-container {
+        height: 180px;
+        padding: 10px;
+      }
+      .product-info {
+        padding: 12px;
+        gap: 5px;
+      }
+      .product-name {
+        font-size: 0.9rem;
+        height: 2.4rem;
+      }
+      .price-pix {
+        font-size: 1.2rem;
+      }
+      .btn-add {
+        padding: 10px;
+        font-size: 0.7rem;
+      }
+      footer { padding: 50px 20px 30px; margin-top: 60px; }
+      .footer-grid {
+        flex-direction: column;
+        gap: 35px;
+        text-align: center;
+      }
+      .footer-item {
+        flex: 1 1 100%;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        gap: 25px;
+        text-align: center;
+      }
+      .footer-bottom div {
+        text-align: center !important;
+        width: 100%;
+      }
+      .footer-logos {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 15px;
+        width: 100%;
+      }
+      .footer-logos img {
+        max-height: 16px;
+        width: auto;
+        object-fit: contain;
+      }
+      .cart-drawer {
+        width: 100%;
+        right: -100%;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1385,16 +2197,15 @@
 </div>
 
 <section class="hero">
-  <div class="hero-content">
-    <span class="hero-tagline">Soluções Corporativas Samsung</span>
-    <h1>Catálogo <span>Mastercell B2B</span></h1>
-    <p>Dispositivos de alta performance e segurança Knox para impulsionar a produtividade da sua empresa.</p>
-    
+  <span class="hero-tagline">Soluções Corporativas Samsung</span>
+  <h1>Catálogo <span>Mastercell B2B</span></h1>
+  <p>Dispositivos de alta performance e segurança Knox para impulsionar a produtividade da sua empresa.</p>
+  
     <div class="search-container">
       <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input type="text" class="search-input" placeholder="O que sua empresa precisa hoje?" id="searchInput" oninput="filterProducts()">
+      <input type="text" class="search-input" placeholder="Encontre a solução tecnológica ideal para sua empresa..." oninput="handleGlobalSearch(this.value)">
+      <div class="search-results-global" id="globalSearchResults"></div>
     </div>
-  </div>
 </section>
 
 <div class="tabs-container" id="tabsContainer"></div>
@@ -1403,17 +2214,45 @@
 
 <section class="faq-section">
   <h2 class="faq-title">Dúvidas Frequentes B2B</h2>
+  
   <div class="faq-item">
-    <div class="faq-question" onclick="toggleFaq(this)">Como funciona o faturamento para empresas? <div class="faq-icon"></div></div>
-    <div class="faq-answer">Oferecemos faturamento via boleto bancário (sujeito à análise de crédito) e condições especiais para compras em volume via CNPJ.</div>
+    <div class="faq-question" onclick="toggleFaq(this)">
+      Como funciona o faturamento para empresas (CNPJ)?
+      <div class="faq-icon"></div>
+    </div>
+    <div class="faq-answer">
+      Oferecemos condições especiais de faturamento para empresas, com parcelamento em até 10x, sujeitos a análise de crédito. Aceitamos faturamento direto da fábrica Samsung para grandes volumes.
+    </div>
   </div>
+
   <div class="faq-item">
-    <div class="faq-question" onclick="toggleFaq(this)">Os produtos possuem garantia oficial? <div class="faq-icon"></div></div>
-    <div class="faq-answer">Sim, todos os produtos são originais, com nota fiscal eletrônica e garantia oficial de 12 meses da Samsung Brasil em todo o território nacional.</div>
+    <div class="faq-question" onclick="toggleFaq(this)">
+      A segurança Samsung Knox já vem inclusa nos aparelhos?
+      <div class="faq-icon"></div>
+    </div>
+    <div class="faq-answer">
+      Sim, a plataforma de segurança Knox é integrada ao hardware dos dispositivos Samsung. Oferecemos também consultoria para licenciamento do Knox Suite (Manage, E-FOTA, Asset), garantindo controle total da sua frota.
+    </div>
   </div>
+
   <div class="faq-item">
-    <div class="faq-question" onclick="toggleFaq(this)">Qual o prazo de entrega para pedidos corporativos? <div class="faq-icon"></div></div>
-    <div class="faq-answer">O prazo varia de acordo com a região e o volume do pedido, sendo geralmente entre 3 a 7 dias úteis após a confirmação do faturamento.</div>
+    <div class="faq-question" onclick="toggleFaq(this)">
+      Como funciona a garantia e o suporte técnico corporativo?
+      <div class="faq-icon"></div>
+    </div>
+    <div class="faq-answer">
+      Todos os produtos possuem garantia oficial Samsung de 12 meses. Como parceiros B2B, auxiliamos no processo de abertura de chamados e oferecemos suporte consultivo para garantir que sua operação não pare.
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFaq(this)">
+      Vocês atendem projetos sob medida para grandes volumes?
+      <div class="faq-icon"></div>
+    </div>
+    <div class="faq-answer">
+      Com certeza! Para projetos acima de 50 unidades, desenvolvemos propostas personalizadas com preços diferenciados, logística dedicada e suporte na implementação de softwares de gestão (MDM).
+    </div>
   </div>
 </section>
 
@@ -1421,46 +2260,80 @@
   <div class="footer-content">
     <div class="footer-grid">
       <div class="footer-item">
-        <h4>Mastercell B2B</h4>
-        <p>Distribuidor Oficial Samsung especializado no atendimento ao mercado corporativo, oferecendo soluções tecnológicas completas para empresas de todos os portes.</p>
+        <h4>Sobre a Mastercell</h4>
+        <p>Maior rede de franquias Samsung do Brasil, especializada em soluções corporativas e projetos de mobilidade para empresas de todos os tamanhos.</p>
+      </div>
+      <div class="footer-item">
+        <h4>Soluções B2B</h4>
+        <p>• Gestão de Dispositivos (MDM)<br>• Segurança Samsung Knox<br>• Faturamento Direto<br>• Projetos Customizados</p>
       </div>
       <div class="footer-item">
         <h4>Atendimento</h4>
-        <p>Segunda a Sexta: 08:30 às 18:00<br>Sábados: 09:00 às 13:00<br>Curitiba - PR</p>
-      </div>
-      <div class="footer-item">
-        <h4>Contato Direto</h4>
-        <p>Telefone: (41) 98903-1156<br>E-mail: samsungb2b@mastercell.com.br</p>
+        <p>Atendimento 24 Horas<br>Respostas o mais rápido possível<br>Curitiba - PR e Região Metropolitana</p>
       </div>
     </div>
     <div class="footer-bottom">
-      <div>© 2026 Mastercell B2B & Samsung Brasil. Todos os direitos reservados. | Desenvolvido por Matheus Lima e Pedro Prestes.</div>
+      <div style="text-align:left">
+        <p style="font-size:0.65rem; color:var(--samsung-blue); font-weight:800; text-transform:uppercase; margin-bottom:5px; letter-spacing:0.5px;">Distribuidor Oficial Samsung B2B em Curitiba e Região Metropolitana</p>
+        <p style="font-weight:700; color:var(--mastercell-black)">Atendimento Especializado B2B</p>
+        <p>samsungb2b@mastercell.com.br | (41) 98903-1156</p>
+      </div>
       <div class="footer-logos">
-        <div style="font-family:'Montserrat'; font-weight:800; color:var(--samsung-blue); font-size:0.9rem;">SAMSUNG <span style="font-weight:400; color:var(--text-secondary);">Partner</span></div>
-        <img src="https://www.area17.com.br/admin/fotos/estabelecimentos/samsung-experience-store-47257_6151b31a3ed75.png" alt="Mastercell" style="height:20px;">
+        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663399868611/yguSQSdDsCXfazSy.png" style="height:18px" alt="Samsung Knox">
+        <div style="width:1px; height:18px; background:#ccc"></div>
+        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663399868611/siSFKgbLwyYPKLAE.png" style="height:18px" alt="Android Enterprise Recommended">
+      </div>
+      <div style="display:flex; flex-direction:column; align-items:flex-end; gap:5px;">
+        <div>© 2026 Mastercell B2B. Todos os direitos reservados.</div>
+        <div style="font-size:0.65rem; opacity:0.7; font-weight:700; color:var(--samsung-blue);">PROPRIEDADE INTELECTUAL PROTEGIDA</div>
+        <div style="font-size:0.6rem; opacity:0.5;">Desenvolvido por <span style="font-weight:800;">Matheus Lima</span> | Idealizado por <span style="font-weight:800;">Pedro Prestes</span></div>
       </div>
     </div>
   </div>
 </footer>
 
-<!-- CARRINHO / COTAÇÃO DRAWER -->
 <div class="cart-overlay" id="cartOverlay" onclick="closeAllDrawers()"></div>
+
+<div class="selection-overlay" id="selectionOverlay">
+  <div class="selection-msg">Selecione o segundo produto para comparar</div>
+</div>
+
+<div class="details-drawer" id="detailsDrawer">
+  <div class="details-header">
+    <h2 id="detailsHeaderTitle">Detalhes Técnicos</h2>
+    <div class="close-cart" onclick="closeDetails()">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </div>
+  </div>
+  <div class="details-body" id="detailsBody"></div>
+</div>
+
+<div class="compare-modal" id="compareModal">
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:40px;">
+    <h2 style="font-family:'Montserrat'; font-weight:800; color:var(--mastercell-black);">Comparativo Técnico B2B</h2>
+    <button class="btn-admin-save" style="background:#ff4757" onclick="closeCompare()">Fechar</button>
+  </div>
+  <div id="compareTableContainer"></div>
+</div>
+
 <div class="cart-drawer" id="cartDrawer">
   <div class="cart-header">
     <div style="display:flex; align-items:center; gap:15px;">
       <div style="background:var(--samsung-blue); color:white; padding:8px 15px; border-radius:10px; font-weight:800; font-size:0.7rem; text-transform:uppercase; letter-spacing:1px;">B2B OFICIAL</div>
       <h2>Sua Cotação</h2>
     </div>
-    <button style="background:none; border:none; cursor:pointer; color:var(--text-secondary);" onclick="closeCart()">
+    <div class="close-cart" onclick="closeCart()">
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-    </button>
+    </div>
   </div>
   
   <div class="checkout-container">
+    <!-- COLUNA ESQUERDA: ITENS -->
     <div style="display:flex; flex-direction:column; overflow:hidden; border-right:1px solid rgba(0,0,0,0.05);">
       <div class="cart-items" id="cartItems"></div>
     </div>
 
+    <!-- COLUNA DIREITA: RESUMO E DADOS -->
     <div style="background:rgba(248, 249, 250, 0.5); display:flex; flex-direction:column; overflow-y:auto; padding:40px;">
       <div class="cart-company-field" style="background:transparent; padding:0; border:none; margin-bottom:30px;">
         <label for="companyName">Nome da sua Empresa / CNPJ</label>
@@ -1472,48 +2345,25 @@
       </div>
 
       <div class="cart-footer" style="background:transparent; padding:0; border:none; margin-top:30px; display:flex; flex-direction:column; gap:12px;">
-        <button class="btn-checkout btn-whatsapp" onclick="checkoutWhatsApp()">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.284l-.582 2.125 2.185-.573c.945.514 1.941.786 2.959.786.001 0 .001 0 0 0 3.183 0 5.768-2.586 5.769-5.766 0-3.18-2.585-5.766-5.766-5.766zm3.446 8.212c-.149.421-.864.814-1.203.864-.339.05-.678.279-2.231-.339-1.554-.617-2.533-2.193-2.608-2.293-.075-.1-.611-.812-.611-1.547 0-.735.386-1.096.523-1.246.137-.15.3-.187.4-.187s.2 0 .287.012c.087.012.206-.031.324.256.119.287.408.991.446 1.066.038.075.063.162.013.262-.05.1-.075.162-.15.25s-.163.175-.231.25c-.069.075-.143.156-.062.293.081.137.362.597.776.966.533.475 1.02.622 1.164.697.143.075.225.062.306-.031.081-.131.35-4.06.444-4.241.094-.181.187-.15.312-.1.125.05.79.373.927.442.137.069.225.1.256.15.031.05.031.293-.118.714z"/></svg>
-          Gerar Cotação no WhatsApp
+        <button class="btn-checkout btn-whatsapp" onclick="checkoutWhatsApp()" style="margin-bottom:0;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="margin-right:8px;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.414 0 .004 5.412 0 12.048c0 2.123.554 4.197 1.608 6.037L0 24l6.117-1.605a11.803 11.803 0 005.925 1.586h.005c6.631 0 12.046-5.411 12.05-12.047a11.882 11.882 0 00-3.536-8.509z"/></svg>
+          Solicitar via WhatsApp
         </button>
-        <button class="btn-checkout btn-email" onclick="checkoutEmail()">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          Receber por E-mail
+        <button class="btn-checkout btn-email" onclick="checkoutEmail()" style="margin-bottom:0; background:var(--mastercell-black); border:1px solid rgba(255,255,255,0.1);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right:8px;"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Solicitar via E-mail
         </button>
+        <div style="text-align:center; font-size:0.6rem; color:#999; font-weight:700; text-transform:uppercase; letter-spacing:1px; margin-top:10px; line-height:1.4;">
+          Atendimento B2B Especializado<br>Faturamento Direto CNPJ
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- DETALHES DRAWER -->
-<div class="details-drawer" id="detailsDrawer">
-  <div style="display:flex; justify-content:flex-end; margin-bottom:20px;">
-    <button style="background:var(--gray-light); border:none; width:44px; height:44px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--mastercell-black);" onclick="closeDetails()">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-    </button>
-  </div>
-  <div id="detailsBody" style="flex:1; overflow-y:auto;"></div>
-</div>
-
-<!-- GHOST COMPARE SELECTION OVERLAY -->
-<div class="selection-overlay" id="selectionOverlay">
-  <div style="font-family:'Montserrat'; font-weight:800; font-size:2.5rem; margin-bottom:15px;">Modo Comparação Ativo</div>
-  <div style="font-size:1.2rem; opacity:0.9; margin-bottom:40px;">Selecione o segundo produto para ver o comparativo</div>
-  <button class="btn-close-compare" onclick="cancelCompare()" style="background:white; color:var(--samsung-blue);">Cancelar</button>
-</div>
-
-<!-- COMPARE MODAL -->
-<div class="compare-modal" id="compareModal">
-  <div style="display:flex; justify-content:space-between; align-items:center;">
-    <h2 style="font-family:'Montserrat'; font-weight:800; font-size:1.8rem; color:var(--mastercell-black);">Comparativo Premium</h2>
-    <button class="btn-close-compare" onclick="closeCompare()">Fechar Comparativo</button>
-  </div>
-  <div id="compareTableContainer"></div>
-</div>
-
-<!-- TOAST NOTIFICATION -->
 <div class="toast" id="toast">
-  <div id="toastMsg">Produto adicionado à cotação</div>
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+  <span id="toastMsg">Adicionado à cotação!</span>
 </div>
 
 <!-- PAINEL ADMIN -->
@@ -1664,15 +2514,15 @@
         <div class="specs-grid">
           <div class="spec-card">
             <div class="spec-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9zM9 1h1M14 1h1M9 23h1M14 23h1M1 9v1M1 14v1M23 9v1M23 14v1"/></svg></div>
-            <div class="spec-content"><span class="spec-label">${p.label_processador || 'Processador'}</span><span class="spec-value">${p.processador || 'Octa-Core'}</span></div>
+            <div class="spec-content"><span class="spec-label">Processador</span><span class="spec-value">${p.processador || 'Octa-Core'}</span></div>
           </div>
           <div class="spec-card">
             <div class="spec-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 19v2M10 19v2M14 19v2M18 19v2M8 11V9a4 4 0 1 1 8 0v2M6 11h12a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2z"/></svg></div>
-            <div class="spec-content"><span class="spec-label">${p.label_memoria || 'Memória'}</span><span class="spec-value">${p.memoria || 'Consulte'}</span></div>
+            <div class="spec-content"><span class="spec-label">Memória</span><span class="spec-value">${p.memoria || 'Consulte'}</span></div>
           </div>
           <div class="spec-card">
             <div class="spec-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
-            <div class="spec-content"><span class="spec-label">${p.label_tela || 'Tela'}</span><span class="spec-value">${p.tela || 'Super AMOLED'}</span></div>
+            <div class="spec-content"><span class="spec-label">Tela</span><span class="spec-value">${p.tela || 'Super AMOLED'}</span></div>
           </div>
           <div class="spec-card">
             <div class="spec-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
@@ -1731,11 +2581,19 @@
 
   function finishCompare(modelo2, pix2, img2, familia2) {
     const p1 = compareBase;
-    const p2 = CATALOG.categories[compareBase.category].find(x => x.modelo === modelo2) || { modelo: modelo2, pix: pix2, img: img2, familia: familia2 };
+    const p2 = CATALOG.categories[currentCategory].find(x => x.modelo === modelo2) || { modelo: modelo2, pix: pix2, img: img2, familia: familia2 };
     
     const container = document.getElementById('compareTableContainer');
     container.innerHTML = `
-      <div style="overflow-x:auto;">
+      <div class="compare-header-ui">
+        <div>
+          <h2 style="font-family:'Montserrat'; font-weight:800; font-size:2rem; letter-spacing:-1px;">Comparativo <span style="color:var(--samsung-blue)">Técnico B2B</span></h2>
+          <p style="color:var(--text-secondary); font-size:0.9rem; font-weight:600;">Analise as especificações e escolha a melhor opção para sua empresa.</p>
+        </div>
+        <button class="btn-close-compare" onclick="closeCompare()">Fechar Comparativo</button>
+      </div>
+
+      <div class="compare-table-wrapper">
         <table class="compare-table">
           <thead>
             <tr>
@@ -1755,81 +2613,111 @@
             </tr>
           </thead>
           <tbody>
-            <tr><td class="compare-row-label">Preço PIX</td><td>${fmt(p1.pix)}</td><td>${fmt(p2.pix)}</td></tr>
-            <tr><td class="compare-row-label">${p1.label_processador || 'Processador'}</td><td>${p1.processador || 'Octa-Core'}</td><td>${p2.processador || 'Octa-Core'}</td></tr>
-            <tr><td class="compare-row-label">${p1.label_memoria || 'Memória'}</td><td>${p1.memoria || 'Consulte'}</td><td>${p2.memoria || 'Consulte'}</td></tr>
-            <tr><td class="compare-row-label">${p1.label_tela || 'Tela'}</td><td>${p1.tela || 'Super AMOLED'}</td><td>${p2.tela || 'Super AMOLED'}</td></tr>
-            <tr><td class="compare-row-label">Segurança</td><td>Samsung Knox</td><td>Samsung Knox</td></tr>
             <tr>
-              <td class="compare-row-label">Ação</td>
-              <td><button class="compare-add-btn" onclick="addToCart('${p1.modelo.replace(/'/g, "\\'")}', ${p1.pix}, ${p1.x6 || p1.pix * 1.08}, ${p1.x10 || p1.pix * 1.15})">Adicionar este</button></td>
-              <td><button class="compare-add-btn" onclick="addToCart('${p2.modelo.replace(/'/g, "\\'")}', ${p2.pix}, ${p2.x6 || p2.pix * 1.08}, ${p2.x10 || p2.pix * 1.15})">Adicionar este</button></td>
+              <td class="compare-row-label">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/></svg>
+                Processador
+              </td>
+              <td style="font-weight:700;">${p1.processador || 'Octa-Core'}</td>
+              <td style="font-weight:700;">${p2.processador || 'Octa-Core'}</td>
+            </tr>
+            <tr>
+              <td class="compare-row-label">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 19v2M10 19v2M14 19v2M18 19v2M8 11V9a4 4 0 1 1 8 0v2M6 11h12a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2z"/></svg>
+                Memória / RAM
+              </td>
+              <td style="font-weight:700;">${p1.memoria || 'Consulte'}</td>
+              <td style="font-weight:700;">${p2.memoria || 'Consulte'}</td>
+            </tr>
+            <tr>
+              <td class="compare-row-label">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                Tela
+              </td>
+              <td style="font-weight:700;">${p1.tela || 'Super AMOLED'}</td>
+              <td style="font-weight:700;">${p2.tela || 'Super AMOLED'}</td>
+            </tr>
+            <tr>
+              <td class="compare-row-label">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                Segurança
+              </td>
+              <td style="font-weight:700;">Samsung Knox</td>
+              <td style="font-weight:700;">Samsung Knox</td>
+            </tr>
+            <tr>
+              <td class="compare-row-label" style="background:rgba(3, 78, 162, 0.05) !important; color:var(--samsung-blue);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M7 15h0M2 9.5h20"/></svg>
+                Preço PIX
+              </td>
+              <td style="font-weight:800; color:var(--samsung-blue); font-size:1.3rem;">${fmt(p1.pix)}</td>
+              <td style="font-weight:800; color:var(--samsung-blue); font-size:1.3rem;">${fmt(p2.pix)}</td>
             </tr>
           </tbody>
         </table>
       </div>
+      <div style="margin-top:40px; text-align:center; font-size:0.7rem; color:#999; font-weight:800; text-transform:uppercase; letter-spacing:2px;">
+        Faturamento Direto CNPJ | Garantia Oficial Samsung Brasil
+      </div>
     `;
     
-    document.getElementById('compareModal').classList.add('active');
     cancelCompare();
+    document.getElementById('compareModal').classList.add('active');
   }
 
   function closeCompare() { document.getElementById('compareModal').classList.remove('active'); }
 
-  function filterProducts() {
-    const term = document.getElementById('searchInput').value.toLowerCase();
-    const filtered = CATALOG.categories[currentCategory].filter(p => p.modelo.toLowerCase().includes(term) || p.familia.toLowerCase().includes(term));
-    renderProducts(filtered, currentCategory);
-  }
-
-  function fmt(v) { return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(v); }
+  function fmt(val) { return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(val); }
 
   function updateCardQty(id, delta) {
-    const input = document.getElementById(id);
-    let val = parseInt(input.value) + delta;
+    const el = document.getElementById(id);
+    let val = parseInt(el.value) + delta;
     if (val < 1) val = 1;
-    input.value = val;
+    el.value = val;
   }
 
-  function validateQty(input) { if (input.value < 1) input.value = 1; }
+  function validateQty(el) { if (el.value < 1) el.value = 1; }
 
-  function addWithQty(name, pix, x6, x10, inputId) {
+  function addWithQty(name, price, x6, x10, inputId) {
     const qty = parseInt(document.getElementById(inputId).value);
-    addToCart(name, pix, x6, x10, qty);
+    addToCart(name, price, qty, x6, x10);
+    document.getElementById(inputId).value = 1;
   }
 
-  function addToCart(name, price, x6, x10, qty = 1) {
-    const existing = cart.find(i => i.name === name);
+  function addToCart(name, price, qty, x6, x10) {
+    const existing = cart.find(item => item.name === name);
     if (existing) existing.qty += qty;
-    else cart.push({ name, price, x6, x10, qty });
-    updateCartUI();
-    showToast(`${qty}x ${name} adicionado(s)`);
-    if (document.getElementById('compareModal').classList.contains('active')) closeCompare();
+    else cart.push({name, price, qty, x6: x6, x10: x10});
+    updateCartBadge();
+    renderCartItems();
+    showToast(`${qty}x ${name} adicionado!`);
   }
 
-  function updateCartUI() {
-    const container = document.getElementById('cartItems');
+  function updateCartBadge() {
     const badge = document.getElementById('cartBadge');
-    const totalItems = cart.reduce((acc, i) => acc + i.qty, 0);
-    const totalPix = cart.reduce((acc, i) => acc + (i.price * i.qty), 0);
-    const totalX6 = cart.reduce((acc, i) => acc + ((i.x6 || i.price * 1.08) * i.qty), 0);
-    const totalX10 = cart.reduce((acc, i) => acc + ((i.x10 || i.price * 1.15) * i.qty), 0);
+    const totalQty = cart.reduce((acc, item) => acc + item.qty, 0);
+    badge.innerText = totalQty;
+    badge.style.display = totalQty > 0 ? 'inline' : 'none';
+  }
 
-    badge.innerText = totalItems;
-    badge.style.display = totalItems > 0 ? 'inline' : 'none';
-
-    const summaryDiv = document.querySelector('.cart-total');
-    summaryDiv.innerHTML = `
-      <div class="summary-panel">
-        <div class="summary-row"><span>Total em 10x:</span><span>${fmt(totalX10)}</span></div>
-        <div class="summary-row"><span>Total em 6x:</span><span>${fmt(totalX6)}</span></div>
-        <div class="summary-row total"><span>Total no PIX:</span><span style="font-size:1.4rem;">${fmt(totalPix)}</span></div>
-        <div style="font-size:0.7rem; color:var(--text-secondary); text-align:right; font-weight:800; text-transform:uppercase; margin-top:10px;">
-          Economia de ${fmt(totalX10 - totalPix)} no PIX
+  function renderCartItems() {
+    const container = document.getElementById('cartItems');
+    const checkoutContainer = document.querySelector('.checkout-container');
+    
+    if (cart.length === 0) {
+      container.innerHTML = `
+        <div style="text-align:center; padding:100px 20px; opacity:0.3;">
+          <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <p style="margin-top:20px; font-weight:700; font-size:1.2rem;">Sua cotação está vazia</p>
+          <button class="btn-header" style="margin: 20px auto;" onclick="closeCart()">Explorar Catálogo</button>
         </div>
-      </div>
-    `
+      `;
+      if (checkoutContainer) checkoutContainer.style.display = 'none';
+      return;
+    }
 
+    if (checkoutContainer) checkoutContainer.style.display = 'grid';
+    
     container.innerHTML = cart.map((item, idx) => {
       let imgUrl = 'https://via.placeholder.com/100';
       for (let cat in CATALOG.categories) {
@@ -1845,25 +2733,91 @@
             <div class="cart-item-price">PIX: ${fmt(item.price * item.qty)}</div>
           </div>
           <div class="cart-item-actions">
-            <div class="cart-item-qty-control">
-              <div class="qty-btn" onclick="updateCartQty(${idx}, -1)">-</div>
-              <div class="qty-val">${item.qty}</div>
-              <div class="qty-btn" onclick="updateCartQty(${idx}, 1)">+</div>
+            <div class="cart-item-remove" onclick="removeFromCart(${idx})">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
             </div>
-            <div class="cart-item-remove" onclick="removeFromCart(${idx})">Remover</div>
+            <div class="cart-item-qty-control">
+              <div class="qty-btn" onclick="updateQty(${idx}, -1)">-</div>
+              <div class="qty-val">${item.qty}</div>
+              <div class="qty-btn" onclick="updateQty(${idx}, 1)">+</div>
+            </div>
           </div>
         </div>
       `;
     }).join('');
+    
+    const totalPix = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
+    const totalX6 = cart.reduce((acc, item) => acc + ((item.x6 || item.price * 1.08) * item.qty), 0);
+    const totalX10 = cart.reduce((acc, item) => acc + ((item.x10 || item.price * 1.15) * item.qty), 0);
+
+    const summaryDiv = document.querySelector('.cart-total');
+    summaryDiv.innerHTML = `
+      <div class="summary-panel">
+        <div class="summary-row"><span>Total em 10x:</span><span>${fmt(totalX10)}</span></div>
+        <div class="summary-row"><span>Total em 6x:</span><span>${fmt(totalX6)}</span></div>
+        <div class="summary-row total"><span>Total no PIX:</span><span style="font-size:1.4rem;">${fmt(totalPix)}</span></div>
+        <div style="font-size:0.7rem; color:var(--text-secondary); text-align:right; font-weight:800; text-transform:uppercase; margin-top:10px;">
+          Economia de ${fmt(totalX10 - totalPix)} no PIX
+        </div>
+      </div>
+    `;
   }
 
-  function updateCartQty(idx, delta) {
+  function handleGlobalSearch(query) {
+    const resultsDiv = document.getElementById('globalSearchResults');
+    const grid = document.getElementById('productGrid');
+    const body = document.body;
+
+    // Sempre oculta a lista suspensa conforme solicitado
+    resultsDiv.classList.remove('active');
+
+    if (!query || query.length < 2) {
+      body.classList.remove('search-mode-active');
+      switchCategory(currentCategory);
+      return;
+    }
+
+    let results = [];
+    Object.entries(CATALOG.categories).forEach(([cat, products]) => {
+      products.forEach(p => {
+        if (p.modelo.toLowerCase().includes(query.toLowerCase()) || p.familia.toLowerCase().includes(query.toLowerCase())) {
+          results.push({ ...p, category: cat });
+        }
+      });
+    });
+
+    if (results.length > 0) {
+      body.classList.add('search-mode-active');
+      renderProducts(results, "Soluções Encontradas");
+    } else {
+      grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:100px 20px; color:#999;">
+        <h2 style="font-family:'Montserrat'; font-weight:800; color:#ddd; font-size:4rem; margin-bottom:20px;">OPS!</h2>
+        <p style="font-size:1.2rem;">Não encontramos uma solução com "${query}".</p>
+        <p style="font-size:1rem; margin-top:10px;">Deseja um projeto personalizado? Entre em contato conosco!</p>
+        <button class="btn-header" style="margin: 30px auto;" onclick="document.querySelector('.search-input').value=''; handleGlobalSearch('')">Limpar Busca</button>
+      </div>`;
+    }
+  }
+
+  // Fechar busca ao clicar fora
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.search-container')) {
+      document.getElementById('globalSearchResults').classList.remove('active');
+    }
+  });
+
+  function updateQty(idx, delta) {
     cart[idx].qty += delta;
-    if (cart[idx].qty < 1) removeFromCart(idx);
-    else updateCartUI();
+    if (cart[idx].qty <= 0) cart.splice(idx, 1);
+    updateCartBadge();
+    renderCartItems();
   }
 
-  function removeFromCart(idx) { cart.splice(idx, 1); updateCartUI(); }
+  function removeFromCart(idx) {
+    cart.splice(idx, 1);
+    updateCartBadge();
+    renderCartItems();
+  }
 
   function openCart() {
     document.getElementById('cartDrawer').classList.add('active');
@@ -1962,16 +2916,10 @@
           <label class="admin-label">Família</label><input class="admin-input" value="${p.familia || ''}" onchange="updateAdminData('${cat}', ${idx}, 'familia', this.value)">
           <label class="admin-label">URL Imagem</label><input class="admin-input" value="${p.img || ''}" onchange="updateAdminData('${cat}', ${idx}, 'img', this.value)">
           <!-- PROTEÇÃO DE CÓDIGO: CAMPOS DE ESPECIFICAÇÕES TÉCNICAS AVANÇADAS -->
-          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:15px; background:rgba(3, 78, 162, 0.05); padding:10px; border-radius:8px;">
-            <div style="grid-column: span 2; font-size:0.6rem; font-weight:800; color:var(--samsung-blue); text-transform:uppercase; margin-bottom:5px;">Rótulos das Especificações</div>
-            <div><label class="admin-label">Rótulo 1</label><input class="admin-input" placeholder="Ex: Processador" value="${p.label_processador || ''}" onchange="updateAdminData('${cat}', ${idx}, 'label_processador', this.value)"></div>
-            <div><label class="admin-label">Rótulo 2</label><input class="admin-input" placeholder="Ex: Memória" value="${p.label_memoria || ''}" onchange="updateAdminData('${cat}', ${idx}, 'label_memoria', this.value)"></div>
-            <div><label class="admin-label">Rótulo 3</label><input class="admin-input" placeholder="Ex: Tela" value="${p.label_tela || ''}" onchange="updateAdminData('${cat}', ${idx}, 'label_tela', this.value)"></div>
-          </div>
           <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:10px;">
-            <div><label class="admin-label">Valor 1</label><input class="admin-input" value="${p.processador || ''}" onchange="updateAdminData('${cat}', ${idx}, 'processador', this.value)"></div>
-            <div><label class="admin-label">Valor 2</label><input class="admin-input" value="${p.memoria || ''}" onchange="updateAdminData('${cat}', ${idx}, 'memoria', this.value)"></div>
-            <div><label class="admin-label">Valor 3</label><input class="admin-input" value="${p.tela || ''}" onchange="updateAdminData('${cat}', ${idx}, 'tela', this.value)"></div>
+            <div><label class="admin-label">Processador</label><input class="admin-input" value="${p.processador || ''}" onchange="updateAdminData('${cat}', ${idx}, 'processador', this.value)"></div>
+            <div><label class="admin-label">Memória/RAM</label><input class="admin-input" value="${p.memoria || ''}" onchange="updateAdminData('${cat}', ${idx}, 'memoria', this.value)"></div>
+            <div><label class="admin-label">Tela</label><input class="admin-input" value="${p.tela || ''}" onchange="updateAdminData('${cat}', ${idx}, 'tela', this.value)"></div>
           </div>
           <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:10px;">
             <div><label class="admin-label">PIX</label><input class="admin-input" type="number" value="${p.pix || 0}" onchange="updateAdminData('${cat}', ${idx}, 'pix', parseFloat(this.value))"></div>
@@ -2024,6 +2972,27 @@
       showToast('Conteúdo Protegido | Mastercell B2B');
     }
   });
+
+  // Placeholder Dinâmico B2B
+  const placeholders = [
+    "Encontre a solução tecnológica ideal para sua empresa...",
+    "Procurando a Linha Galaxy S25 para sua frota?",
+    "Precisa de Tablets corporativos para sua equipe?",
+    "Busque por Segurança Samsung Knox e MDM...",
+    "Faturamento direto via CNPJ: Busque o modelo...",
+    "Projetos sob medida para grandes volumes: Comece aqui..."
+  ];
+  let currentPlaceholderIdx = 0;
+  const searchInput = document.querySelector('.search-input');
+  
+  function rotatePlaceholder() {
+    if (document.activeElement !== searchInput && searchInput.value === "") {
+      searchInput.style.transition = "opacity 0.3s ease";
+      searchInput.placeholder = placeholders[currentPlaceholderIdx];
+      currentPlaceholderIdx = (currentPlaceholderIdx + 1) % placeholders.length;
+    }
+  }
+  setInterval(rotatePlaceholder, 4000);
 </script>
 </body>
 </html>
