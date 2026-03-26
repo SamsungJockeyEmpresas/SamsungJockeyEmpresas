@@ -2514,15 +2514,15 @@
         <div class="specs-grid">
           <div class="spec-card">
             <div class="spec-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9zM9 1h1M14 1h1M9 23h1M14 23h1M1 9v1M1 14v1M23 9v1M23 14v1"/></svg></div>
-            <div class="spec-content"><span class="spec-label">Processador</span><span class="spec-value">${p.processador || 'Octa-Core'}</span></div>
+            <div class="spec-content"><span class="spec-label">${p.label_processador || 'Processador'}</span><span class="spec-value">${p.processador || 'Octa-Core'}</span></div>
           </div>
           <div class="spec-card">
             <div class="spec-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 19v2M10 19v2M14 19v2M18 19v2M8 11V9a4 4 0 1 1 8 0v2M6 11h12a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2z"/></svg></div>
-            <div class="spec-content"><span class="spec-label">Memória</span><span class="spec-value">${p.memoria || 'Consulte'}</span></div>
+            <div class="spec-content"><span class="spec-label">${p.label_memoria || 'Memória'}</span><span class="spec-value">${p.memoria || 'Consulte'}</span></div>
           </div>
           <div class="spec-card">
             <div class="spec-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
-            <div class="spec-content"><span class="spec-label">Tela</span><span class="spec-value">${p.tela || 'Super AMOLED'}</span></div>
+            <div class="spec-content"><span class="spec-label">${p.label_tela || 'Tela'}</span><span class="spec-value">${p.tela || 'Super AMOLED'}</span></div>
           </div>
           <div class="spec-card">
             <div class="spec-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
@@ -2616,7 +2616,7 @@
             <tr>
               <td class="compare-row-label">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/></svg>
-                Processador
+                ${p1.label_processador || 'Processador'}
               </td>
               <td style="font-weight:700;">${p1.processador || 'Octa-Core'}</td>
               <td style="font-weight:700;">${p2.processador || 'Octa-Core'}</td>
@@ -2624,7 +2624,7 @@
             <tr>
               <td class="compare-row-label">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 19v2M10 19v2M14 19v2M18 19v2M8 11V9a4 4 0 1 1 8 0v2M6 11h12a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2z"/></svg>
-                Memória / RAM
+                ${p1.label_memoria || 'Memória / RAM'}
               </td>
               <td style="font-weight:700;">${p1.memoria || 'Consulte'}</td>
               <td style="font-weight:700;">${p2.memoria || 'Consulte'}</td>
@@ -2632,7 +2632,7 @@
             <tr>
               <td class="compare-row-label">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
-                Tela
+                ${p1.label_tela || 'Tela'}
               </td>
               <td style="font-weight:700;">${p1.tela || 'Super AMOLED'}</td>
               <td style="font-weight:700;">${p2.tela || 'Super AMOLED'}</td>
@@ -2916,10 +2916,15 @@
           <label class="admin-label">Família</label><input class="admin-input" value="${p.familia || ''}" onchange="updateAdminData('${cat}', ${idx}, 'familia', this.value)">
           <label class="admin-label">URL Imagem</label><input class="admin-input" value="${p.img || ''}" onchange="updateAdminData('${cat}', ${idx}, 'img', this.value)">
           <!-- PROTEÇÃO DE CÓDIGO: CAMPOS DE ESPECIFICAÇÕES TÉCNICAS AVANÇADAS -->
+          <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:10px; margin-bottom:15px; background:rgba(3, 78, 162, 0.05); padding:10px; border-radius:8px;">
+            <div><label class="admin-label">Rótulo 1</label><input class="admin-input" placeholder="Ex: Processador" value="${p.label_processador || ''}" onchange="updateAdminData('${cat}', ${idx}, 'label_processador', this.value)"></div>
+            <div><label class="admin-label">Rótulo 2</label><input class="admin-input" placeholder="Ex: Memória" value="${p.label_memoria || ''}" onchange="updateAdminData('${cat}', ${idx}, 'label_memoria', this.value)"></div>
+            <div><label class="admin-label">Rótulo 3</label><input class="admin-input" placeholder="Ex: Tela" value="${p.label_tela || ''}" onchange="updateAdminData('${cat}', ${idx}, 'label_tela', this.value)"></div>
+          </div>
           <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:10px;">
-            <div><label class="admin-label">Processador</label><input class="admin-input" value="${p.processador || ''}" onchange="updateAdminData('${cat}', ${idx}, 'processador', this.value)"></div>
-            <div><label class="admin-label">Memória/RAM</label><input class="admin-input" value="${p.memoria || ''}" onchange="updateAdminData('${cat}', ${idx}, 'memoria', this.value)"></div>
-            <div><label class="admin-label">Tela</label><input class="admin-input" value="${p.tela || ''}" onchange="updateAdminData('${cat}', ${idx}, 'tela', this.value)"></div>
+            <div><label class="admin-label">Valor 1</label><input class="admin-input" value="${p.processador || ''}" onchange="updateAdminData('${cat}', ${idx}, 'processador', this.value)"></div>
+            <div><label class="admin-label">Valor 2</label><input class="admin-input" value="${p.memoria || ''}" onchange="updateAdminData('${cat}', ${idx}, 'memoria', this.value)"></div>
+            <div><label class="admin-label">Valor 3</label><input class="admin-input" value="${p.tela || ''}" onchange="updateAdminData('${cat}', ${idx}, 'tela', this.value)"></div>
           </div>
           <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:10px;">
             <div><label class="admin-label">PIX</label><input class="admin-input" type="number" value="${p.pix || 0}" onchange="updateAdminData('${cat}', ${idx}, 'pix', parseFloat(this.value))"></div>
