@@ -1370,7 +1370,7 @@
 
   function closeDetails() {
     document.getElementById('detailsDrawer').classList.remove('active');
-    if (!isSelectingCompare) document.getElementById('cartOverlay').classList.remove('active');
+    document.getElementById('cartOverlay').classList.remove('active');
   }
 
   function closeAllDrawers() {
@@ -1383,7 +1383,12 @@
     const p = CATALOG.categories[category].find(x => x.modelo === modelo);
     compareBase = { ...p, category };
     isSelectingCompare = true;
-    closeDetails();
+    
+    // Forçar o fechamento de qualquer overlay ou fundo que esteja bloqueando a tela
+    document.getElementById('detailsDrawer').classList.remove('active');
+    document.getElementById('cartOverlay').classList.remove('active');
+    document.getElementById('cartOverlay').style.display = 'none'; // Garante que o fundo suma
+    
     document.getElementById('selectionOverlay').classList.add('active');
     document.querySelectorAll('.product-card').forEach(card => card.classList.add('selecting-compare'));
     showToast("Selecione o segundo produto na lista");
@@ -1394,6 +1399,7 @@
     compareBase = null;
     document.getElementById('selectionOverlay').classList.remove('active');
     document.getElementById('cartOverlay').classList.remove('active');
+    document.getElementById('cartOverlay').style.display = ''; // Restaura o comportamento normal
     document.querySelectorAll('.product-card').forEach(card => card.classList.remove('selecting-compare'));
   }
 
