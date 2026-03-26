@@ -781,6 +781,14 @@
       color: white;
     }
 
+    /* LAYOUT DUAS COLUNAS CHECKOUT */
+    .checkout-container {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      height: 100%;
+      overflow: hidden;
+    }
+
     @media (max-width: 768px) {
       .details-drawer { width: 100%; padding: 30px 20px; }
       .details-img-container { padding: 30px !important; margin-bottom: 20px !important; }
@@ -809,6 +817,41 @@
         transform: none;
       }
       .cart-drawer.active { transform: none; }
+      
+      .checkout-container {
+        grid-template-columns: 1fr;
+        overflow-y: auto;
+      }
+
+      .product-grid { 
+        padding: 0 15px; 
+        gap: 15px; 
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      }
+      .product-card {
+        border-radius: 8px;
+        min-height: 420px;
+        display: flex;
+        flex-direction: column;
+      }
+      .product-info {
+        padding: 15px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .card-controls {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .card-qty-selector {
+        width: 100%;
+        margin-bottom: 8px;
+      }
+      .btn-add {
+        width: 100%;
+      }
     }
 
     /* GHOST COMPARE OVERLAY */
@@ -937,10 +980,6 @@
       font-family: 'Montserrat';
     }
 
-    .cart-drawer.active {
-      right: 0;
-    }
-
     .cart-overlay {
       position: fixed;
       top: 0;
@@ -960,7 +999,7 @@
       opacity: 1;
     }
 
-    /* NOVO DESIGN CARRINHO PREMIUM */
+    /* DESIGN CARRINHO ORIGINAL */
     .cart-header {
       padding: 30px 40px;
       background: var(--white);
@@ -1312,116 +1351,6 @@
     }
     
     .footer-logos:hover { opacity: 1; }
-
-    /* MOBILE */
-    @media (max-width: 768px) {
-      header { 
-        padding: 15px 20px; 
-        flex-direction: column; 
-        gap: 15px;
-        text-align: center;
-      }
-      .logo-container {
-        flex-direction: column;
-        gap: 10px;
-      }
-      .logo-divider {
-        display: none;
-      }
-      .top-bar { display: none; }
-      .hero { padding: 60px 20px; }
-      .hero::after { left: 20%; right: 20%; }
-      .hero h1 { font-size: 2.2rem; }
-      .product-grid { 
-        padding: 0 15px; 
-        gap: 15px; 
-        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-      }
-      .product-card {
-        border-radius: 8px;
-      }
-      .product-info {
-        padding: 15px;
-      }
-      .card-controls {
-        flex-direction: column;
-        align-items: stretch;
-      }
-      .card-qty-selector {
-        width: 100%;
-        margin-bottom: 8px;
-      }
-      .btn-add {
-        width: 100%;
-      }
-      .product-image-container {
-        height: 180px;
-        padding: 10px;
-      }
-      .product-info {
-        padding: 12px;
-        gap: 5px;
-      }
-      .product-name {
-        font-size: 0.9rem;
-        height: 2.4rem;
-      }
-      .price-pix {
-        font-size: 1.2rem;
-      }
-      .btn-add {
-        padding: 10px;
-        font-size: 0.7rem;
-      }
-      footer { padding: 50px 20px 30px; margin-top: 60px; }
-      .footer-grid {
-        flex-direction: column;
-        gap: 35px;
-        text-align: center;
-      }
-      .footer-item {
-        flex: 1 1 100%;
-      }
-      .footer-bottom {
-        flex-direction: column;
-        gap: 25px;
-        text-align: center;
-      }
-      .footer-bottom div {
-        text-align: center !important;
-        width: 100%;
-      }
-      .footer-logos {
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 15px;
-        width: 100%;
-      }
-      .footer-logos img {
-        max-height: 16px;
-        width: auto;
-        object-fit: contain;
-      }
-      .cart-drawer {
-        width: 100% !important;
-        height: 100vh !important;
-        border-radius: 0 !important;
-      }
-      .details-drawer {
-        width: 100% !important;
-      }
-      .product-card {
-        min-height: 420px;
-        display: flex;
-        flex-direction: column;
-      }
-      .product-info {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-      }
-    }
   </style>
 </head>
 <body>
@@ -1446,12 +1375,12 @@
     PARCEIRO OFICIAL SAMSUNG
   </div>
   <div class="top-bar-item">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
-    DISTRIBUIÇÃO NACIONAL
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+    5% OFF NO PIX
   </div>
   <div class="top-bar-item">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-    FATURAMENTO CORPORATIVO
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+    41 FRANQUIAS MASTERCELL
   </div>
 </div>
 
@@ -1518,29 +1447,42 @@
 <div class="cart-overlay" id="cartOverlay" onclick="closeAllDrawers()"></div>
 <div class="cart-drawer" id="cartDrawer">
   <div class="cart-header">
-    <h2>Sua Cotação</h2>
-    <button style="background:none; border:none; cursor:pointer; color:var(--text-secondary);" onclick="closeCart()">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-    </button>
-  </div>
-  <div class="cart-items" id="cartItems"></div>
-  <div class="cart-company-field">
-    <label>Nome da sua Empresa (CNPJ)</label>
-    <input type="text" id="companyName" placeholder="Ex: Minha Empresa LTDA" oninput="saveCompanyName(this.value)">
-  </div>
-  <div class="cart-footer">
-    <div class="summary-panel">
-      <div class="summary-row"><span>Itens:</span> <span id="cartTotalItems">0</span></div>
-      <div class="summary-row total"><span>Total PIX:</span> <span id="cartTotalPix">R$ 0,00</span></div>
+    <div style="display:flex; align-items:center; gap:15px;">
+      <div style="background:var(--samsung-blue); color:white; padding:8px 15px; border-radius:10px; font-weight:800; font-size:0.7rem; text-transform:uppercase; letter-spacing:1px;">B2B OFICIAL</div>
+      <h2>Sua Cotação</h2>
     </div>
-    <button class="btn-checkout btn-whatsapp" onclick="checkoutWhatsApp()">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.284l-.582 2.125 2.185-.573c.945.514 1.941.786 2.959.786.001 0 .001 0 0 0 3.183 0 5.768-2.586 5.769-5.766 0-3.18-2.585-5.766-5.766-5.766zm3.446 8.212c-.149.421-.864.814-1.203.864-.339.05-.678.279-2.231-.339-1.554-.617-2.533-2.193-2.608-2.293-.075-.1-.611-.812-.611-1.547 0-.735.386-1.096.523-1.246.137-.15.3-.187.4-.187s.2 0 .287.012c.087.012.206-.031.324.256.119.287.408.991.446 1.066.038.075.063.162.013.262-.05.1-.075.162-.15.25s-.163.175-.231.25c-.069.075-.143.156-.062.293.081.137.362.597.776.966.533.475 1.02.622 1.164.697.143.075.225.062.306-.031.081-.131.35-4.06.444-4.241.094-.181.187-.15.312-.1.125.05.79.373.927.442.137.069.225.1.256.15.031.05.031.293-.118.714z"/></svg>
-      Enviar Cotação via WhatsApp
+    <button style="background:none; border:none; cursor:pointer; color:var(--text-secondary);" onclick="closeCart()">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
     </button>
-    <button class="btn-checkout btn-email" onclick="checkoutEmail()">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-      Solicitar via E-mail
-    </button>
+  </div>
+  
+  <div class="checkout-container">
+    <div style="display:flex; flex-direction:column; overflow:hidden; border-right:1px solid rgba(0,0,0,0.05);">
+      <div class="cart-items" id="cartItems"></div>
+    </div>
+
+    <div style="background:rgba(248, 249, 250, 0.5); display:flex; flex-direction:column; overflow-y:auto; padding:40px;">
+      <div class="cart-company-field" style="background:transparent; padding:0; border:none; margin-bottom:30px;">
+        <label for="companyName">Nome da sua Empresa / CNPJ</label>
+        <input type="text" id="companyName" placeholder="Identificação da Empresa" oninput="saveCompanyName(this.value)" style="background:white; border:1px solid #ddd; padding:15px; border-radius:12px; font-size:1rem;">
+      </div>
+
+      <div class="summary-panel" style="background:transparent; padding:0; border:none;">
+        <div class="summary-row"><span>Itens na Cotação:</span> <span id="cartTotalItems">0</span></div>
+        <div class="summary-row total" style="font-size:1.8rem; margin-top:15px; border:none; padding:0;"><span>Total PIX:</span> <span id="cartTotalPix">R$ 0,00</span></div>
+      </div>
+
+      <div class="cart-footer" style="background:transparent; padding:0; border:none; margin-top:30px; display:flex; flex-direction:column; gap:12px;">
+        <button class="btn-checkout btn-whatsapp" onclick="checkoutWhatsApp()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.284l-.582 2.125 2.185-.573c.945.514 1.941.786 2.959.786.001 0 .001 0 0 0 3.183 0 5.768-2.586 5.769-5.766 0-3.18-2.585-5.766-5.766-5.766zm3.446 8.212c-.149.421-.864.814-1.203.864-.339.05-.678.279-2.231-.339-1.554-.617-2.533-2.193-2.608-2.293-.075-.1-.611-.812-.611-1.547 0-.735.386-1.096.523-1.246.137-.15.3-.187.4-.187s.2 0 .287.012c.087.012.206-.031.324.256.119.287.408.991.446 1.066.038.075.063.162.013.262-.05.1-.075.162-.15.25s-.163.175-.231.25c-.069.075-.143.156-.062.293.081.137.362.597.776.966.533.475 1.02.622 1.164.697.143.075.225.062.306-.031.081-.131.35-4.06.444-4.241.094-.181.187-.15.312-.1.125.05.79.373.927.442.137.069.225.1.256.15.031.05.031.293-.118.714z"/></svg>
+          Gerar Cotação no WhatsApp
+        </button>
+        <button class="btn-checkout btn-email" onclick="checkoutEmail()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Receber por E-mail
+        </button>
+      </div>
+    </div>
   </div>
 </div>
 
