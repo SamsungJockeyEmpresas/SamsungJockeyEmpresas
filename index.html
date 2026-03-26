@@ -587,19 +587,19 @@
     .details-drawer {
       position: fixed;
       top: 0;
-      right: -550px;
-      width: 550px;
+      right: -600px;
+      width: 600px;
       height: 100%;
-      background: rgba(255, 255, 255, 0.96) !important;
-      backdrop-filter: blur(40px) !important;
-      -webkit-backdrop-filter: blur(40px) !important;
-      box-shadow: -20px 0 60px rgba(0,0,0,0.1) !important;
+      background: rgba(255, 255, 255, 0.98) !important;
+      backdrop-filter: blur(50px) !important;
+      -webkit-backdrop-filter: blur(50px) !important;
+      box-shadow: -30px 0 80px rgba(0,0,0,0.15) !important;
       z-index: 2500;
-      transition: right 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+      transition: right 0.6s cubic-bezier(0.23, 1, 0.32, 1);
       display: flex;
       flex-direction: column;
       padding: 0;
-      border-left: 1px solid rgba(255, 255, 255, 0.4) !important;
+      border-left: 1px solid rgba(255, 255, 255, 0.5) !important;
     }
     .details-drawer.active { right: 0; }
 
@@ -607,58 +607,119 @@
     .specs-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 15px;
-      margin-top: 25px;
+      gap: 20px;
+      margin-top: 30px;
     }
 
     .spec-card {
-      background: rgba(248, 249, 250, 0.8);
-      padding: 15px;
-      border-radius: 16px;
-      border: 1px solid rgba(0,0,0,0.03);
+      background: white;
+      padding: 20px;
+      border-radius: 24px;
+      border: 1px solid rgba(0,0,0,0.04);
       display: flex;
-      flex-direction: column;
-      gap: 5px;
-      transition: all 0.3s ease;
+      align-items: center;
+      gap: 15px;
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.02);
     }
 
     .spec-card:hover {
-      background: white;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.06);
       border-color: var(--samsung-blue);
     }
 
+    .spec-icon {
+      width: 45px;
+      height: 45px;
+      background: rgba(3, 78, 162, 0.05);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--samsung-blue);
+      flex-shrink: 0;
+    }
+
+    .spec-content { display: flex; flex-direction: column; gap: 2px; }
+
     .spec-label {
-      font-size: 0.6rem;
+      font-size: 0.65rem;
       font-weight: 800;
       color: var(--text-secondary);
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.8px;
     }
 
     .spec-value {
-      font-size: 0.85rem;
-      font-weight: 700;
+      font-size: 0.95rem;
+      font-weight: 800;
       color: var(--mastercell-black);
+      line-height: 1.2;
     }
 
     .details-img-container {
-      background: #fdfdfd;
-      border-radius: 24px;
-      padding: 40px;
-      margin-bottom: 30px;
+      background: radial-gradient(circle at center, #ffffff, #f8f9fa);
+      border-radius: 32px;
+      padding: 50px;
+      margin-bottom: 35px;
       display: flex;
       justify-content: center;
       align-items: center;
-      box-shadow: inset 0 0 30px rgba(0,0,0,0.02);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.03);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .details-img-container::after {
+      content: '';
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      background: var(--samsung-blue);
+      filter: blur(120px);
+      opacity: 0.05;
+      z-index: 0;
     }
 
     .details-img {
       max-width: 100%;
-      max-height: 280px;
+      max-height: 320px;
       object-fit: contain;
-      filter: drop-shadow(0 15px 30px rgba(0,0,0,0.1));
+      filter: drop-shadow(0 25px 50px rgba(0,0,0,0.15));
+      position: relative;
+      z-index: 1;
+      transition: transform 0.5s ease;
+    }
+
+    .details-img:hover { transform: scale(1.05); }
+
+    .details-header {
+      padding: 30px 40px;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255,255,255,0.5);
+    }
+
+    .details-body {
+      padding: 40px;
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .price-badge {
+      display: inline-block;
+      background: var(--samsung-blue);
+      color: white;
+      padding: 6px 14px;
+      border-radius: 50px;
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 15px;
     }
 
     /* LAYOUT DUAS COLUNAS CHECKOUT */
@@ -2148,23 +2209,42 @@
       <div class="details-img-container">
         <img src="${img}" class="details-img">
       </div>
-      <div style="padding: 0 10px;">
-        <div class="details-family" style="font-size:0.75rem; font-weight:800; color:var(--samsung-blue); text-transform:uppercase; letter-spacing:1.5px; margin-bottom:8px;">${familia}</div>
-        <h3 class="details-title" style="font-size:1.8rem; line-height:1.1; margin-bottom:15px;">${modelo}</h3>
-        <div class="price-pix" style="font-size:2rem; margin-bottom:30px;">${fmt(pix)}</div>
+      <div style="padding: 0 5px;">
+        <div class="price-badge">Oferta Exclusiva B2B</div>
+        <div class="details-family" style="font-size:0.8rem; font-weight:800; color:var(--samsung-blue); text-transform:uppercase; letter-spacing:2px; margin-bottom:10px;">${familia}</div>
+        <h3 class="details-title" style="font-size:2.2rem; line-height:1; letter-spacing:-1px; margin-bottom:20px;">${modelo}</h3>
+        <div class="price-pix" style="font-size:2.5rem; font-weight:800; margin-bottom:40px; color:var(--mastercell-black);">${fmt(pix)}<span style="font-size:0.9rem; color:var(--text-secondary); font-weight:600; margin-left:10px;">à vista no PIX</span></div>
         
-        <div style="font-size:0.7rem; font-weight:800; color:var(--text-secondary); text-transform:uppercase; letter-spacing:1px; margin-bottom:15px; border-bottom:1px solid #eee; padding-bottom:8px;">Especificações Técnicas</div>
-        
-        <div class="specs-grid">
-          <div class="spec-card"><span class="spec-label">Processador</span><span class="spec-value">${p.processador || 'Octa-Core'}</span></div>
-          <div class="spec-card"><span class="spec-label">Memória / RAM</span><span class="spec-value">${p.memoria || 'Consulte'}</span></div>
-          <div class="spec-card"><span class="spec-label">Tela</span><span class="spec-value">${p.tela || 'Super AMOLED'}</span></div>
-          <div class="spec-card"><span class="spec-label">Segurança</span><span class="spec-value">Samsung Knox</span></div>
-          <div class="spec-card" style="grid-column: span 2;"><span class="spec-label">Garantia Oficial</span><span class="spec-value">12 Meses Oficial Samsung Brasil</span></div>
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:25px;">
+          <div style="height:2px; background:var(--samsung-blue); width:40px;"></div>
+          <div style="font-size:0.75rem; font-weight:800; color:var(--mastercell-black); text-transform:uppercase; letter-spacing:1.5px;">Especificações de Elite</div>
         </div>
         
-        <button class="btn-compare-ghost" style="margin-top:40px; padding:20px; border-radius:16px; font-size:0.9rem;" onclick="startCompare('${modelo.replace(/'/g, "\\'")}', ${pix}, '${img}', '${familia}', '${category}')">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="vertical-align:middle; margin-right:8px;"><path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>
+        <div class="specs-grid">
+          <div class="spec-card">
+            <div class="spec-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9zM9 1h1M14 1h1M9 23h1M14 23h1M1 9v1M1 14v1M23 9v1M23 14v1"/></svg></div>
+            <div class="spec-content"><span class="spec-label">Processador</span><span class="spec-value">${p.processador || 'Octa-Core'}</span></div>
+          </div>
+          <div class="spec-card">
+            <div class="spec-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 19v2M10 19v2M14 19v2M18 19v2M8 11V9a4 4 0 1 1 8 0v2M6 11h12a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2z"/></svg></div>
+            <div class="spec-content"><span class="spec-label">Memória</span><span class="spec-value">${p.memoria || 'Consulte'}</span></div>
+          </div>
+          <div class="spec-card">
+            <div class="spec-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
+            <div class="spec-content"><span class="spec-label">Tela</span><span class="spec-value">${p.tela || 'Super AMOLED'}</span></div>
+          </div>
+          <div class="spec-card">
+            <div class="spec-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+            <div class="spec-content"><span class="spec-label">Segurança</span><span class="spec-value">Samsung Knox</span></div>
+          </div>
+          <div class="spec-card" style="grid-column: span 2; background:rgba(3, 78, 162, 0.03); border-color:rgba(3, 78, 162, 0.1);">
+            <div class="spec-icon" style="background:var(--samsung-blue); color:white;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+            <div class="spec-content"><span class="spec-label">Garantia Brasil</span><span class="spec-value">12 Meses Oficial Samsung Brasil</span></div>
+          </div>
+        </div>
+        
+        <button class="btn-compare-ghost" style="margin-top:50px; padding:22px; border-radius:20px; font-size:1rem; border-width:2px; display:flex; align-items:center; justify-content:center; gap:12px; box-shadow:0 10px 25px rgba(3, 78, 162, 0.1);" onclick="startCompare('${modelo.replace(/'/g, "\\'")}', ${pix}, '${img}', '${familia}', '${category}')">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>
           Comparar com outro modelo
         </button>
       </div>
