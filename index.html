@@ -375,6 +375,153 @@
       transform: translateY(-2px);
     }
 
+    /* MODAL CARRINHO LATERAL */
+    .cart-drawer {
+      position: fixed;
+      top: 0;
+      right: -450px;
+      width: 450px;
+      height: 100%;
+      background: var(--white);
+      box-shadow: -10px 0 50px rgba(0,0,0,0.15);
+      z-index: 2000;
+      transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      padding: 40px;
+    }
+
+    .cart-drawer.active {
+      right: 0;
+    }
+
+    .cart-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.3);
+      backdrop-filter: blur(4px);
+      z-index: 1999;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .cart-overlay.active {
+      display: block;
+      opacity: 1;
+    }
+
+    .cart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--gray-medium);
+    }
+
+    .cart-header h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 800;
+    }
+
+    .close-cart {
+      cursor: pointer;
+      opacity: 0.5;
+      transition: opacity 0.2s;
+    }
+
+    .close-cart:hover { opacity: 1; }
+
+    .cart-items {
+      flex: 1;
+      overflow-y: auto;
+      margin-bottom: 30px;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.03);
+    }
+
+    .cart-item-info h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 4px; }
+    .cart-item-info p { font-size: 0.8rem; color: var(--text-secondary); }
+
+    .remove-item {
+      color: #ff4757;
+      font-size: 0.7rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-transform: uppercase;
+    }
+
+    .cart-footer {
+      padding-top: 20px;
+      border-top: 1px solid var(--gray-medium);
+    }
+
+    .cart-total {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 800;
+      font-size: 1.1rem;
+      margin-bottom: 25px;
+    }
+
+    .btn-checkout {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 15px;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s;
+      border: none;
+      margin-bottom: 12px;
+    }
+
+    .btn-whatsapp { background: #25D366; color: white; }
+    .btn-whatsapp:hover { background: #128C7E; transform: translateY(-2px); }
+    
+    .btn-email { background: var(--mastercell-black); color: white; }
+    .btn-email:hover { background: var(--samsung-blue); transform: translateY(-2px); }
+
+    /* TOAST NOTIFICATION */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: var(--white);
+      padding: 15px 25px;
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      border-left: 4px solid var(--success);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 3000;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .toast.active {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
     /* FOOTER */
     footer {
       background: var(--white);
@@ -509,6 +656,40 @@
   </div>
 </footer>
 
+<!-- CARRINHO LATERAL -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-header">
+    <h2>Seu Carrinho B2B</h2>
+    <div class="close-cart" onclick="closeCart()">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </div>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <!-- Itens via JS -->
+  </div>
+  <div class="cart-footer">
+    <div class="cart-total">
+      <span>Total Estimado:</span>
+      <span id="cartTotal">R$ 0</span>
+    </div>
+    <button class="btn-checkout btn-whatsapp" onclick="checkoutWhatsApp()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.72.937 3.659 1.431 5.63 1.433h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+      Orçamento via WhatsApp
+    </button>
+    <button class="btn-checkout btn-email" onclick="checkoutEmail()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      Orçamento via E-mail
+    </button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+  <span id="toastMsg">Produto adicionado!</span>
+</div>
+
 <script>
   let CATALOG = { categories: {} };
   let currentCategory = '';
@@ -589,7 +770,8 @@
   function addToCart(name, price) {
     cart.push({name, price});
     updateCartBadge();
-    alert(`${name} adicionado ao carrinho!`);
+    renderCartItems();
+    showToast(`${name} adicionado ao carrinho!`);
   }
 
   function updateCartBadge() {
@@ -598,12 +780,67 @@
     badge.style.display = cart.length > 0 ? 'inline' : 'none';
   }
 
+  function showToast(msg) {
+    const toast = document.getElementById('toast');
+    document.getElementById('toastMsg').innerText = msg;
+    toast.classList.add('active');
+    setTimeout(() => toast.classList.remove('active'), 3000);
+  }
+
   function openCart() {
-    if (cart.length === 0) return alert("Seu carrinho está vazio.");
+    document.getElementById('cartDrawer').classList.add('active');
+    document.getElementById('cartOverlay').classList.add('active');
+  }
+
+  function closeCart() {
+    document.getElementById('cartDrawer').classList.remove('active');
+    document.getElementById('cartOverlay').classList.remove('active');
+  }
+
+  function renderCartItems() {
+    const container = document.getElementById('cartItems');
+    const totalEl = document.getElementById('cartTotal');
+    let total = 0;
+    
+    container.innerHTML = cart.map((item, idx) => {
+      total += item.price;
+      return `
+        <div class="cart-item">
+          <div class="cart-item-info">
+            <h4>${item.name}</h4>
+            <p>${fmt(item.price)}</p>
+          </div>
+          <div class="remove-item" onclick="removeFromCart(${idx})">Remover</div>
+        </div>
+      `;
+    }).join('');
+    
+    totalEl.innerText = fmt(total);
+    if (cart.length === 0) container.innerHTML = '<p style="text-align:center; padding:40px; color:var(--text-secondary);">Seu carrinho está vazio.</p>';
+  }
+
+  function removeFromCart(idx) {
+    cart.splice(idx, 1);
+    updateCartBadge();
+    renderCartItems();
+  }
+
+  function checkoutWhatsApp() {
+    if (cart.length === 0) return;
     let text = "Olá, gostaria de uma cotação para os seguintes itens:\n\n";
     cart.forEach(item => text += `- ${item.name}: ${fmt(item.price)}\n`);
     const url = `https://wa.me/5541989031156?text=${encodeURIComponent(text)}`;
     window.open(url, '_blank');
+  }
+
+  function checkoutEmail() {
+    if (cart.length === 0) return;
+    let subject = "Solicitação de Orçamento B2B - Mastercell";
+    let body = "Olá Mastercell,\n\nGostaria de solicitar uma cotação para os seguintes itens:\n\n";
+    cart.forEach(item => body += `- ${item.name}: ${fmt(item.price)}\n`);
+    body += "\nPor favor, enviem as condições comerciais para o meu negócio.";
+    const mailto = `mailto:samsungb2b@mastercell.com.br?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailto;
   }
 
   window.addEventListener('scroll', () => {
