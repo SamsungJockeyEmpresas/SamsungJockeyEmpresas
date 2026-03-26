@@ -1288,11 +1288,13 @@
 
   function renderProducts(products, category) {
     const grid = document.getElementById('productGrid');
-    grid.innerHTML = products.map((p, idx) => {
+        grid.innerHTML = products.map((p, idx) => {
       const safeModel = p.modelo.replace(/'/g, "\\'");
       const inputId = `qty-${p.modelo.replace(/\s+/g, '-').replace(/'/g, '')}`;
+      const imgUrl = p.img || 'https://via.placeholder.com/300';
+      const fam = p.familia || '';
       return `
-        <div class="product-card" onclick="handleProductClick('${safeModel}', ${p.pix}, '${p.img}', '${p.familia}', '${category}')">
+        <div class="product-card" onclick="handleProductClick('${safeModel}', ${p.pix}, '${imgUrl}', '${fam}', '${category}')">
           ${(category === 'smartphones' || category === 'tablets' || category === 'dobráveis') ? `
             <div class="knox-badge">SAMSUNG KNOX</div>
           ` : ''}
@@ -1321,10 +1323,17 @@
   }
 
   function handleProductClick(modelo, pix, img, familia, category) {
+    // Se estiver no modo de seleção para comparar, finaliza a comparação com o 2º produto
     if (isSelectingCompare) {
+      // Evita comparar o produto com ele mesmo
+      if (compareBase && compareBase.modelo === modelo) {
+        showToast("Selecione um modelo diferente para comparar");
+        return;
+      }
       finishCompare(modelo, pix, img, familia);
       return;
     }
+    // Caso contrário, abre os detalhes do produto
     openDetails(modelo, pix, img, familia, category);
   }
 
