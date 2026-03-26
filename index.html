@@ -920,12 +920,32 @@
     }
     .compare-modal.active { display: block; }
 
+    @media (max-width: 768px) {
+      .compare-modal { padding: 40px 15px; }
+      .compare-header-ui h2 { font-size: 1.4rem !important; }
+      .compare-header-ui p { font-size: 0.75rem !important; }
+      .compare-table-wrapper { 
+        overflow-x: auto; 
+        margin: 0 -15px; 
+        padding: 0 15px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .compare-table { min-width: 600px; }
+      .compare-row-label { width: 140px !important; font-size: 0.65rem !important; padding: 15px !important; }
+      .compare-product-card { padding: 20px 10px !important; min-height: 180px !important; }
+      .compare-img { height: 100px !important; }
+      .compare-product-card div { font-size: 0.8rem !important; }
+      .compare-table td { padding: 15px !important; font-size: 0.8rem !important; }
+    }
+
     .compare-header-ui {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 50px;
     }
+
+    .compare-table-wrapper { width: 100%; }
 
     .compare-table { 
       width: 100%; 
@@ -2482,67 +2502,69 @@
         <button class="btn-close-compare" onclick="closeCompare()">Fechar Comparativo</button>
       </div>
 
-      <table class="compare-table">
-        <thead>
-          <tr>
-            <th style="text-align:left; padding-left:0;">Atributos</th>
-            <th>
-              <div class="compare-product-card" style="padding: 40px 20px; min-height: 240px; justify-content: center;">
-                <img src="${p1.img}" class="compare-img" style="height: 150px; margin-bottom: 20px;">
-                <div style="font-weight:800; font-size:1.1rem; text-align:center; color:var(--mastercell-black); line-height: 1.2;">${p1.modelo}</div>
-              </div>
-            </th>
-            <th>
-              <div class="compare-product-card" style="padding: 40px 20px; min-height: 240px; justify-content: center;">
-                <img src="${p2.img}" class="compare-img" style="height: 150px; margin-bottom: 20px;">
-                <div style="font-weight:800; font-size:1.1rem; text-align:center; color:var(--mastercell-black); line-height: 1.2;">${p2.modelo}</div>
-              </div>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="compare-row-label">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/></svg>
-              Processador
-            </td>
-            <td style="font-weight:700;">${p1.processador || 'Octa-Core'}</td>
-            <td style="font-weight:700;">${p2.processador || 'Octa-Core'}</td>
-          </tr>
-          <tr>
-            <td class="compare-row-label">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 19v2M10 19v2M14 19v2M18 19v2M8 11V9a4 4 0 1 1 8 0v2M6 11h12a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2z"/></svg>
-              Memória / RAM
-            </td>
-            <td style="font-weight:700;">${p1.memoria || 'Consulte'}</td>
-            <td style="font-weight:700;">${p2.memoria || 'Consulte'}</td>
-          </tr>
-          <tr>
-            <td class="compare-row-label">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
-              Tela
-            </td>
-            <td style="font-weight:700;">${p1.tela || 'Super AMOLED'}</td>
-            <td style="font-weight:700;">${p2.tela || 'Super AMOLED'}</td>
-          </tr>
-          <tr>
-            <td class="compare-row-label">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              Segurança
-            </td>
-            <td style="font-weight:700;">Samsung Knox</td>
-            <td style="font-weight:700;">Samsung Knox</td>
-          </tr>
-          <tr>
-            <td class="compare-row-label" style="background:rgba(3, 78, 162, 0.05) !important; color:var(--samsung-blue);">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M7 15h0M2 9.5h20"/></svg>
-              Preço PIX
-            </td>
-            <td style="font-weight:800; color:var(--samsung-blue); font-size:1.3rem;">${fmt(p1.pix)}</td>
-            <td style="font-weight:800; color:var(--samsung-blue); font-size:1.3rem;">${fmt(p2.pix)}</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="compare-table-wrapper">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th style="text-align:left; padding-left:0;">Atributos</th>
+              <th>
+                <div class="compare-product-card" style="padding: 40px 20px; min-height: 240px; justify-content: center;">
+                  <img src="${p1.img}" class="compare-img" style="height: 150px; margin-bottom: 20px;">
+                  <div style="font-weight:800; font-size:1.1rem; text-align:center; color:var(--mastercell-black); line-height: 1.2;">${p1.modelo}</div>
+                </div>
+              </th>
+              <th>
+                <div class="compare-product-card" style="padding: 40px 20px; min-height: 240px; justify-content: center;">
+                  <img src="${p2.img}" class="compare-img" style="height: 150px; margin-bottom: 20px;">
+                  <div style="font-weight:800; font-size:1.1rem; text-align:center; color:var(--mastercell-black); line-height: 1.2;">${p2.modelo}</div>
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="compare-row-label">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/></svg>
+                Processador
+              </td>
+              <td style="font-weight:700;">${p1.processador || 'Octa-Core'}</td>
+              <td style="font-weight:700;">${p2.processador || 'Octa-Core'}</td>
+            </tr>
+            <tr>
+              <td class="compare-row-label">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 19v2M10 19v2M14 19v2M18 19v2M8 11V9a4 4 0 1 1 8 0v2M6 11h12a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2z"/></svg>
+                Memória / RAM
+              </td>
+              <td style="font-weight:700;">${p1.memoria || 'Consulte'}</td>
+              <td style="font-weight:700;">${p2.memoria || 'Consulte'}</td>
+            </tr>
+            <tr>
+              <td class="compare-row-label">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                Tela
+              </td>
+              <td style="font-weight:700;">${p1.tela || 'Super AMOLED'}</td>
+              <td style="font-weight:700;">${p2.tela || 'Super AMOLED'}</td>
+            </tr>
+            <tr>
+              <td class="compare-row-label">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                Segurança
+              </td>
+              <td style="font-weight:700;">Samsung Knox</td>
+              <td style="font-weight:700;">Samsung Knox</td>
+            </tr>
+            <tr>
+              <td class="compare-row-label" style="background:rgba(3, 78, 162, 0.05) !important; color:var(--samsung-blue);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M7 15h0M2 9.5h20"/></svg>
+                Preço PIX
+              </td>
+              <td style="font-weight:800; color:var(--samsung-blue); font-size:1.3rem;">${fmt(p1.pix)}</td>
+              <td style="font-weight:800; color:var(--samsung-blue); font-size:1.3rem;">${fmt(p2.pix)}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
       <div style="margin-top:40px; text-align:center; font-size:0.7rem; color:#999; font-weight:800; text-transform:uppercase; letter-spacing:2px;">
         Faturamento Direto CNPJ | Garantia Oficial Samsung Brasil
       </div>
