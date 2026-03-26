@@ -3,67 +3,475 @@
   "currency": "BRL",
   "categories": {
     "smartphones": [
-      { "familia":"Linha A", "modelo":"Galaxy A07 128GB", "pix":938, "x6":1019, "x10":1110, "obs":"", "img":"https://images.samsung.com/is/image/samsung/p6pim/za/sm-a075fzggafa/gallery/za-galaxy-a07-sm-a075-sm-a075fzggafa-548575323?$Q90_1248_936_F_PNG$" },
-      { "familia":"Linha A", "modelo":"Galaxy A17 4G 128GB", "pix":1418, "x6":1527, "x10":1582, "obs":"BUDS CORE (R$1,00)", "img":"https://images.samsung.com/is/image/samsung/p6pim/br/sm-a176bzaozto/gallery/br-galaxy-a17-5g-sm-a176-sm-a176bzaozto-548807141?$Q90_1248_936_F_PNG$" },
-      { "familia":"Linha A", "modelo":"Galaxy A17 4G 256GB", "pix":1598, "x6":1706, "x10":1760, "obs":"BUDS CORE (R$1,00)", "img":"https://revendo.ch/cdn/shop/files/samsung-galaxy-a17-5g-exynos-1330-5-nm-a17-5g-black-schwarz-guenstig-gebraucht-kaufen-00.png?v=1756800563" },
-      { "familia":"Linha A", "modelo":"Galaxy A17 5G 128GB", "pix":1798, "x6":1905, "x10":1959, "obs":"BUDS CORE (R$1,00)", "img":"https://images.samsung.com/is/image/samsung/p6pim/br/sm-a176bzaozto/gallery/br-galaxy-a17-5g-sm-a176-sm-a176bzaozto-548807141?$Q90_1248_936_F_PNG$" },
-      { "familia":"Linha A", "modelo":"Galaxy A17 5G 256GB", "pix":1918, "x6":2025, "x10":2078, "obs":"BUDS CORE (R$1,00)", "img":"https://images.samsung.com/is/image/samsung/p6pim/pt/sm-a176bzbdeub/gallery/pt-galaxy-a17-5g-sm-a176-sm-a176bzbdeub-thumb-548536428" },
-      { "familia":"Linha A", "modelo":"Galaxy A36 5G 128GB", "pix":2228, "x6":2340, "x10":2451, "obs":"BUDS CORE ou FIT3 (R$1,00)", "img":"https://images.samsung.com/is/image/samsung/p6pim/br/sm-a366ezkgzto/gallery/br-galaxy-a36-5g-sm-a366-sm-a366ezkgzto-545388586?$Q90_1248_936_F_PNG$" },
-      { "familia":"Linha A", "modelo":"Galaxy A36 5G 256GB", "pix":2428, "x6":2538, "x10":2649, "obs":"BUDS CORE ou FIT3 (R$1,00)", "img":"https://images.samsung.com/is/image/samsung/p6pim/br/sm-a366elvbzto/gallery/br-galaxy-a36-5g-sm-a366-sm-a366elvbzto-thumb-545388491" },
-      { "familia":"Linha A", "modelo":"Galaxy A56 5G 128GB", "pix":2578, "x6":2688, "x10":2798, "obs":"BUDS CORE ou FIT3 (R$1,00)", "img":"https://images.samsung.com/is/image/samsung/p6pim/br/sm-a566ezkazto/gallery/br-galaxy-a56-5g-sm-a566-540642-sm-a566ezkazto-thumb-545718313" },
-      { "familia":"Linha A", "modelo":"Galaxy A56 5G 256GB", "pix":2778, "x6":2887, "x10":2996, "obs":"BUDS CORE ou FIT3 (R$1,00)", "img":"https://images.samsung.com/is/image/samsung/p6pim/br/sm-a566eliazto/gallery/br-galaxy-a56-5g-sm-a566-540642-sm-a566eliazto-545718243?$Q90_1248_936_F_PNG$" },
-      { "familia":"Linha S", "modelo":"Galaxy S25 Fe 128GB", "pix":4028, "x6":4196, "x10":4363, "obs":"BUDS 3 Fe (R$399)", "img":"https://images.samsung.com/is/image/samsung/p6pim/br/sm-s731bdbkzto/gallery/br-galaxy-s25-fe-sm-s731-sm-s731bdbkzto-thumb-549153290" },
-      { "familia":"Linha S", "modelo":"Galaxy S25 Fe 256GB", "pix":4228, "x6":4396, "x10":4562, "obs":"BUDS 3 Fe (R$399)", "img":"https://images.samsung.com/is/image/samsung/p6pim/br/sm-s731bzkkzto/gallery/br-galaxy-s25-fe-sm-s731-sm-s731bzkkzto-549153383?$Q90_1248_936_F_PNG$" },
-      { "familia":"Linha S", "modelo":"Galaxy S25 256GB", "pix":4828, "x6":5001, "x10":5172, "obs":"BUDS 3 (R$399)", "img":"https://images.samsung.com/is/image/samsung/p6pim/br/2501/gallery/br-galaxy-s25-s931-sm-s931bzkkzto-thumb-544654185" },
-      { "familia":"Linha S", "modelo":"Galaxy S25 Ultra 256GB", "pix":7628, "x6":7791, "x10":7955, "obs":"BUDS 3 PRO (R$599)", "img":"https://benchpromos.com.br/_next/image?url=https%3A%2F%2Fi.imgur.com%2Fcdl8xET.png&w=3840&q=75" },
-      { "familia":"Linha S", "modelo":"Galaxy S26 Ultra 256GB", "pix":13728, "x6":13728, "x10":13728, "obs":"BUDS 3 PRO (R$599)", "img":"https://files.tecnoblog.net/wp-content/uploads/2026/02/galaxy-s26-ultra-violeta.png" },
-      { "familia":"Linha S", "modelo":"Galaxy S26 Ultra 512GB", "pix":16128, "x6":16128, "x10":16128, "obs":"BUDS 3 PRO (R$599)", "img":"https://planoscelular.claro.com.br/medias/515Wx515H-productMain-19333-zero.png?context=bWFzdGVyfGltYWdlc3wxNjkyNTB8aW1hZ2UvcG5nfGFHWTVMMmcxWkM4eE1EVTRNekF3T1RJek1EZzNPQzgxTVRWWGVEVXhOVWhmY0hKdlpIVmpkRTFoYVc1Zk1Ua3pNek5mZW1WeWJ5NXdibWN8NWE3YzYyYTJjZDcxZDJmNTcxODcyYTFmYTNiYTIwN2I3YTVkZDRlOTM4NDllNmQ2NDA2ZDM1MmZkZDAzYjYwMA" }
+      {
+        "familia": "Linha A",
+        "modelo": "Galaxy A07 128GB",
+        "pix": 940,
+        "x6": 1019,
+        "x10": 1110,
+        "obs": "",
+        "img": "https://images.samsung.com/is/image/samsung/p6pim/za/sm-a075fzggafa/gallery/za-galaxy-a07-sm-a075-sm-a075fzggafa-548575323?$Q90_1248_936_F_PNG$"
+      },
+      {
+        "familia": "Linha A",
+        "modelo": "Galaxy A17 4G 128GB",
+        "pix": 1418,
+        "x6": 1527,
+        "x10": 1582,
+        "obs": "BUDS CORE (R$1,00)",
+        "img": "https://images.samsung.com/is/image/samsung/p6pim/br/sm-a176bzaozto/gallery/br-galaxy-a17-5g-sm-a176-sm-a176bzaozto-548807141?$Q90_1248_936_F_PNG$"
+      },
+      {
+        "familia": "Linha A",
+        "modelo": "Galaxy A17 4G 256GB",
+        "pix": 1598,
+        "x6": 1706,
+        "x10": 1760,
+        "obs": "BUDS CORE (R$1,00)",
+        "img": "https://revendo.ch/cdn/shop/files/samsung-galaxy-a17-5g-exynos-1330-5-nm-a17-5g-black-schwarz-guenstig-gebraucht-kaufen-00.png?v=1756800563"
+      },
+      {
+        "familia": "Linha A",
+        "modelo": "Galaxy A17 5G 128GB",
+        "pix": 1798,
+        "x6": 1905,
+        "x10": 1959,
+        "obs": "BUDS CORE (R$1,00)",
+        "img": "https://images.samsung.com/is/image/samsung/p6pim/br/sm-a176bzaozto/gallery/br-galaxy-a17-5g-sm-a176-sm-a176bzaozto-548807141?$Q90_1248_936_F_PNG$"
+      },
+      {
+        "familia": "Linha A",
+        "modelo": "Galaxy A17 5G 256GB",
+        "pix": 1918,
+        "x6": 2025,
+        "x10": 2078,
+        "obs": "BUDS CORE (R$1,00)",
+        "img": "https://images.samsung.com/is/image/samsung/p6pim/pt/sm-a176bzbdeub/gallery/pt-galaxy-a17-5g-sm-a176-sm-a176bzbdeub-thumb-548536428"
+      },
+      {
+        "familia": "Linha A",
+        "modelo": "Galaxy A36 5G 128GB",
+        "pix": 2228,
+        "x6": 2340,
+        "x10": 2451,
+        "obs": "BUDS CORE ou FIT3 (R$1,00)",
+        "img": "https://images.samsung.com/is/image/samsung/p6pim/br/sm-a366ezkgzto/gallery/br-galaxy-a36-5g-sm-a366-sm-a366ezkgzto-545388586?$Q90_1248_936_F_PNG$"
+      },
+      {
+        "familia": "Linha A",
+        "modelo": "Galaxy A36 5G 256GB",
+        "pix": 2428,
+        "x6": 2538,
+        "x10": 2649,
+        "obs": "BUDS CORE ou FIT3 (R$1,00)",
+        "img": "https://images.samsung.com/is/image/samsung/p6pim/br/sm-a366elvbzto/gallery/br-galaxy-a36-5g-sm-a366-sm-a366elvbzto-thumb-545388491"
+      },
+      {
+        "familia": "Linha A",
+        "modelo": "Galaxy A56 5G 128GB",
+        "pix": 2578,
+        "x6": 2688,
+        "x10": 2798,
+        "obs": "BUDS CORE ou FIT3 (R$1,00)",
+        "img": "https://images.samsung.com/is/image/samsung/p6pim/br/sm-a566ezkazto/gallery/br-galaxy-a56-5g-sm-a566-540642-sm-a566ezkazto-thumb-545718313"
+      },
+      {
+        "familia": "Linha A",
+        "modelo": "Galaxy A56 5G 256GB",
+        "pix": 2778,
+        "x6": 2887,
+        "x10": 2996,
+        "obs": "BUDS CORE ou FIT3 (R$1,00)",
+        "img": "https://images.samsung.com/is/image/samsung/p6pim/br/sm-a566eliazto/gallery/br-galaxy-a56-5g-sm-a566-540642-sm-a566eliazto-545718243?$Q90_1248_936_F_PNG$"
+      },
+      {
+        "familia": "Linha S",
+        "modelo": "Galaxy S25 Fe 128GB",
+        "pix": 4028,
+        "x6": 4196,
+        "x10": 4363,
+        "obs": "BUDS 3 Fe (R$399)",
+        "img": "https://images.samsung.com/is/image/samsung/p6pim/br/sm-s731bdbkzto/gallery/br-galaxy-s25-fe-sm-s731-sm-s731bdbkzto-thumb-549153290"
+      },
+      {
+        "familia": "Linha S",
+        "modelo": "Galaxy S25 Fe 256GB",
+        "pix": 4228,
+        "x6": 4396,
+        "x10": 4562,
+        "obs": "BUDS 3 Fe (R$399)",
+        "img": "https://images.samsung.com/is/image/samsung/p6pim/br/sm-s731bzkkzto/gallery/br-galaxy-s25-fe-sm-s731-sm-s731bzkkzto-549153383?$Q90_1248_936_F_PNG$"
+      },
+      {
+        "familia": "Linha S",
+        "modelo": "Galaxy S25 256GB",
+        "pix": 4828,
+        "x6": 5001,
+        "x10": 5172,
+        "obs": "BUDS 3 (R$399)",
+        "img": "https://images.samsung.com/is/image/samsung/p6pim/br/2501/gallery/br-galaxy-s25-s931-sm-s931bzkkzto-thumb-544654185"
+      },
+      {
+        "familia": "Linha S",
+        "modelo": "Galaxy S25 Ultra 256GB",
+        "pix": 7628,
+        "x6": 7791,
+        "x10": 7955,
+        "obs": "BUDS 3 PRO (R$599)",
+        "img": "https://benchpromos.com.br/_next/image?url=https%3A%2F%2Fi.imgur.com%2Fcdl8xET.png&w=3840&q=75"
+      },
+      {
+        "familia": "Linha S",
+        "modelo": "Galaxy S26 Ultra 256GB",
+        "pix": 13728,
+        "x6": 13728,
+        "x10": 13728,
+        "obs": "BUDS 3 PRO (R$599)",
+        "img": "https://files.tecnoblog.net/wp-content/uploads/2026/02/galaxy-s26-ultra-violeta.png"
+      },
+      {
+        "familia": "Linha S",
+        "modelo": "Galaxy S26 Ultra 512GB",
+        "pix": 16128,
+        "x6": 16128,
+        "x10": 16128,
+        "obs": "BUDS 3 PRO (R$599)",
+        "img": "https://planoscelular.claro.com.br/medias/515Wx515H-productMain-19333-zero.png?context=bWFzdGVyfGltYWdlc3wxNjkyNTB8aW1hZ2UvcG5nfGFHWTVMMmcxWkM4eE1EVTRNekF3T1RJek1EZzNPQzgxTVRWWGVEVXhOVWhmY0hKdlpIVmpkRTFoYVc1Zk1Ua3pNek5mZW1WeWJ5NXdibWN8NWE3YzYyYTJjZDcxZDJmNTcxODcyYTFmYTNiYTIwN2I3YTVkZDRlOTM4NDllNmQ2NDA2ZDM1MmZkZDAzYjYwMA"
+      }
     ],
     "dobráveis": [
-      { "familia":"Z Flip", "modelo":"Galaxy Z Flip 7 FE 128GB", "pix":5328, "x6":5498, "x10":5668, "obs":"", "img":"https://images.vodafone.co.uk/gbnnsauqav4t/6FcMA2WDhE7Gcpds8wLC23/80ad648b3a4e2e4ec35baf94547378f9/Samsung_Galaxy_Z_Flip7_FE_white-full-product-front-600.png" },
-      { "familia":"Z Flip", "modelo":"Galaxy Z Flip 7 FE 256GB", "pix":6128, "x6":6295, "x10":6462, "obs":"", "img":"https://images.vodafone.co.uk/gbnnsauqav4t/6FcMA2WDhE7Gcpds8wLC23/80ad648b3a4e2e4ec35baf94547378f9/Samsung_Galaxy_Z_Flip7_FE_white-full-product-front-600.png" },
-      { "familia":"Z Fold", "modelo":"Galaxy Z Fold 7 512GB", "pix":9738, "x6":9911, "x10":10082, "obs":"", "img":"https://www.telstra.com.au/content/dam/tcom/devices/mobile/mhdwhst-gzf1/blueshadow/landscape-front.png" },
-      { "familia":"Z Fold", "modelo":"Galaxy Z Fold 7 1T", "pix":12038, "x6":12204, "x10":12372, "obs":"", "img":"https://www.mcsteve.com/wp-content/uploads/2025/07/fold-7-1.png" }
+      {
+        "familia": "Z Flip",
+        "modelo": "Galaxy Z Flip 7 FE 128GB",
+        "pix": 5328,
+        "x6": 5498,
+        "x10": 5668,
+        "obs": "",
+        "img": "https://images.vodafone.co.uk/gbnnsauqav4t/6FcMA2WDhE7Gcpds8wLC23/80ad648b3a4e2e4ec35baf94547378f9/Samsung_Galaxy_Z_Flip7_FE_white-full-product-front-600.png"
+      },
+      {
+        "familia": "Z Flip",
+        "modelo": "Galaxy Z Flip 7 FE 256GB",
+        "pix": 6128,
+        "x6": 6295,
+        "x10": 6462,
+        "obs": "",
+        "img": "https://images.vodafone.co.uk/gbnnsauqav4t/6FcMA2WDhE7Gcpds8wLC23/80ad648b3a4e2e4ec35baf94547378f9/Samsung_Galaxy_Z_Flip7_FE_white-full-product-front-600.png"
+      },
+      {
+        "familia": "Z Fold",
+        "modelo": "Galaxy Z Fold 7 512GB",
+        "pix": 9738,
+        "x6": 9911,
+        "x10": 10082,
+        "obs": "",
+        "img": "https://www.telstra.com.au/content/dam/tcom/devices/mobile/mhdwhst-gzf1/blueshadow/landscape-front.png"
+      },
+      {
+        "familia": "Z Fold",
+        "modelo": "Galaxy Z Fold 7 1T",
+        "pix": 12038,
+        "x6": 12204,
+        "x10": 12372,
+        "obs": "",
+        "img": "https://www.mcsteve.com/wp-content/uploads/2025/07/fold-7-1.png"
+      }
     ],
     "tablets": [
-      { "familia":"Tab A11", "modelo":"Galaxy Tab A11 64gb WiFi", "pix":1235, "x6":1347, "x10":1460, "obs":"", "img":"https://images.samsung.com/is/image/samsung/p6pim/br/sm-x133nzsazto/gallery/br-galaxy-tab-a11-sm-x130-sm-x133nzsazto-549252587?$Q90_1248_936_F_PNG$" },
-      { "familia":"Tab A11+", "modelo":"Galaxy Tab A11+ 128gb WiFi", "pix":2135, "x6":2188, "x10":2295, "obs":"", "img":"https://images.samsung.com/is/image/samsung/p6pim/au/sm-x236bzaaats/gallery/au-galaxy-tab-a11-plus-sm-x230-572694-sm-x236bzaaats-thumb-550300500" },
-      { "familia":"Tab A11+", "modelo":"Galaxy Tab A11+ 128GB 5G", "pix":2335, "x6":2388, "x10":2494, "obs":"", "img":"https://images.samsung.com/is/image/samsung/p6pim/au/sm-x236bzaaats/gallery/au-galaxy-tab-a11-plus-sm-x230-572694-sm-x236bzaaats-thumb-550300500" },
-      { "familia":"Tab S10 Lite", "modelo":"Galaxy Tab S10 Lite 128GB WiFi", "pix":3159, "x6":3323, "x10":3432, "obs":"", "img":"https://images.samsung.com/is/image/samsung/p6pim/br/sm-x400nzrdzto/gallery/br-galaxy-tab-s10-lite-sm-x406-sm-x400nzrdzto-548616931?$Q90_1248_936_F_PNG$" },
-      { "familia":"Tab S10 Lite", "modelo":"Galaxy Tab S10 Lite 128GB 5G", "pix":3359, "x6":3522, "x10":3630, "obs":"", "img":"https://images.samsung.com/is/image/samsung/p6pim/br/sm-x400nzrdzto/gallery/br-galaxy-tab-s10-lite-sm-x406-sm-x400nzrdzto-548616931?$Q90_1248_936_F_PNG$" },
-      { "familia":"Tab S10 FE", "modelo":"Galaxy Tab S10 FE 128GB Wifi", "pix":3759, "x6":3920, "x10":4028, "obs":"", "img":"https://benchpromos.com.br/_next/image?url=https%3A%2F%2Fi.imgur.com%2FKXDYidt.png&w=3840&q=75" },
-      { "familia":"Tab S10 FE", "modelo":"Galaxy Tab S10 FE 128GB 5G", "pix":4209, "x6":4369, "x10":4475, "obs":"", "img":"https://benchpromos.com.br/_next/image?url=https%3A%2F%2Fi.imgur.com%2FKXDYidt.png&w=3840&q=75" },
-      { "familia":"Tab S10 FE", "modelo":"Galaxy Tab S10 FE+ 128GB Wifi", "pix":4559, "x6":4718, "x10":4824, "obs":"", "img":"https://benchpromos.com.br/_next/image?url=https%3A%2F%2Fi.imgur.com%2FIRjltDE.png&w=3840&q=75" },
-      { "familia":"Tab S10 FE", "modelo":"Galaxy Tab S10 FE+ 128GB 5G", "pix":5059, "x6":5217, "x10":5323, "obs":"", "img":"https://benchpromos.com.br/_next/image?url=https%3A%2F%2Fi.imgur.com%2FIRjltDE.png&w=3840&q=75" },
-      { "familia":"Tab S11", "modelo":"Galaxy Tab S11 256GB Wifi", "pix":6159, "x6":6316, "x10":6420, "obs":"", "img":"https://www.mygsm.me/media/iopt/catalog/product/cache/cd27a0d6f4197d1b7e37983dff472110/image/28997dfe6/samsung-galaxy-tab-s11-ultra-wifi-256gb-with-galaxy-tab-s11-ultra-book-cover-keyboard-english.png" },
-      { "familia":"Tab S11", "modelo":"Galaxy Tab S11 256GB 5G", "pix":6559, "x6":6715, "x10":6820, "obs":"", "img":"https://www.mygsm.me/media/iopt/catalog/product/cache/cd27a0d6f4197d1b7e37983dff472110/image/28997dfe6/samsung-galaxy-tab-s11-ultra-wifi-256gb-with-galaxy-tab-s11-ultra-book-cover-keyboard-english.png" }
+      {
+        "familia": "Tab A11",
+        "modelo": "Galaxy Tab A11 64gb WiFi",
+        "pix": 1235,
+        "x6": 1347,
+        "x10": 1460,
+        "obs": "",
+        "img": "https://images.samsung.com/is/image/samsung/p6pim/br/sm-x133nzsazto/gallery/br-galaxy-tab-a11-sm-x130-sm-x133nzsazto-549252587?$Q90_1248_936_F_PNG$"
+      },
+      {
+        "familia": "Tab A11+",
+        "modelo": "Galaxy Tab A11+ 128gb WiFi",
+        "pix": 2135,
+        "x6": 2188,
+        "x10": 2295,
+        "obs": "",
+        "img": "https://images.samsung.com/is/image/samsung/p6pim/au/sm-x236bzaaats/gallery/au-galaxy-tab-a11-plus-sm-x230-572694-sm-x236bzaaats-thumb-550300500"
+      },
+      {
+        "familia": "Tab A11+",
+        "modelo": "Galaxy Tab A11+ 128GB 5G",
+        "pix": 2335,
+        "x6": 2388,
+        "x10": 2494,
+        "obs": "",
+        "img": "https://images.samsung.com/is/image/samsung/p6pim/au/sm-x236bzaaats/gallery/au-galaxy-tab-a11-plus-sm-x230-572694-sm-x236bzaaats-thumb-550300500"
+      },
+      {
+        "familia": "Tab S10 Lite",
+        "modelo": "Galaxy Tab S10 Lite 128GB WiFi",
+        "pix": 3159,
+        "x6": 3323,
+        "x10": 3432,
+        "obs": "",
+        "img": "https://images.samsung.com/is/image/samsung/p6pim/br/sm-x400nzrdzto/gallery/br-galaxy-tab-s10-lite-sm-x406-sm-x400nzrdzto-548616931?$Q90_1248_936_F_PNG$"
+      },
+      {
+        "familia": "Tab S10 Lite",
+        "modelo": "Galaxy Tab S10 Lite 128GB 5G",
+        "pix": 3359,
+        "x6": 3522,
+        "x10": 3630,
+        "obs": "",
+        "img": "https://images.samsung.com/is/image/samsung/p6pim/br/sm-x400nzrdzto/gallery/br-galaxy-tab-s10-lite-sm-x406-sm-x400nzrdzto-548616931?$Q90_1248_936_F_PNG$"
+      },
+      {
+        "familia": "Tab S10 FE",
+        "modelo": "Galaxy Tab S10 FE 128GB Wifi",
+        "pix": 3759,
+        "x6": 3920,
+        "x10": 4028,
+        "obs": "",
+        "img": "https://benchpromos.com.br/_next/image?url=https%3A%2F%2Fi.imgur.com%2FKXDYidt.png&w=3840&q=75"
+      },
+      {
+        "familia": "Tab S10 FE",
+        "modelo": "Galaxy Tab S10 FE 128GB 5G",
+        "pix": 4209,
+        "x6": 4369,
+        "x10": 4475,
+        "obs": "",
+        "img": "https://benchpromos.com.br/_next/image?url=https%3A%2F%2Fi.imgur.com%2FKXDYidt.png&w=3840&q=75"
+      },
+      {
+        "familia": "Tab S10 FE",
+        "modelo": "Galaxy Tab S10 FE+ 128GB Wifi",
+        "pix": 4559,
+        "x6": 4718,
+        "x10": 4824,
+        "obs": "",
+        "img": "https://benchpromos.com.br/_next/image?url=https%3A%2F%2Fi.imgur.com%2FIRjltDE.png&w=3840&q=75"
+      },
+      {
+        "familia": "Tab S10 FE",
+        "modelo": "Galaxy Tab S10 FE+ 128GB 5G",
+        "pix": 5059,
+        "x6": 5217,
+        "x10": 5323,
+        "obs": "",
+        "img": "https://benchpromos.com.br/_next/image?url=https%3A%2F%2Fi.imgur.com%2FIRjltDE.png&w=3840&q=75"
+      },
+      {
+        "familia": "Tab S11",
+        "modelo": "Galaxy Tab S11 256GB Wifi",
+        "pix": 6159,
+        "x6": 6316,
+        "x10": 6420,
+        "obs": "",
+        "img": "https://www.mygsm.me/media/iopt/catalog/product/cache/cd27a0d6f4197d1b7e37983dff472110/image/28997dfe6/samsung-galaxy-tab-s11-ultra-wifi-256gb-with-galaxy-tab-s11-ultra-book-cover-keyboard-english.png"
+      },
+      {
+        "familia": "Tab S11",
+        "modelo": "Galaxy Tab S11 256GB 5G",
+        "pix": 6559,
+        "x6": 6715,
+        "x10": 6820,
+        "obs": "",
+        "img": "https://www.mygsm.me/media/iopt/catalog/product/cache/cd27a0d6f4197d1b7e37983dff472110/image/28997dfe6/samsung-galaxy-tab-s11-ultra-wifi-256gb-with-galaxy-tab-s11-ultra-book-cover-keyboard-english.png"
+      }
     ],
     "notebooks": [
-      { "familia":"Book Go", "modelo":"Galaxy Book Go Snapdragon", "pix":3998, "x6":4131, "x10":4198, "obs":"", "img":"https://images.samsung.com/is/image/samsung/p6pim/br/np340xla-k0abr/gallery/br-samsung-book-np340xla-k0abr-front-silver-thumb-547344186" }
+      {
+        "familia": "Book Go",
+        "modelo": "Galaxy Book Go Snapdragon",
+        "pix": 3998,
+        "x6": 4131,
+        "x10": 4198,
+        "obs": "",
+        "img": "https://images.samsung.com/is/image/samsung/p6pim/br/np340xla-k0abr/gallery/br-samsung-book-np340xla-k0abr-front-silver-thumb-547344186"
+      }
     ],
     "wearables": [
-      { "familia":"Watch Ultra", "modelo":"Galaxy Watch Ultra LTE 47mm", "pix":3862, "x6":null, "x10":3967, "obs":"", "img":"https://images.samsung.com/is/image/samsung/p6pim/br/f2507/gallery/br-galaxy-watch-ultra-2025-l705-sm-l705fzapzto-547659469?$Q90_1248_936_F_PNG$" },
-      { "familia":"Fit 3", "modelo":"Galaxy Fit 3", "pix":662, "x6":null, "x10":728, "obs":"", "img":"https://images.samsung.com/is/image/samsung/p6pim/br/sm-r390nzsazto/gallery/br-galaxy-fit3-r390-sm-r390nzsazto-539970899?$Q90_1248_936_F_PNG$" },
-      { "familia":"Buds", "modelo":"Galaxy Buds 3", "pix":1748, "x6":null, "x10":1967, "obs":"", "img":"https://t.ctcdn.com.br/UwBam4OLqVTv3ZFIhhlhiKlrqYY=/fit-in/600x600/filters:fill(transparent):watermark(wm/prd.png,-32p,center,1,none,15)/i916485.png" },
-      { "familia":"Buds", "modelo":"Galaxy Buds 3 Pro", "pix":1548, "x6":null, "x10":1769, "obs":"", "img":"https://electrox.shop/wp-content/uploads/2025/01/Samsung_Galaxy_Buds_3_Pro___Laptops_Arena-removebg-preview.webp" },
-      { "familia":"Buds", "modelo":"Galaxy Buds Core", "pix":548, "x6":null, "x10":617, "obs":"", "img":"https://benchpromos.com.br/_next/image?url=https%3A%2F%2Fi.ibb.co%2FcsMSXvC%2F42e99f11-d31c-4503-985a-151699ccd1aa.png&w=3840&q=75" },
-      { "familia":"Buds", "modelo":"Galaxy Buds 3 FE", "pix":1248, "x6":null, "x10":1271, "obs":"", "img":"https://www.greentelcom.ph/wp-content/uploads/2026/02/Samsung-Galaxy-Buds-3-FE-4.png" }
+      {
+        "familia": "Watch Ultra",
+        "modelo": "Galaxy Watch Ultra LTE 47mm",
+        "pix": 3862,
+        "x6": null,
+        "x10": 3967,
+        "obs": "",
+        "img": "https://images.samsung.com/is/image/samsung/p6pim/br/f2507/gallery/br-galaxy-watch-ultra-2025-l705-sm-l705fzapzto-547659469?$Q90_1248_936_F_PNG$"
+      },
+      {
+        "familia": "Fit 3",
+        "modelo": "Galaxy Fit 3",
+        "pix": 662,
+        "x6": null,
+        "x10": 728,
+        "obs": "",
+        "img": "https://images.samsung.com/is/image/samsung/p6pim/br/sm-r390nzsazto/gallery/br-galaxy-fit3-r390-sm-r390nzsazto-539970899?$Q90_1248_936_F_PNG$"
+      },
+      {
+        "familia": "Buds",
+        "modelo": "Galaxy Buds 3",
+        "pix": 1748,
+        "x6": null,
+        "x10": 1967,
+        "obs": "",
+        "img": "https://t.ctcdn.com.br/UwBam4OLqVTv3ZFIhhlhiKlrqYY=/fit-in/600x600/filters:fill(transparent):watermark(wm/prd.png,-32p,center,1,none,15)/i916485.png"
+      },
+      {
+        "familia": "Buds",
+        "modelo": "Galaxy Buds 3 Pro",
+        "pix": 1548,
+        "x6": null,
+        "x10": 1769,
+        "obs": "",
+        "img": "https://electrox.shop/wp-content/uploads/2025/01/Samsung_Galaxy_Buds_3_Pro___Laptops_Arena-removebg-preview.webp"
+      },
+      {
+        "familia": "Buds",
+        "modelo": "Galaxy Buds Core",
+        "pix": 548,
+        "x6": null,
+        "x10": 617,
+        "obs": "",
+        "img": "https://benchpromos.com.br/_next/image?url=https%3A%2F%2Fi.ibb.co%2FcsMSXvC%2F42e99f11-d31c-4503-985a-151699ccd1aa.png&w=3840&q=75"
+      },
+      {
+        "familia": "Buds",
+        "modelo": "Galaxy Buds 3 FE",
+        "pix": 1248,
+        "x6": null,
+        "x10": 1271,
+        "obs": "",
+        "img": "https://www.greentelcom.ph/wp-content/uploads/2026/02/Samsung-Galaxy-Buds-3-FE-4.png"
+      }
     ],
     "acessorios": [
-      { "familia":"Áudio", "modelo":"Fone P2", "pix":99, "x6":149, "x10":null, "obs":"", "img":"https://images.samsung.com/is/image/samsung/br-earphones-tuned-by-akg-eo-ig955-eo-ig955bsegbr-black-69491354?$624_624_PNG$" },
-      { "familia":"Áudio", "modelo":"Fone USB-C", "pix":189, "x6":239, "x10":null, "obs":"", "img":"https://images.samsung.com/is/image/samsung/br-samsung-type-c-earphones-eo-ic100-eo-ic100bbegbr-frontblack-252072438?$624_624_PNG$" },
-      { "familia":"Baterias", "modelo":"Bateria Portátil 2x (10mAh)", "pix":299, "x6":399, "x10":null, "obs":"", "img":"https://images.samsung.com/is/image/samsung/p6pim/br/eb-p3400xupgbr/gallery/br-10ah-battery-pack-eb-p3400-eb-p3400xupgbr-536650457?$Q90_1248_936_F_PNG$" },
-      { "familia":"Baterias", "modelo":"Bateria Portátil 3x (20mAh)", "pix":399, "x6":499, "x10":null, "obs":"", "img":"https://images.samsung.com/is/image/samsung/p6pim/br/eb-p4520xupgbr/gallery/br-battery-pack-20000mah-eb-p4520-eb-p4520xupgbr-541740975?$Q90_1248_936_F_PNG$" },
-      { "familia":"Carregadores", "modelo":"Carregador 15W (Cabo)", "pix":269, "x6":319, "x10":null, "obs":"", "img":"https://media.flixcar.com/webp/synd-asset/Samsung-230858737-br-45w-power-adapter-ep-t4511-ep-t4511xbpgbr-543331396--Download-Source--zoom.png" },
-      { "familia":"Carregadores", "modelo":"Carregador 25W (Cabo)", "pix":299, "x6":499, "x10":null, "obs":"", "img":"https://media.flixcar.com/webp/synd-asset/Samsung-230858737-br-45w-power-adapter-ep-t4511-ep-t4511xbpgbr-543331396--Download-Source--zoom.png" },
-      { "familia":"Carregadores", "modelo":"Carregador 45W (Cabo)", "pix":399, "x6":499, "x10":null, "obs":"", "img":"https://media.flixcar.com/webp/synd-asset/Samsung-230858737-br-45w-power-adapter-ep-t4511-ep-t4511xbpgbr-543331396--Download-Source--zoom.png" },
-      { "familia":"Carregadores", "modelo":"Carregador 60W (Cabo)", "pix":699, "x6":799, "x10":null, "obs":"", "img":"https://media.flixcar.com/webp/synd-asset/Samsung-230858737-br-45w-power-adapter-ep-t4511-ep-t4511xbpgbr-543331396--Download-Source--zoom.png" },
-      { "familia":"Cabos", "modelo":"Cabo USB-C 1m", "pix":79, "x6":99, "x10":null, "obs":"", "img":"https://samsungbrshop.vtexassets.com/arquivos/ids/173004/SSG-BLACK-259408272.jpg?v=637305990278570000" },
-      { "familia":"Cabos", "modelo":"Cabo USB-C 1.8m", "pix":99, "x6":149, "x10":null, "obs":"", "img":"https://samsungbrshop.vtexassets.com/arquivos/ids/173004/SSG-BLACK-259408272.jpg?v=637305990278570000" },
-      { "familia":"Capas", "modelo":"Capas Galaxy A", "pix":99, "x6":149, "x10":null, "obs":"", "img":"" },
-      { "familia":"Capas", "modelo":"Capas Galaxy S", "pix":149, "x6":199, "x10":null, "obs":"", "img":"" },
-      { "familia":"Capas", "modelo":"Capas Galaxy Z", "pix":299, "x6":399, "x10":null, "obs":"", "img":"" },
-      { "familia":"SmartTag", "modelo":"Galaxy SmartTag 2", "pix":249, "x6":349, "x10":null, "obs":"", "img":"https://images.samsung.com/is/image/samsung/p6pim/br/ei-t5600bbegbr/gallery/br-galaxy-smarttag2-ei-t5600-ei-t5600bbegbr-538427229?$Q90_1248_936_F_PNG$" }
+      {
+        "familia": "Áudio",
+        "modelo": "Fone P2",
+        "pix": 99,
+        "x6": 149,
+        "x10": null,
+        "obs": "",
+        "img": "https://images.samsung.com/is/image/samsung/br-earphones-tuned-by-akg-eo-ig955-eo-ig955bsegbr-black-69491354?$624_624_PNG$"
+      },
+      {
+        "familia": "Áudio",
+        "modelo": "Fone USB-C",
+        "pix": 189,
+        "x6": 239,
+        "x10": null,
+        "obs": "",
+        "img": "https://images.samsung.com/is/image/samsung/br-samsung-type-c-earphones-eo-ic100-eo-ic100bbegbr-frontblack-252072438?$624_624_PNG$"
+      },
+      {
+        "familia": "Baterias",
+        "modelo": "Bateria Portátil 2x (10mAh)",
+        "pix": 299,
+        "x6": 399,
+        "x10": null,
+        "obs": "",
+        "img": "https://images.samsung.com/is/image/samsung/p6pim/br/eb-p3400xupgbr/gallery/br-10ah-battery-pack-eb-p3400-eb-p3400xupgbr-536650457?$Q90_1248_936_F_PNG$"
+      },
+      {
+        "familia": "Baterias",
+        "modelo": "Bateria Portátil 3x (20mAh)",
+        "pix": 399,
+        "x6": 499,
+        "x10": null,
+        "obs": "",
+        "img": "https://images.samsung.com/is/image/samsung/p6pim/br/eb-p4520xupgbr/gallery/br-battery-pack-20000mah-eb-p4520-eb-p4520xupgbr-541740975?$Q90_1248_936_F_PNG$"
+      },
+      {
+        "familia": "Carregadores",
+        "modelo": "Carregador 15W (Cabo)",
+        "pix": 269,
+        "x6": 319,
+        "x10": null,
+        "obs": "",
+        "img": "https://media.flixcar.com/webp/synd-asset/Samsung-230858737-br-45w-power-adapter-ep-t4511-ep-t4511xbpgbr-543331396--Download-Source--zoom.png"
+      },
+      {
+        "familia": "Carregadores",
+        "modelo": "Carregador 25W (Cabo)",
+        "pix": 299,
+        "x6": 499,
+        "x10": null,
+        "obs": "",
+        "img": "https://media.flixcar.com/webp/synd-asset/Samsung-230858737-br-45w-power-adapter-ep-t4511-ep-t4511xbpgbr-543331396--Download-Source--zoom.png"
+      },
+      {
+        "familia": "Carregadores",
+        "modelo": "Carregador 45W (Cabo)",
+        "pix": 399,
+        "x6": 499,
+        "x10": null,
+        "obs": "",
+        "img": "https://media.flixcar.com/webp/synd-asset/Samsung-230858737-br-45w-power-adapter-ep-t4511-ep-t4511xbpgbr-543331396--Download-Source--zoom.png"
+      },
+      {
+        "familia": "Carregadores",
+        "modelo": "Carregador 60W (Cabo)",
+        "pix": 699,
+        "x6": 799,
+        "x10": null,
+        "obs": "",
+        "img": "https://media.flixcar.com/webp/synd-asset/Samsung-230858737-br-45w-power-adapter-ep-t4511-ep-t4511xbpgbr-543331396--Download-Source--zoom.png"
+      },
+      {
+        "familia": "Cabos",
+        "modelo": "Cabo USB-C 1m",
+        "pix": 79,
+        "x6": 99,
+        "x10": null,
+        "obs": "",
+        "img": "https://samsungbrshop.vtexassets.com/arquivos/ids/173004/SSG-BLACK-259408272.jpg?v=637305990278570000"
+      },
+      {
+        "familia": "Cabos",
+        "modelo": "Cabo USB-C 1.8m",
+        "pix": 99,
+        "x6": 149,
+        "x10": null,
+        "obs": "",
+        "img": "https://samsungbrshop.vtexassets.com/arquivos/ids/173004/SSG-BLACK-259408272.jpg?v=637305990278570000"
+      },
+      {
+        "familia": "Capas",
+        "modelo": "Capas Galaxy A",
+        "pix": 99,
+        "x6": 149,
+        "x10": null,
+        "obs": "",
+        "img": ""
+      },
+      {
+        "familia": "Capas",
+        "modelo": "Capas Galaxy S",
+        "pix": 149,
+        "x6": 199,
+        "x10": null,
+        "obs": "",
+        "img": ""
+      },
+      {
+        "familia": "Capas",
+        "modelo": "Capas Galaxy Z",
+        "pix": 299,
+        "x6": 399,
+        "x10": null,
+        "obs": "",
+        "img": ""
+      },
+      {
+        "familia": "SmartTag",
+        "modelo": "Galaxy SmartTag 2",
+        "pix": 249,
+        "x6": 349,
+        "x10": null,
+        "obs": "",
+        "img": "https://images.samsung.com/is/image/samsung/p6pim/br/ei-t5600bbegbr/gallery/br-galaxy-smarttag2-ei-t5600-ei-t5600bbegbr-538427229?$Q90_1248_936_F_PNG$"
+      }
     ]
   }
 }
