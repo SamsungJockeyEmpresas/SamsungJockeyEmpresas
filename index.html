@@ -553,34 +553,84 @@
        ESTRUTURA DE GAVETAS LATERAIS (CARRINHO E DETALHES TÉCNICOS)
        NÃO ALTERAR: Lógica de transição, z-index e responsividade mobile.
     */
-    .cart-drawer, .details-drawer {
+    /* MODAL DE CHECKOUT CENTRALIZADO PREMIUM */
+    .cart-drawer {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.95);
+      width: 90%;
+      max-width: 1000px;
+      height: 85vh;
+      background: rgba(255, 255, 255, 0.95) !important;
+      backdrop-filter: blur(40px) !important;
+      -webkit-backdrop-filter: blur(40px) !important;
+      border-radius: 32px !important;
+      box-shadow: 0 40px 100px rgba(0,0,0,0.25) !important;
+      z-index: 3000;
+      display: none;
+      flex-direction: column;
+      padding: 0;
+      opacity: 0;
+      transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+      border: 1px solid rgba(255, 255, 255, 0.4) !important;
+      overflow: hidden;
+    }
+
+    .cart-drawer.active {
+      display: flex;
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    /* DETALHES DRAWER (MANTIDO LATERAL MAS REFINADO) */
+    .details-drawer {
       position: fixed;
       top: 0;
-      right: -450px;
-      width: 450px;
+      right: -500px;
+      width: 500px;
       height: 100%;
       background: var(--white);
-      box-shadow: -10px 0 50px rgba(0,0,0,0.15);
-      z-index: 2000;
+      box-shadow: -10px 0 50px rgba(0,0,0,0.1);
+      z-index: 2500;
       transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       display: flex;
       flex-direction: column;
-      padding: 0; /* Ajustado para controle interno */
+      padding: 0;
     }
-    .details-drawer { z-index: 2001; width: 500px; right: -500px; }
-    .cart-drawer.active, .details-drawer.active { right: 0; }
+    .details-drawer.active { right: 0; }
+
+    /* LAYOUT DUAS COLUNAS CHECKOUT */
+    .checkout-container {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      height: 100%;
+      overflow: hidden;
+    }
 
     @media (max-width: 768px) {
-      .cart-drawer, .details-drawer { width: 100%; right: -100%; }
-      .cart-header, .cart-items, .cart-company-field, .cart-footer { padding-left: 20px; padding-right: 20px; }
-      .details-drawer { padding: 0; }
-      .details-header { padding: 20px; margin-bottom: 0; }
-      .details-body { padding: 20px; }
-      .compare-modal { padding: 20px; }
-      .compare-table { display: block; overflow-x: auto; white-space: nowrap; }
+      .cart-drawer {
+        top: auto;
+        bottom: -100%;
+        left: 0;
+        transform: none;
+        width: 100%;
+        height: 92vh;
+        border-radius: 32px 32px 0 0 !important;
+        max-width: none;
+        transition: bottom 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+      }
+      .cart-drawer.active {
+        bottom: 0;
+        transform: none;
+      }
+      .checkout-container {
+        grid-template-columns: 1fr;
+        overflow-y: auto;
+      }
+      .details-drawer { width: 100%; right: -100%; }
       .product-grid { padding: 0 20px; gap: 15px; }
       .tabs-container { padding: 0 20px; justify-content: flex-start; overflow-x: auto; white-space: nowrap; flex-wrap: nowrap; padding-bottom: 10px; }
-      .tab-btn { flex-shrink: 0; }
     }
 
     .details-header {
@@ -1875,29 +1925,42 @@
 
 <div class="cart-drawer" id="cartDrawer">
   <div class="cart-header">
-    <h2>Sua Cotação</h2>
+    <div style="display:flex; align-items:center; gap:15px;">
+      <div style="background:var(--samsung-blue); color:white; padding:8px 15px; border-radius:10px; font-weight:800; font-size:0.7rem; text-transform:uppercase; letter-spacing:1px;">B2B OFICIAL</div>
+      <h2>Sua Cotação</h2>
+    </div>
     <div class="close-cart" onclick="closeCart()">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
     </div>
   </div>
-  <div class="cart-items" id="cartItems"></div>
   
-  <div class="cart-company-field">
-    <label for="companyName">Nome da sua Empresa</label>
-    <input type="text" id="companyName" placeholder="Ex: Minha Empresa LTDA" oninput="saveCompanyName(this.value)">
-  </div>
-
-  <div class="cart-footer">
-    <div class="cart-total">
-      <span>Total Estimado (PIX)</span>
-      <span id="cartTotal">R$ 0</span>
+  <div class="checkout-container">
+    <!-- COLUNA ESQUERDA: ITENS -->
+    <div style="display:flex; flex-direction:column; overflow:hidden; border-right:1px solid rgba(0,0,0,0.05);">
+      <div class="cart-items" id="cartItems"></div>
     </div>
-    <button class="btn-checkout btn-whatsapp" onclick="checkoutWhatsApp()">
-      Solicitar via WhatsApp
-    </button>
-    <button class="btn-checkout btn-email" onclick="checkoutEmail()">
-      Solicitar via E-mail
-    </button>
+
+    <!-- COLUNA DIREITA: RESUMO E DADOS -->
+    <div style="background:rgba(248, 249, 250, 0.5); display:flex; flex-direction:column; overflow-y:auto; padding:40px;">
+      <div class="cart-company-field" style="background:transparent; padding:0; border:none; margin-bottom:30px;">
+        <label for="companyName">Nome da sua Empresa / CNPJ</label>
+        <input type="text" id="companyName" placeholder="Identificação da Empresa" oninput="saveCompanyName(this.value)" style="background:white; border:1px solid #ddd; padding:15px; border-radius:12px; font-size:1rem;">
+      </div>
+
+      <div class="cart-total" style="margin-bottom:0;">
+        <!-- Injetado via JS -->
+      </div>
+
+      <div class="cart-footer" style="background:transparent; padding:0; border:none; margin-top:30px;">
+        <button class="btn-checkout btn-whatsapp" onclick="checkoutWhatsApp()">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.414 0 .004 5.412 0 12.048c0 2.123.554 4.197 1.608 6.037L0 24l6.117-1.605a11.803 11.803 0 005.925 1.586h.005c6.631 0 12.046-5.411 12.05-12.047a11.882 11.882 0 00-3.536-8.509z"/></svg>
+          Solicitar Cotação B2B
+        </button>
+        <div style="text-align:center; font-size:0.65rem; color:#999; font-weight:700; text-transform:uppercase; letter-spacing:1px; margin-top:15px;">
+          Faturamento Direto CNPJ | Projetos Sob Medida
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -2127,20 +2190,22 @@
 
   function renderCartItems() {
     const container = document.getElementById('cartItems');
-    const footer = document.querySelector('.cart-footer');
+    const checkoutContainer = document.querySelector('.checkout-container');
     
     if (cart.length === 0) {
       container.innerHTML = `
-        <div style="text-align:center; padding:60px 20px; opacity:0.5;">
-          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-          <p style="margin-top:15px; font-weight:700;">Sua cotação está vazia</p>
+        <div style="text-align:center; padding:100px 20px; opacity:0.3;">
+          <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <p style="margin-top:20px; font-weight:700; font-size:1.2rem;">Sua cotação está vazia</p>
+          <button class="btn-header" style="margin: 20px auto;" onclick="closeCart()">Explorar Catálogo</button>
         </div>
       `;
-      footer.style.display = 'none';
+      if (checkoutContainer) checkoutContainer.style.display = 'none';
       return;
     }
 
-    footer.style.display = 'flex';
+    if (checkoutContainer) checkoutContainer.style.display = 'grid';
+    
     container.innerHTML = cart.map((item, idx) => {
       let imgUrl = 'https://via.placeholder.com/100';
       for (let cat in CATALOG.categories) {
@@ -2153,11 +2218,11 @@
           <img src="${imgUrl}" class="cart-item-img">
           <div class="cart-item-info">
             <div class="cart-item-name">${item.name}</div>
-            <div class="cart-item-price">${fmt(item.price * item.qty)}</div>
+            <div class="cart-item-price">PIX: ${fmt(item.price * item.qty)}</div>
           </div>
           <div class="cart-item-actions">
             <div class="cart-item-remove" onclick="removeFromCart(${idx})">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
             </div>
             <div class="cart-item-qty-control">
               <div class="qty-btn" onclick="updateQty(${idx}, -1)">-</div>
@@ -2178,8 +2243,8 @@
       <div class="summary-panel">
         <div class="summary-row"><span>Total em 10x:</span><span>${fmt(totalX10)}</span></div>
         <div class="summary-row"><span>Total em 6x:</span><span>${fmt(totalX6)}</span></div>
-        <div class="summary-row total"><span>Total no PIX:</span><span>${fmt(totalPix)}</span></div>
-        <div style="font-size:0.65rem; color:var(--text-secondary); text-align:right; font-weight:700; text-transform:uppercase;">
+        <div class="summary-row total"><span>Total no PIX:</span><span style="font-size:1.4rem;">${fmt(totalPix)}</span></div>
+        <div style="font-size:0.7rem; color:var(--text-secondary); text-align:right; font-weight:800; text-transform:uppercase; margin-top:10px;">
           Economia de ${fmt(totalX10 - totalPix)} no PIX
         </div>
       </div>
