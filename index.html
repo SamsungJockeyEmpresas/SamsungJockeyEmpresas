@@ -1237,7 +1237,9 @@
   function generateQuoteMessage() {
     const companyName = document.getElementById('companyName').value || "[Seu Negócio]";
     const date = new Date().toLocaleDateString('pt-BR');
-    const totalValue = cart.reduce((acc, i) => acc + (i.price * i.qty), 0);
+    const totalPix = cart.reduce((acc, i) => acc + (i.price * i.qty), 0);
+    const totalX6 = cart.reduce((acc, i) => acc + (i.x6_total * i.qty), 0);
+    const totalX10 = cart.reduce((acc, i) => acc + (i.x10_total * i.qty), 0);
     const totalItems = cart.reduce((acc, i) => acc + i.qty, 0);
 
     let msg = `SOLICITAÇÃO DE COTAÇÃO - SAMSUNG B2B\n`;
@@ -1250,15 +1252,19 @@
     cart.forEach((item, idx) => {
       msg += `${idx + 1}. ${item.name}\n`;
       msg += `   Quantidade: ${item.qty} unidade(s)\n`;
-      msg += `   Valor Unitário: ${fmt(item.price)}\n`;
-      msg += `   Valor Total: ${fmt(item.price * item.qty)}\n`;
+      msg += `   Valor Unitário (PIX): ${fmt(item.price)}\n`;
+      msg += `   Valor Total (PIX): ${fmt(item.price * item.qty)}\n`;
+      msg += `   Valor Total (6x): ${fmt(item.x6_total * item.qty)}\n`;
+      msg += `   Valor Total (10x): ${fmt(item.x10_total * item.qty)}\n`;
       if (idx < cart.length - 1) msg += `──────────────────────────────────────────────────────────────────────\n`;
     });
 
     msg += `──────────────────────────────────────────────────────────────────────\n`;
     msg += `RESUMO DA COTAÇÃO:\n`;
     msg += `Total de Itens: ${totalItems}\n`;
-    msg += `Valor Total: ${fmt(totalValue)}\n`;
+    msg += `VALOR TOTAL (PIX): ${fmt(totalPix)} (Economia Real)\n`;
+    msg += `VALOR TOTAL (6x): ${fmt(totalX6)}\n`;
+    msg += `VALOR TOTAL (10x): ${fmt(totalX10)}\n`;
     msg += `══════════════════════════════════════════════════════════════════════\n`;
     msg += `INFORMAÇÕES IMPORTANTES:\n`;
     msg += `* Cotação válida por 7 dias\n`;
