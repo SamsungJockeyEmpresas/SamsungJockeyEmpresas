@@ -158,6 +158,73 @@
     .qty-btn-large:hover { background: var(--samsung-blue); color: white; }
     .qty-val-large { font-size: 2rem; font-weight: 800; font-family: 'Montserrat', sans-serif; min-width: 60px; }
 
+    /* PAINEL ADMIN SECRETO */
+    .admin-panel {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--white);
+      z-index: 5000;
+      display: none;
+      flex-direction: column;
+      padding: 40px 60px;
+      overflow-y: auto;
+    }
+
+    .admin-panel.active { display: flex; }
+
+    .admin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 40px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid var(--samsung-blue);
+    }
+
+    .admin-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 20px;
+    }
+
+    .admin-card {
+      background: var(--gray-light);
+      padding: 20px;
+      border-radius: 12px;
+      border: 1px solid var(--gray-medium);
+    }
+
+    .admin-input {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin-bottom: 10px;
+      font-size: 0.85rem;
+    }
+
+    .admin-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    .btn-admin-save {
+      background: var(--samsung-blue);
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 4px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
     .cart-badge {
       background: #ff4757;
       color: white;
@@ -791,22 +858,133 @@
   <span id="toastMsg">Adicionado à cotação!</span>
 </div>
 
+<!-- PAINEL ADMIN -->
+<div class="admin-panel" id="adminPanel">
+  <div class="admin-header">
+    <h2 style="font-family:'Montserrat'; font-weight:800;">Painel Administrativo Mastercell B2B</h2>
+    <div style="display:flex; gap:15px;">
+      <button class="btn-admin-save" onclick="downloadConfig()">Exportar JSON</button>
+      <button class="btn-admin-save" style="background:#ff4757" onclick="closeAdmin()">Sair (ESC)</button>
+    </div>
+  </div>
+  <div id="adminContent" class="admin-grid">
+    <!-- Conteúdo via JS -->
+  </div>
+</div>
+
 <script>
   let CATALOG = { categories: {} };
+  let SPECS = {}; // Carregado via JSON ou mock
   let currentCategory = '';
   let cart = [];
   let tempProduct = null;
 
-  // Simulação de carregamento de dados (Normalmente viria de um fetch)
+  // Simulação de carregamento de dados
   async function init() {
     try {
       const res = await fetch('precos.json');
       CATALOG = await res.json();
+      
+      // Tentar carregar especificações se houver arquivo, senão usar objeto vazio
+      try {
+        const resSpecs = await fetch('specs.json');
+        SPECS = await resSpecs.json();
+      } catch(e) { 
+        SPECS = CATALOG.specs || {}; 
+      }
+
       renderTabs();
       switchCategory(Object.keys(CATALOG.categories)[0]);
     } catch (e) {
       console.error("Erro ao carregar catálogo:", e);
     }
+  }
+
+  // ATALHO SECRETO ALT + A
+  window.addEventListener('keydown', (e) => {
+    if (e.altKey && e.key.toLowerCase() === 'a') {
+      openAdmin();
+    }
+    if (e.key === 'Escape') {
+      closeAdmin();
+      closeCart();
+      closeQtyModal();
+    }
+  });
+
+  function openAdmin() {
+    renderAdmin();
+    document.getElementById('adminPanel').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeAdmin() {
+    document.getElementById('adminPanel').classList.remove('active');
+    document.body.style.overflow = 'auto';
+    renderSection(currentCategory);
+  }
+
+  function renderAdmin() {
+    const container = document.getElementById('adminContent');
+    let html = '';
+    
+    Object.entries(CATALOG.categories).forEach(([cat, products]) => {
+      html += `<div style="grid-column: 1/-1; margin-top: 40px;"><h3 style="text-transform:uppercase; color:var(--samsung-blue); border-bottom:1px solid #ddd; padding-bottom:10px;">${cat}</h3></div>`;
+      products.forEach((p, idx) => {
+        const pSpecs = SPECS[p.modelo] || {};
+        html += `
+          <div class="admin-card">
+            <label class="admin-label">Modelo</label>
+            <input class="admin-input" value="${p.modelo}" onchange="updateAdminData('${cat}', ${idx}, 'modelo', this.value)">
+            
+            <label class="admin-label">Família</label>
+            <input class="admin-input" value="${p.familia}" onchange="updateAdminData('${cat}', ${idx}, 'familia', this.value)">
+            
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+              <div>
+                <label class="admin-label">Preço PIX (R$)</label>
+                <input class="admin-input" type="number" value="${p.pix}" onchange="updateAdminData('${cat}', ${idx}, 'pix', parseFloat(this.value))">
+              </div>
+              <div>
+                <label class="admin-label">Observação/Promo</label>
+                <input class="admin-input" value="${p.obs || ''}" onchange="updateAdminData('${cat}', ${idx}, 'obs', this.value)">
+              </div>
+            </div>
+
+            <label class="admin-label">Especificações (Ex: Tela: 6.7")</label>
+            <textarea class="admin-input" style="height:80px;" onchange="updateAdminSpecs('${p.modelo}', this.value)">${Object.entries(pSpecs).map(([k,v]) => `${k}: ${v}`).join('\n')}</textarea>
+          </div>
+        `;
+      });
+    });
+    container.innerHTML = html;
+  }
+
+  function updateAdminData(cat, idx, field, val) {
+    CATALOG.categories[cat][idx][field] = val;
+    showToast("Dado atualizado!");
+  }
+
+  function updateAdminSpecs(model, text) {
+    const lines = text.split('\n');
+    const newSpecs = {};
+    lines.forEach(line => {
+      const [k, v] = line.split(':');
+      if (k && v) newSpecs[k.trim()] = v.trim();
+    });
+    SPECS[model] = newSpecs;
+    CATALOG.specs = SPECS; // Manter sincronizado no objeto principal
+    showToast("Specs atualizadas!");
+  }
+
+  function downloadConfig() {
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(CATALOG, null, 2));
+    const downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute("href", dataStr);
+    downloadAnchorNode.setAttribute("download", "precos.json");
+    document.body.appendChild(downloadAnchorNode);
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
   }
 
   function renderTabs() {
