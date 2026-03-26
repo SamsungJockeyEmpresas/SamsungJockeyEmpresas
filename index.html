@@ -225,6 +225,32 @@
       font-weight: 700;
       cursor: pointer;
     }
+    .btn-admin-add {
+      padding: 8px 15px;
+      border: 1px dashed var(--samsung-blue);
+      border-radius: 5px;
+      background: transparent;
+      color: var(--samsung-blue);
+      font-family: 'Montserrat';
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .btn-admin-add:hover {
+      background: var(--samsung-blue);
+      color: white;
+    }
+    .btn-admin-delete {
+      background: #ff4757;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      cursor: pointer;
+      margin-top: 10px;
+      font-weight: 700;
+    }
 
     .cart-badge {
       background: #ff4757;
@@ -1195,34 +1221,44 @@
     const container = document.getElementById('adminContent');
     let html = '';
     
-    Object.entries(CATALOG.categories).forEach(([cat, products]) => {
-      html += `<div style="grid-column: 1/-1; margin-top: 40px;"><h3 style="text-transform:uppercase; color:var(--samsung-blue); border-bottom:1px solid #ddd; padding-bottom:10px;">${cat}</h3></div>`;
+     Object.entries(CATALOG.categories).forEach(([cat, products]) => {
+      html += `
+        <div style="grid-column: 1/-1; margin-top: 40px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #ddd; padding-bottom:10px;">
+          <h3 style="text-transform:uppercase; color:var(--samsung-blue);">${cat}</h3>
+          <button class="btn-admin-add" onclick="addNewProduct('${cat}')">+ Novo Produto</button>
+        </div>
+      `;
       products.forEach((p, idx) => {
-        const pSpecs = SPECS[p.modelo] || {};
         html += `
           <div class="admin-card">
             <label class="admin-label">Modelo</label>
-            <input class="admin-input" value="${p.modelo}" onchange="updateAdminData('${cat}', ${idx}, 'modelo', this.value)">
+            <input class="admin-input" value="${p.modelo || ''}" onchange="updateAdminData('${cat}', ${idx}, 'modelo', this.value)">
             
             <label class="admin-label">Família</label>
-            <input class="admin-input" value="${p.familia}" onchange="updateAdminData('${cat}', ${idx}, 'familia', this.value)">
+            <input class="admin-input" value="${p.familia || ''}" onchange="updateAdminData('${cat}', ${idx}, 'familia', this.value)">
             
+            <label class="admin-label">URL da Imagem</label>
+            <input class="admin-input" value="${p.img || ''}" placeholder="https://exemplo.com/imagem.jpg" onchange="updateAdminData('${cat}', ${idx}, 'img', this.value)">
+
             <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:10px;">
               <div>
                 <label class="admin-label">Preço PIX (R$)</label>
-                <input class="admin-input" type="number" value="${p.pix}" onchange="updateAdminData('${cat}', ${idx}, 'pix', parseFloat(this.value))">
+                <input class="admin-input" type="number" value="${p.pix || 0}" onchange="updateAdminData('${cat}', ${idx}, 'pix', parseFloat(this.value))">
               </div>
               <div>
                 <label class="admin-label">Total 6x (R$)</label>
-                <input class="admin-input" type="number" value="${p.x6_total || (p.pix * 1.08).toFixed(0)}" onchange="updateAdminData('${cat}', ${idx}, 'x6_total', parseFloat(this.value))">
+                <input class="admin-input" type="number" value="${p.x6_total || (p.pix ? (p.pix * 1.08).toFixed(0) : 0)}" onchange="updateAdminData('${cat}', ${idx}, 'x6_total', parseFloat(this.value))">
               </div>
               <div>
                 <label class="admin-label">Total 10x (R$)</label>
-                <input class="admin-input" type="number" value="${p.x10_total || (p.pix * 1.15).toFixed(0)}" onchange="updateAdminData('${cat}', ${idx}, 'x10_total', parseFloat(this.value))">
+                <input class="admin-input" type="number" value="${p.x10_total || (p.pix ? (p.pix * 1.15).toFixed(0) : 0)}" onchange="updateAdminData('${cat}', ${idx}, 'x10_total', parseFloat(this.value))">
               </div>
             </div>
-            <div style="margin-bottom:10px;">
-              <label class="admin-label">Observação/Promo</label>
+            <button class="btn-admin-delete" onclick="deleteProduct('${cat}', ${idx})">Excluir Produto</button>
+          </div>
+        `;
+      });
+    });              <label class="admin-label">Observação/Promo</label>
               <input class="admin-input" value="${p.obs || ''}" onchange="updateAdminData('${cat}', ${idx}, 'obs', this.value)">
             </div>
 
@@ -1237,7 +1273,25 @@
 
   function updateAdminData(cat, idx, field, val) {
     CATALOG.categories[cat][idx][field] = val;
-    showToast("Dado atualizado!");
+  }
+
+  function addNewProduct(cat) {
+    const newProd = {
+      modelo: "Novo Modelo",
+      familia: "Nova Família",
+      pix: 0,
+      img: ""
+    };
+    CATALOG.categories[cat].unshift(newProd);
+    renderAdmin();
+  }
+
+  function deleteProduct(cat, idx) {
+    if (confirm('Tem certeza que deseja excluir este produto?')) {
+      CATALOG.categories[cat].splice(idx, 1);
+      renderAdmin();
+    }
+  } showToast("Dado atualizado!");
   }
 
   function updateAdminSpecs(model, text) {
