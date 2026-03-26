@@ -538,6 +538,12 @@
     .details-drawer { z-index: 2001; width: 500px; right: -500px; }
     .cart-drawer.active, .details-drawer.active { right: 0; }
 
+    @media (max-width: 768px) {
+      .details-drawer { width: 100%; right: -100%; padding: 20px; }
+      .compare-modal { padding: 20px; }
+      .compare-table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
     .details-header {
       display: flex;
       justify-content: space-between;
@@ -575,12 +581,30 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(3, 78, 162, 0.1);
-      backdrop-filter: blur(2px);
+      background: rgba(3, 78, 162, 0.05);
       z-index: 1500;
       display: none;
       align-items: center;
       justify-content: center;
+      pointer-events: none; /* Permite clicar nos produtos por baixo */
+    }
+    .selection-overlay.active { display: flex; }
+    .selection-msg {
+      background: var(--samsung-blue);
+      color: white;
+      padding: 12px 25px;
+      border-radius: 50px;
+      font-family: 'Montserrat';
+      font-weight: 800;
+      font-size: 0.8rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      pointer-events: auto;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
     }
     .selection-overlay.active { display: flex; }
     .selection-msg {
@@ -1305,6 +1329,7 @@
   }
 
   function openDetails(modelo, pix, img, familia, category) {
+    const p = CATALOG.categories[category].find(x => x.modelo === modelo);
     const body = document.getElementById('detailsBody');
     body.innerHTML = `
       <img src="${img}" class="details-img">
@@ -1312,12 +1337,13 @@
       <h3 class="details-title">${modelo}</h3>
       <div class="price-pix" style="margin-bottom:20px;">${fmt(pix)}</div>
       
+      <div class="details-spec-item"><span class="details-spec-label">Processador</span><span class="details-spec-val">${p.processador || 'Octa-Core'}</span></div>
+      <div class="details-spec-item"><span class="details-spec-label">Memória/RAM</span><span class="details-spec-val">${p.memoria || 'Consulte'}</span></div>
+      <div class="details-spec-item"><span class="details-spec-label">Tela</span><span class="details-spec-val">${p.tela || 'Super AMOLED'}</span></div>
       <div class="details-spec-item"><span class="details-spec-label">Segurança</span><span class="details-spec-val">Samsung Knox Integrado</span></div>
       <div class="details-spec-item"><span class="details-spec-label">Garantia</span><span class="details-spec-val">12 Meses Oficial</span></div>
-      <div class="details-spec-item"><span class="details-spec-label">Categoria</span><span class="details-spec-val">${category.toUpperCase()}</span></div>
-      <div class="details-spec-item"><span class="details-spec-label">Suporte B2B</span><span class="details-spec-val">Consultoria Dedicada</span></div>
       
-      <button class="btn-compare-ghost" onclick="startCompare('${modelo}', ${pix}, '${img}', '${familia}')">Comparar com outro modelo</button>
+      <button class="btn-compare-ghost" onclick="startCompare('${modelo}', ${pix}, '${img}', '${familia}', '${category}')">Comparar com outro modelo</button>
     `;
     document.getElementById('detailsDrawer').classList.add('active');
     document.getElementById('cartOverlay').classList.add('active');
@@ -1334,8 +1360,9 @@
     if (isSelectingCompare) cancelCompare();
   }
 
-  function startCompare(modelo, pix, img, familia) {
-    compareBase = { modelo, pix, img, familia };
+  function startCompare(modelo, pix, img, familia, category) {
+    const p = CATALOG.categories[category].find(x => x.modelo === modelo);
+    compareBase = { ...p, category };
     isSelectingCompare = true;
     closeDetails();
     document.getElementById('selectionOverlay').classList.add('active');
@@ -1351,17 +1378,18 @@
 
   function finishCompare(modelo2, pix2, img2, familia2) {
     const p1 = compareBase;
-    const p2 = { modelo: modelo2, pix: pix2, img: img2, familia: familia2 };
+    const p2 = CATALOG.categories[currentCategory].find(x => x.modelo === modelo2) || { modelo: modelo2, pix: pix2, img: img2, familia: familia2 };
     
     const container = document.getElementById('compareTableContainer');
     container.innerHTML = `
       <table class="compare-table">
         <tr><th>Especificação</th><th>${p1.modelo}</th><th>${p2.modelo}</th></tr>
         <tr><td>Imagem</td><td><img src="${p1.img}" style="height:120px; object-fit:contain;"></td><td><img src="${p2.img}" style="height:120px; object-fit:contain;"></td></tr>
-        <tr><td>Família</td><td>${p1.familia}</td><td>${p2.familia}</td></tr>
+        <tr><td>Processador</td><td>${p1.processador || 'Octa-Core'}</td><td>${p2.processador || 'Octa-Core'}</td></tr>
+        <tr><td>Memória/RAM</td><td>${p1.memoria || 'Consulte'}</td><td>${p2.memoria || 'Consulte'}</td></tr>
+        <tr><td>Tela</td><td>${p1.tela || 'Super AMOLED'}</td><td>${p2.tela || 'Super AMOLED'}</td></tr>
         <tr><td>Preço PIX</td><td style="color:var(--samsung-blue); font-weight:800;">${fmt(p1.pix)}</td><td style="color:var(--samsung-blue); font-weight:800;">${fmt(p2.pix)}</td></tr>
         <tr><td>Segurança Knox</td><td>Hardware Integrado</td><td>Hardware Integrado</td></tr>
-        <tr><td>Garantia B2B</td><td>12 Meses Oficial</td><td>12 Meses Oficial</td></tr>
       </table>
     `;
     
@@ -1538,6 +1566,11 @@
           <label class="admin-label">Modelo</label><input class="admin-input" value="${p.modelo || ''}" onchange="updateAdminData('${cat}', ${idx}, 'modelo', this.value)">
           <label class="admin-label">Família</label><input class="admin-input" value="${p.familia || ''}" onchange="updateAdminData('${cat}', ${idx}, 'familia', this.value)">
           <label class="admin-label">URL Imagem</label><input class="admin-input" value="${p.img || ''}" onchange="updateAdminData('${cat}', ${idx}, 'img', this.value)">
+          <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:10px;">
+            <div><label class="admin-label">Processador</label><input class="admin-input" value="${p.processador || ''}" onchange="updateAdminData('${cat}', ${idx}, 'processador', this.value)"></div>
+            <div><label class="admin-label">Memória/RAM</label><input class="admin-input" value="${p.memoria || ''}" onchange="updateAdminData('${cat}', ${idx}, 'memoria', this.value)"></div>
+            <div><label class="admin-label">Tela</label><input class="admin-input" value="${p.tela || ''}" onchange="updateAdminData('${cat}', ${idx}, 'tela', this.value)"></div>
+          </div>
           <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:10px;">
             <div><label class="admin-label">PIX</label><input class="admin-input" type="number" value="${p.pix || 0}" onchange="updateAdminData('${cat}', ${idx}, 'pix', parseFloat(this.value))"></div>
             <div><label class="admin-label">6x</label><input class="admin-input" type="number" value="${p.x6_total || 0}" onchange="updateAdminData('${cat}', ${idx}, 'x6_total', parseFloat(this.value))"></div>
