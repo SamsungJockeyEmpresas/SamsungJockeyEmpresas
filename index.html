@@ -859,11 +859,13 @@
 </div>
 
 <!-- PAINEL ADMIN -->
-<div class="admin-panel" id="adminPanel">
+  <div class="admin-panel" id="adminPanel">
   <div class="admin-header">
     <h2 style="font-family:'Montserrat'; font-weight:800;">Painel Administrativo Mastercell B2B</h2>
-    <div style="display:flex; gap:15px;">
-      <button class="btn-admin-save" onclick="downloadConfig()">Exportar JSON</button>
+    <div style="display:flex; gap:15px; align-items:center;">
+      <div id="githubStatus" style="font-size:0.7rem; color:var(--text-secondary); font-weight:700;"></div>
+      <button class="btn-admin-save" id="btnSaveGithub" onclick="saveToGithub()">Salvar no GitHub</button>
+      <button class="btn-admin-save" style="background:#666" onclick="downloadConfig()">Baixar JSON</button>
       <button class="btn-admin-save" style="background:#ff4757" onclick="closeAdmin()">Sair (ESC)</button>
     </div>
   </div>
@@ -993,6 +995,69 @@
     document.body.appendChild(downloadAnchorNode);
     downloadAnchorNode.click();
     downloadAnchorNode.remove();
+  }
+
+  async function saveToGithub() {
+    const btn = document.getElementById('btnSaveGithub');
+    const status = document.getElementById('githubStatus');
+    
+    let token = localStorage.getItem('gh_token');
+    if (!token) {
+      token = prompt("Por favor, insira seu GitHub Personal Access Token (PAT) para salvar as alterações:");
+      if (!token) return;
+      localStorage.setItem('gh_token', token);
+    }
+
+    btn.disabled = true;
+    btn.innerText = "Salvando...";
+    status.innerText = "Conectando ao GitHub...";
+
+    const repo = "SamsungJockeyEmpresas/SamsungJockeyEmpresas";
+    const path = "precos.json";
+    const apiUrl = `https://api.github.com/repos/${repo}/contents/${path}`;
+
+    try {
+      // 1. Pegar o SHA do arquivo atual
+      const resGet = await fetch(apiUrl, {
+        headers: { 'Authorization': `token ${token}` }
+      });
+      const fileData = await resGet.json();
+      const sha = fileData.sha;
+
+      // 2. Enviar a atualização
+      const content = btoa(unescape(encodeURIComponent(JSON.stringify(CATALOG, null, 2))));
+      const resPut = await fetch(apiUrl, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `token ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          message: "Admin: Atualização de preços via Painel Administrativo",
+          content: content,
+          sha: sha
+        })
+      });
+
+      if (resPut.ok) {
+        showToast("✅ Alterações salvas no GitHub com sucesso!");
+        status.innerText = "Sincronizado com sucesso!";
+        setTimeout(() => { status.innerText = ""; }, 3000);
+      } else {
+        const err = await resPut.json();
+        throw new Error(err.message);
+      }
+    } catch (e) {
+      console.error(e);
+      alert("Erro ao salvar no GitHub: " + e.message);
+      status.innerText = "Erro na sincronização.";
+      if (e.message.includes("Bad credentials")) {
+        localStorage.removeItem('gh_token');
+      }
+    } finally {
+      btn.disabled = false;
+      btn.innerText = "Salvar no GitHub";
+    }
   }
 
   function renderTabs() {
