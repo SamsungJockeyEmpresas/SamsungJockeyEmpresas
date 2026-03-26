@@ -375,6 +375,16 @@
       display: flex;
       flex-direction: column;
       position: relative;
+      cursor: pointer;
+    }
+    .product-card.selecting-compare {
+      border: 2px dashed var(--samsung-blue);
+      animation: pulse-border 1.5s infinite;
+    }
+    @keyframes pulse-border {
+      0% { border-color: var(--samsung-blue); box-shadow: 0 0 0 0 rgba(3, 78, 162, 0.4); }
+      70% { border-color: var(--samsung-blue); box-shadow: 0 0 0 10px rgba(3, 78, 162, 0); }
+      100% { border-color: var(--samsung-blue); box-shadow: 0 0 0 0 rgba(3, 78, 162, 0); }
     }
 
     .product-card:hover {
@@ -1375,6 +1385,7 @@
     isSelectingCompare = true;
     closeDetails();
     document.getElementById('selectionOverlay').classList.add('active');
+    document.querySelectorAll('.product-card').forEach(card => card.classList.add('selecting-compare'));
     showToast("Selecione o segundo produto na lista");
   }
 
@@ -1383,6 +1394,7 @@
     compareBase = null;
     document.getElementById('selectionOverlay').classList.remove('active');
     document.getElementById('cartOverlay').classList.remove('active');
+    document.querySelectorAll('.product-card').forEach(card => card.classList.remove('selecting-compare'));
   }
 
   function finishCompare(modelo2, pix2, img2, familia2) {
