@@ -530,7 +530,11 @@
       border-color: var(--samsung-blue);
     }
 
-    /* MODAL CARRINHO E DETALHES LATERAL */
+    /* 
+       PROTEÇÃO DE CÓDIGO (CODE GUARD) - MATHEUS LIMA FREITAS
+       ESTRUTURA DE GAVETAS LATERAIS (CARRINHO E DETALHES TÉCNICOS)
+       NÃO ALTERAR: Lógica de transição, z-index e responsividade mobile.
+    */
     .cart-drawer, .details-drawer {
       position: fixed;
       top: 0;
@@ -584,7 +588,11 @@
     }
     .btn-compare-ghost:hover { background: var(--samsung-blue); color: white; }
 
-    /* MODO SELEÇÃO COMPARAR */
+    /* 
+       PROTEÇÃO DE CÓDIGO (CODE GUARD) - MATHEUS LIMA FREITAS
+       MODO SELEÇÃO COMPARAR (GHOST COMPARE)
+       NÃO ALTERAR: Pointer-events, animação de pulso e z-index.
+    */
     .selection-overlay {
       position: fixed;
       top: 0;
@@ -1332,6 +1340,11 @@
     }).join('');
   }
 
+  /* 
+     PROTEÇÃO DE CÓDIGO (CODE GUARD) - MATHEUS LIMA FREITAS
+     LÓGICA DE CLIQUE E COMPARAÇÃO (GHOST COMPARE)
+     NÃO ALTERAR: Fluxo de seleção, prioridade de clique e fechamento de overlays.
+  */
   function handleProductClick(modelo, pix, img, familia, category) {
     // Se estiver no modo de seleção para comparar, finaliza a comparação com o 2º produto
     if (isSelectingCompare) {
@@ -1593,6 +1606,7 @@
           <label class="admin-label">Modelo</label><input class="admin-input" value="${p.modelo || ''}" onchange="updateAdminData('${cat}', ${idx}, 'modelo', this.value)">
           <label class="admin-label">Família</label><input class="admin-input" value="${p.familia || ''}" onchange="updateAdminData('${cat}', ${idx}, 'familia', this.value)">
           <label class="admin-label">URL Imagem</label><input class="admin-input" value="${p.img || ''}" onchange="updateAdminData('${cat}', ${idx}, 'img', this.value)">
+          <!-- PROTEÇÃO DE CÓDIGO: CAMPOS DE ESPECIFICAÇÕES TÉCNICAS AVANÇADAS -->
           <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:10px;">
             <div><label class="admin-label">Processador</label><input class="admin-input" value="${p.processador || ''}" onchange="updateAdminData('${cat}', ${idx}, 'processador', this.value)"></div>
             <div><label class="admin-label">Memória/RAM</label><input class="admin-input" value="${p.memoria || ''}" onchange="updateAdminData('${cat}', ${idx}, 'memoria', this.value)"></div>
