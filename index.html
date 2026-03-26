@@ -1339,9 +1339,6 @@
   <h1>Agora sua empresa conta com um portfólio <span class="highlight">completo Samsung</span></h1>
   <p>Soluções desenvolvidas para aumentar a produtividade, mobilidade e segurança do seu negócio.</p>
   
-  <div class="search-container">
-    <input type="text" id="searchInput" placeholder="Buscar produto (Galaxy S25, Watch, Buds...)" onkeyup="searchProducts(this.value)">
-  </div>
 </section>
 
 <!-- POR QUE ESCOLHER MASTERCELL -->
@@ -1391,6 +1388,19 @@
     </div>
   </div>
 </section>
+
+<!-- BUSCA GLOBAL -->
+<div class="search-container" style="margin: -30px auto 60px; position: relative; z-index: 10; padding: 0 60px;">
+  <div style="background: var(--white); padding: 30px; border-radius: 20px; box-shadow: 0 15px 45px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.05);">
+    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px; color: var(--samsung-blue); font-weight: 700; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      Busca no Catálogo Completo
+    </div>
+    <input type="text" id="searchInput" placeholder="O que sua empresa precisa hoje? (Ex: Galaxy S25, Watch, Buds...)" onkeyup="searchProducts(this.value)" style="border-bottom: 2px solid var(--gray-medium); padding: 15px 0;">
+  </div>
+</div>
 
 <!-- TABS -->
 <div class="tabs" id="tabsContainer"></div>
