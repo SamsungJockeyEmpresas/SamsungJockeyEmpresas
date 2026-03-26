@@ -940,15 +940,23 @@
             <label class="admin-label">Família</label>
             <input class="admin-input" value="${p.familia}" onchange="updateAdminData('${cat}', ${idx}, 'familia', this.value)">
             
-            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+            <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:10px;">
               <div>
                 <label class="admin-label">Preço PIX (R$)</label>
                 <input class="admin-input" type="number" value="${p.pix}" onchange="updateAdminData('${cat}', ${idx}, 'pix', parseFloat(this.value))">
               </div>
               <div>
-                <label class="admin-label">Observação/Promo</label>
-                <input class="admin-input" value="${p.obs || ''}" onchange="updateAdminData('${cat}', ${idx}, 'obs', this.value)">
+                <label class="admin-label">Total 6x (R$)</label>
+                <input class="admin-input" type="number" value="${p.x6_total || (p.pix * 1.08).toFixed(0)}" onchange="updateAdminData('${cat}', ${idx}, 'x6_total', parseFloat(this.value))">
               </div>
+              <div>
+                <label class="admin-label">Total 10x (R$)</label>
+                <input class="admin-input" type="number" value="${p.x10_total || (p.pix * 1.15).toFixed(0)}" onchange="updateAdminData('${cat}', ${idx}, 'x10_total', parseFloat(this.value))">
+              </div>
+            </div>
+            <div style="margin-bottom:10px;">
+              <label class="admin-label">Observação/Promo</label>
+              <input class="admin-input" value="${p.obs || ''}" onchange="updateAdminData('${cat}', ${idx}, 'obs', this.value)">
             </div>
 
             <label class="admin-label">Especificações (Ex: Tela: 6.7")</label>
@@ -1018,11 +1026,12 @@
         <div class="product-info">
           <div class="product-familia">${p.familia}</div>
           <div class="product-name">${p.modelo}</div>
-          <div class="price-section">
+            <div class="price-section">
             <div class="price-label">A partir de</div>
             <div class="price-pix">${fmt(p.pix)}</div>
             <div class="price-pix-label">à vista no PIX</div>
-            <div class="price-parcel">ou 10x de <span>${fmt(p.pix/10)}</span> sem juros</div>
+            <div class="price-parcel" style="font-size:0.75rem; color:var(--text-secondary);">ou 6x de ${fmt((p.x6_total || p.pix * 1.08)/6)}</div>
+            <div class="price-parcel" style="font-size:0.75rem; color:var(--text-secondary);">ou 10x de ${fmt((p.x10_total || p.pix * 1.15)/10)}</div>
           </div>
           <button class="btn-add" onclick="openQtyModal('${p.modelo}', ${p.pix})">Adicionar à Cotação</button>
         </div>
@@ -1048,14 +1057,28 @@
   }
 
   function openQtyModal(name, price) {
-    tempProduct = { name, price, qty: 1 };
+    // Buscar o produto original para pegar os preços de parcelamento
+    let originalProduct = null;
+    Object.values(CATALOG.categories).forEach(prods => {
+      const found = prods.find(p => p.modelo === name);
+      if (found) originalProduct = found;
+    });
+
+    tempProduct = { 
+      name, 
+      price, 
+      qty: 1,
+      x6_total: originalProduct ? originalProduct.x6_total : (price * 1.08),
+      x10_total: originalProduct ? originalProduct.x10_total : (price * 1.15)
+    };
+    
     document.getElementById('qtyModalTitle').innerText = name;
     document.getElementById('modalQtyVal').innerText = '1';
     document.getElementById('qtyModal').classList.add('active');
     document.getElementById('cartOverlay').classList.add('active');
     
     document.getElementById('confirmAddBtn').onclick = () => {
-      addToCart(tempProduct.name, tempProduct.price, tempProduct.qty);
+      addToCart(tempProduct.name, tempProduct.price, tempProduct.qty, tempProduct.x6_total, tempProduct.x10_total);
       closeQtyModal();
     };
   }
@@ -1072,12 +1095,12 @@
     document.getElementById('modalQtyVal').innerText = tempProduct.qty;
   }
 
-  function addToCart(name, price, qty) {
+  function addToCart(name, price, qty, x6_total, x10_total) {
     const existing = cart.find(item => item.name === name);
     if (existing) {
       existing.qty += qty;
     } else {
-      cart.push({name, price, qty});
+      cart.push({name, price, qty, x6_total, x10_total});
     }
     updateCartBadge();
     renderCartItems();
@@ -1167,16 +1190,21 @@
     msg += `──────────────────────────────────────────────────────────────────────\n`;
     
     cart.forEach((item, idx) => {
+      const x6 = item.x6_total || (item.price * 1.08);
+      const x10 = item.x10_total || (item.price * 1.15);
       msg += `${idx + 1}. ${item.name}\n`;
       msg += `   Quantidade: ${item.qty} unidade(s)\n`;
-      msg += `   Valor Unitário: ${fmt(item.price)}\n`;
-      msg += `   Valor Total: ${fmt(item.price * item.qty)}\n`;
+      msg += `   À VISTA NO PIX: ${fmt(item.price * item.qty)}\n`;
+      msg += `   OPÇÃO 6x: 6x de ${fmt((x6 * item.qty) / 6)} (Total: ${fmt(x6 * item.qty)})\n`;
+      msg += `   OPÇÃO 10x: 10x de ${fmt((x10 * item.qty) / 10)} (Total: ${fmt(x10 * item.qty)})\n`;
       msg += `──────────────────────────────────────────────────────────────────────\n`;
     });
     
     msg += `RESUMO DA COTAÇÃO:\n`;
     msg += `Total de Itens: ${totalItems}\n`;
-    msg += `Valor Total: ${fmt(totalPrice)}\n`;
+    msg += `VALOR TOTAL (PIX): ${fmt(totalPrice)}\n`;
+    msg += `TOTAL EM 6x: ${fmt(cart.reduce((acc, i) => acc + ((i.x6_total || i.price * 1.08) * i.qty), 0))}\n`;
+    msg += `TOTAL EM 10x: ${fmt(cart.reduce((acc, i) => acc + ((i.x10_total || i.price * 1.15) * i.qty), 0))}\n`;
     msg += `══════════════════════════════════════════════════════════════════════\n\n`;
     
     msg += `INFORMAÇÕES IMPORTANTES:\n`;
