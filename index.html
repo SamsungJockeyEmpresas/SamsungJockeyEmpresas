@@ -227,7 +227,6 @@
       position: relative;
     }
     
-    /* Adicionando um detalhe sutil de borda inferior para separar do conteúdo */
     .hero::after {
       content: '';
       position: absolute;
@@ -421,6 +420,53 @@
     .price-pix { font-size: 1.5rem; font-weight: 800; color: var(--samsung-blue); margin: 2px 0; }
     .price-installments { font-size: 0.75rem; color: var(--text-primary); font-weight: 600; }
 
+    .card-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    
+    .card-qty-selector {
+      display: flex;
+      align-items: center;
+      background: var(--gray-light);
+      border: 1px solid var(--gray-medium);
+      border-radius: 8px;
+      padding: 5px;
+      width: 110px;
+    }
+    
+    .card-qty-btn {
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-weight: 800;
+      color: var(--samsung-blue);
+      user-select: none;
+      font-size: 1.2rem;
+    }
+    
+    .card-qty-input {
+      width: 40px;
+      text-align: center;
+      font-weight: 800;
+      font-size: 0.9rem;
+      border: none;
+      background: transparent;
+      outline: none;
+      color: var(--mastercell-black);
+      -moz-appearance: textfield;
+    }
+    .card-qty-input::-webkit-outer-spin-button,
+    .card-qty-input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
     .btn-add {
       background: var(--gray-light);
       color: var(--mastercell-black);
@@ -431,8 +477,7 @@
       font-weight: 800;
       font-size: 0.75rem;
       cursor: pointer;
-      width: 100%;
-      margin-top: 15px;
+      flex: 1;
       text-transform: uppercase;
       transition: all 0.3s ease;
     }
@@ -1008,11 +1053,9 @@
       <span id="cartTotal">R$ 0</span>
     </div>
     <button class="btn-checkout btn-whatsapp" onclick="checkoutWhatsApp()">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.72.937 3.659 1.431 5.63 1.433h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
       Solicitar via WhatsApp
     </button>
     <button class="btn-checkout btn-email" onclick="checkoutEmail()">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
       Solicitar via E-mail
     </button>
   </div>
@@ -1039,7 +1082,6 @@
 
 <script>
   let CATALOG = { categories: {} };
-  let SPECS = {};
   let currentCategory = '';
   let cart = [];
 
@@ -1047,18 +1089,11 @@
     try {
       const res = await fetch('precos.json');
       CATALOG = await res.json();
-      SPECS = CATALOG.specs || {};
-
       renderTabs();
       switchCategory(Object.keys(CATALOG.categories)[0]);
-      
       const savedCompany = localStorage.getItem('quote_company_name');
-      if (savedCompany) {
-        document.getElementById('companyName').value = savedCompany;
-      }
-    } catch (e) {
-      console.error("Erro ao carregar catálogo:", e);
-    }
+      if (savedCompany) document.getElementById('companyName').value = savedCompany;
+    } catch (e) { console.error(e); }
   }
 
   function renderTabs() {
@@ -1076,53 +1111,62 @@
 
   function renderProducts(products, category) {
     const grid = document.getElementById('productGrid');
-    grid.innerHTML = products.map((p, idx) => `
-      <div class="product-card">
-        ${(category === 'smartphones' || category === 'tablets' || category === 'dobráveis') ? `
-          <div class="knox-badge">
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
-            SAMSUNG KNOX
+    grid.innerHTML = products.map((p, idx) => {
+      const safeModel = p.modelo.replace(/'/g, "\\'");
+      const inputId = `qty-${p.modelo.replace(/\s+/g, '-').replace(/'/g, '')}`;
+      return `
+        <div class="product-card">
+          ${(category === 'smartphones' || category === 'tablets' || category === 'dobráveis') ? `
+            <div class="knox-badge">SAMSUNG KNOX</div>
+          ` : ''}
+          <div class="product-image-container">
+            <img class="product-img" src="${p.img || 'https://via.placeholder.com/300'}" alt="${p.modelo}" loading="lazy">
           </div>
-        ` : ''}
-        <div class="product-image-container">
-          <img class="product-img" src="${p.img || 'https://via.placeholder.com/300'}" alt="${p.modelo}" loading="lazy" decoding="async">
-        </div>
-        <div class="product-info">
-          <div class="product-family">${p.familia}</div>
-          <h3 class="product-name">${p.modelo}</h3>
-          <div class="price-container">
-            <div class="price-label">À VISTA NO PIX</div>
-            <div class="price-pix">${fmt(p.pix)}</div>
-            <div class="price-installments">ou 10x de ${fmt((p.x10_total || p.pix * 1.15) / 10)}</div>
+          <div class="product-info">
+            <div class="product-family">${p.familia}</div>
+            <h3 class="product-name">${p.modelo}</h3>
+            <div class="price-container">
+              <div class="price-pix">${fmt(p.pix)}</div>
+              <div class="price-installments">ou 10x de ${fmt((p.x10_total || p.pix * 1.15) / 10)}</div>
+            </div>
+            <div class="card-controls">
+              <div class="card-qty-selector">
+                <div class="card-qty-btn" onclick="updateCardQty('${inputId}', -1)">-</div>
+                <input type="number" class="card-qty-input" id="${inputId}" value="1" min="1" onchange="validateQty(this)">
+                <div class="card-qty-btn" onclick="updateCardQty('${inputId}', 1)">+</div>
+              </div>
+              <button class="btn-add" onclick="addWithQty('${safeModel}', ${p.pix}, ${p.x6_total || p.pix * 1.08}, ${p.x10_total || p.pix * 1.15}, '${inputId}')">Adicionar</button>
+            </div>
           </div>
-          <button class="btn-add" onclick="addToCart('${p.modelo}', ${p.pix}, 1, ${p.x6_total || p.pix * 1.08}, ${p.x10_total || p.pix * 1.15})">Adicionar à Cotação</button>
         </div>
-      </div>
-    `).join('');
+      `;
+    }).join('');
   }
 
-  function fmt(val) {
-    return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(val);
+  function fmt(val) { return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(val); }
+
+  function updateCardQty(id, delta) {
+    const el = document.getElementById(id);
+    let val = parseInt(el.value) + delta;
+    if (val < 1) val = 1;
+    el.value = val;
   }
 
-  function handleSearch(query) {
-    const q = query.toLowerCase();
-    const allProducts = [];
-    Object.values(CATALOG.categories).forEach(prods => allProducts.push(...prods));
-    const filtered = allProducts.filter(p => p.modelo.toLowerCase().includes(q) || p.familia.toLowerCase().includes(q));
-    renderProducts(filtered, 'search');
+  function validateQty(el) { if (el.value < 1) el.value = 1; }
+
+  function addWithQty(name, price, x6, x10, inputId) {
+    const qty = parseInt(document.getElementById(inputId).value);
+    addToCart(name, price, qty, x6, x10);
+    document.getElementById(inputId).value = 1;
   }
 
   function addToCart(name, price, qty, x6, x10) {
     const existing = cart.find(item => item.name === name);
-    if (existing) {
-      existing.qty += qty;
-    } else {
-      cart.push({name, price, qty, x6_total: x6, x10_total: x10});
-    }
+    if (existing) existing.qty += qty;
+    else cart.push({name, price, qty, x6_total: x6, x10_total: x10});
     updateCartBadge();
     renderCartItems();
-    showToast(`${name} adicionado!`);
+    showToast(`${qty}x ${name} adicionado!`);
   }
 
   function updateCartBadge() {
@@ -1143,7 +1187,7 @@
         <div class="cart-item">
           <div class="cart-item-info">
             <h4>${item.name}</h4>
-            <p>${fmt(subtotal)}</p>
+            <p>${item.qty}x - ${fmt(subtotal)}</p>
             <div class="remove-item" onclick="removeFromCart(${idx})">Remover</div>
           </div>
           <div class="cart-item-controls">
@@ -1155,7 +1199,6 @@
       `;
     }).join('');
     totalEl.innerText = fmt(total);
-    if (cart.length === 0) container.innerHTML = '<p style="text-align:center; padding:40px; color:var(--text-secondary);">Seu carrinho está vazio.</p>';
   }
 
   function updateQty(idx, delta) {
@@ -1188,135 +1231,76 @@
     setTimeout(() => toast.classList.remove('active'), 3000);
   }
 
-  function toggleFaq(el) {
-    el.parentElement.classList.toggle('active');
-  }
-
-  function saveCompanyName(val) {
-    localStorage.setItem('quote_company_name', val);
-  }
+  function toggleFaq(el) { el.parentElement.classList.toggle('active'); }
+  function saveCompanyName(val) { localStorage.setItem('quote_company_name', val); }
 
   function generateQuoteMessage() {
     const companyName = document.getElementById('companyName').value || "[Não Informado]";
     let msg = `SOLICITAÇÃO DE COTAÇÃO - SAMSUNG B2B\nEmpresa: ${companyName}\n\n`;
-    cart.forEach((item, idx) => {
-      msg += `${idx + 1}. ${item.name} (${item.qty}x) - Total: ${fmt(item.price * item.qty)}\n`;
-    });
-    msg += `\nVALOR TOTAL: ${fmt(cart.reduce((acc, i) => acc + (i.price * i.qty), 0))}\n`;
-    msg += `\nGerado via Catálogo Mastercell B2B`;
+    cart.forEach((item, idx) => { msg += `${idx + 1}. ${item.name} (${item.qty}x) - Total: ${fmt(item.price * item.qty)}\n`; });
+    msg += `\nVALOR TOTAL: ${fmt(cart.reduce((acc, i) => acc + (i.price * i.qty), 0))}\n\nGerado via Catálogo Mastercell B2B`;
     return msg;
   }
 
-  function checkoutWhatsApp() {
-    if (cart.length === 0) return;
-    window.open(`https://wa.me/5541989031156?text=${encodeURIComponent(generateQuoteMessage())}`, '_blank');
-  }
+  function checkoutWhatsApp() { if (cart.length > 0) window.open(`https://wa.me/5541989031156?text=${encodeURIComponent(generateQuoteMessage())}`, '_blank'); }
+  function checkoutEmail() { if (cart.length > 0) window.location.href = `mailto:samsungb2b@mastercell.com.br?subject=Cotação B2B&body=${encodeURIComponent(generateQuoteMessage())}`; }
 
-  function checkoutEmail() {
-    if (cart.length === 0) return;
-    window.location.href = `mailto:samsungb2b@mastercell.com.br?subject=Cotação B2B&body=${encodeURIComponent(generateQuoteMessage())}`;
-  }
-
-  // ADMIN FUNCTIONS
   window.addEventListener('keydown', (e) => {
     if (e.altKey && e.key.toLowerCase() === 'a') openAdmin();
-    if (e.key === 'Escape') closeAdmin();
+    if (e.key === 'Escape') { closeAdmin(); closeCart(); }
   });
 
-  function openAdmin() {
-    renderAdmin();
-    document.getElementById('adminPanel').classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeAdmin() {
-    document.getElementById('adminPanel').classList.remove('active');
-    document.body.style.overflow = 'auto';
-    switchCategory(currentCategory);
-  }
+  function openAdmin() { renderAdmin(); document.getElementById('adminPanel').classList.add('active'); document.body.style.overflow = 'hidden'; }
+  function closeAdmin() { document.getElementById('adminPanel').classList.remove('active'); document.body.style.overflow = 'auto'; switchCategory(currentCategory); }
 
   function renderAdmin() {
     const container = document.getElementById('adminContent');
     let html = '';
     Object.entries(CATALOG.categories).forEach(([cat, products]) => {
-      html += `
-        <div style="grid-column: 1/-1; margin-top: 40px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #ddd; padding-bottom:10px;">
-          <h3 style="text-transform:uppercase; color:var(--samsung-blue);">${cat}</h3>
-          <button class="btn-admin-add" onclick="addNewProduct('${cat}')">+ Novo Produto</button>
-        </div>
-      `;
+      html += `<div style="grid-column: 1/-1; margin-top: 40px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #ddd; padding-bottom:10px;">
+        <h3 style="text-transform:uppercase; color:var(--samsung-blue);">${cat}</h3>
+        <button class="btn-admin-add" onclick="addNewProduct('${cat}')">+ Novo Produto</button>
+      </div>`;
       products.forEach((p, idx) => {
-        html += `
-          <div class="admin-card">
-            <label class="admin-label">Modelo</label>
-            <input class="admin-input" value="${p.modelo || ''}" onchange="updateAdminData('${cat}', ${idx}, 'modelo', this.value)">
-            <label class="admin-label">Família</label>
-            <input class="admin-input" value="${p.familia || ''}" onchange="updateAdminData('${cat}', ${idx}, 'familia', this.value)">
-            <label class="admin-label">URL da Imagem</label>
-            <input class="admin-input" value="${p.img || ''}" onchange="updateAdminData('${cat}', ${idx}, 'img', this.value)">
-            <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:10px;">
-              <div><label class="admin-label">PIX</label><input class="admin-input" type="number" value="${p.pix || 0}" onchange="updateAdminData('${cat}', ${idx}, 'pix', parseFloat(this.value))"></div>
-              <div><label class="admin-label">6x</label><input class="admin-input" type="number" value="${p.x6_total || 0}" onchange="updateAdminData('${cat}', ${idx}, 'x6_total', parseFloat(this.value))"></div>
-              <div><label class="admin-label">10x</label><input class="admin-input" type="number" value="${p.x10_total || 0}" onchange="updateAdminData('${cat}', ${idx}, 'x10_total', parseFloat(this.value))"></div>
-            </div>
-            <button class="btn-admin-delete" onclick="deleteProduct('${cat}', ${idx})">Excluir</button>
+        html += `<div class="admin-card">
+          <label class="admin-label">Modelo</label><input class="admin-input" value="${p.modelo || ''}" onchange="updateAdminData('${cat}', ${idx}, 'modelo', this.value)">
+          <label class="admin-label">Família</label><input class="admin-input" value="${p.familia || ''}" onchange="updateAdminData('${cat}', ${idx}, 'familia', this.value)">
+          <label class="admin-label">URL Imagem</label><input class="admin-input" value="${p.img || ''}" onchange="updateAdminData('${cat}', ${idx}, 'img', this.value)">
+          <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:10px;">
+            <div><label class="admin-label">PIX</label><input class="admin-input" type="number" value="${p.pix || 0}" onchange="updateAdminData('${cat}', ${idx}, 'pix', parseFloat(this.value))"></div>
+            <div><label class="admin-label">6x</label><input class="admin-input" type="number" value="${p.x6_total || 0}" onchange="updateAdminData('${cat}', ${idx}, 'x6_total', parseFloat(this.value))"></div>
+            <div><label class="admin-label">10x</label><input class="admin-input" type="number" value="${p.x10_total || 0}" onchange="updateAdminData('${cat}', ${idx}, 'x10_total', parseFloat(this.value))"></div>
           </div>
-        `;
+          <button class="btn-admin-delete" onclick="deleteProduct('${cat}', ${idx})">Excluir</button>
+        </div>`;
       });
     });
     container.innerHTML = html;
   }
 
-  function updateAdminData(cat, idx, field, val) {
-    CATALOG.categories[cat][idx][field] = val;
-  }
-
-  function addNewProduct(cat) {
-    CATALOG.categories[cat].unshift({ modelo: "Novo Modelo", familia: "Família", pix: 0, img: "" });
-    renderAdmin();
-  }
-
-  function deleteProduct(cat, idx) {
-    if (confirm('Excluir produto?')) {
-      CATALOG.categories[cat].splice(idx, 1);
-      renderAdmin();
-    }
-  }
-
-  function downloadConfig() {
-    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(CATALOG, null, 2));
-    const a = document.createElement('a');
-    a.setAttribute("href", dataStr);
-    a.setAttribute("download", "precos.json");
-    a.click();
-  }
+  function updateAdminData(cat, idx, field, val) { CATALOG.categories[cat][idx][field] = val; }
+  function addNewProduct(cat) { CATALOG.categories[cat].unshift({ modelo: "Novo Modelo", familia: "Família", pix: 0, img: "" }); renderAdmin(); }
+  function deleteProduct(cat, idx) { if (confirm('Excluir?')) { CATALOG.categories[cat].splice(idx, 1); renderAdmin(); } }
 
   async function saveToGithub() {
     const btn = document.getElementById('btnSaveGithub');
-    const status = document.getElementById('githubStatus');
     let token = localStorage.getItem('gh_token') || prompt("GitHub Token:");
     if (!token) return;
     localStorage.setItem('gh_token', token);
-    btn.disabled = true; btn.innerText = "Salvando...";
+    btn.innerText = "Salvando...";
     try {
       const repo = "SamsungJockeyEmpresas/SamsungJockeyEmpresas";
-      const path = "precos.json";
-      const resGet = await fetch(`https://api.github.com/repos/${repo}/contents/${path}`, { headers: { 'Authorization': `token ${token}` } });
+      const resGet = await fetch(`https://api.github.com/repos/${repo}/contents/precos.json`, { headers: { 'Authorization': `token ${token}` } });
       const fileData = await resGet.json();
-      const resPut = await fetch(`https://api.github.com/repos/${repo}/contents/${path}`, {
+      const resPut = await fetch(`https://api.github.com/repos/${repo}/contents/precos.json`, {
         method: 'PUT',
         headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: "Update precos.json via Admin Panel", content: btoa(unescape(encodeURIComponent(JSON.stringify(CATALOG, null, 2)))), sha: fileData.sha })
+        body: JSON.stringify({ message: "Update via Admin", content: btoa(unescape(encodeURIComponent(JSON.stringify(CATALOG, null, 2)))), sha: fileData.sha })
       });
-      if (resPut.ok) { status.innerText = "Salvo com sucesso!"; setTimeout(() => status.innerText = "", 3000); }
-      else { throw new Error(); }
-    } catch (e) { status.innerText = "Erro ao salvar."; }
-    finally { btn.disabled = false; btn.innerText = "Salvar no GitHub"; }
+      if (resPut.ok) { alert("Salvo!"); }
+    } catch (e) { alert("Erro!"); }
+    finally { btn.innerText = "Salvar no GitHub"; }
   }
-
-  window.addEventListener('scroll', () => {
-    document.getElementById('mainHeader').classList.toggle('scrolled', window.scrollY > 50);
-  });
 
   init();
 </script>
