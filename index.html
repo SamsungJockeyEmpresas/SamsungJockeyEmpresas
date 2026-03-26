@@ -24,9 +24,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="author" content="Matheus Lima Freitas / Programador">
-  <meta name="owner" content="Matheus Lima Freitas">
-  <meta name="copyright" content="Matheus Lima Freitas - Todos os direitos reservados">
+  <meta name="author" content="Matheus Lima Freitas | Programador">
+  <meta name="owner" content="Matheus Lima Freitas | Mastercell B2B">
+  <meta name="copyright" content="Matheus Lima Freitas - Todos os direitos reservados © 2026">
+  <meta name="description" content="Catálogo Oficial Samsung B2B - Mastercell. Desenvolvido por Matheus Lima Freitas.">
   <title>Mastercell | Parceiro Oficial Samsung B2B</title>
   <link rel="icon" type="image/jpeg" href="https://files.manuscdn.com/user_upload_by_module/session_file/310519663399868611/VTcNUlKfAUIbLSRJ.jpg">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -52,7 +53,12 @@
       background-color: var(--white);
       line-height: 1.6;
       overflow-x: hidden;
+      user-select: none; /* Proteção contra cópia de texto */
+      -webkit-user-select: none;
     }
+    
+    /* Permitir seleção apenas em campos de entrada */
+    input, textarea { user-select: text; -webkit-user-select: text; }
 
     /* HEADER */
     header {
@@ -2214,8 +2220,9 @@
         <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663399868611/siSFKgbLwyYPKLAE.png" style="height:18px" alt="Android Enterprise Recommended">
       </div>
       <div style="display:flex; flex-direction:column; align-items:flex-end; gap:5px;">
-        <div>© 2024 Mastercell B2B. Todos os direitos reservados.</div>
-        <div style="font-size:0.6rem; opacity:0.5;">Idealizado e Desenvolvido por Matheus Lima Freitas / Programador</div>
+        <div>© 2026 Mastercell B2B. Todos os direitos reservados.</div>
+        <div style="font-size:0.65rem; opacity:0.7; font-weight:700; color:var(--samsung-blue);">PROPRIEDADE INTELECTUAL PROTEGIDA</div>
+        <div style="font-size:0.6rem; opacity:0.5;">Idealizado e Desenvolvido por <span style="font-weight:800;">Matheus Lima Freitas</span></div>
       </div>
     </div>
   </div>
@@ -2889,6 +2896,19 @@
   }
 
   init();
+
+  // Branding no Console
+  console.log("%cMASTERCELL B2B - SISTEMA PROTEGIDO", "color: #034EA2; font-size: 20px; font-weight: bold; font-family: Montserrat;");
+  console.log("%cPropriedade Intelectual: Matheus Lima Freitas", "color: #333; font-size: 14px;");
+  console.log("%cEste código e design são protegidos por direitos autorais. © 2026", "color: #666; font-size: 12px;");
+
+  // Proteção contra Clique Direito
+  document.addEventListener('contextmenu', (e) => {
+    if (e.target.tagName === 'IMG' || e.target.closest('.product-card')) {
+      e.preventDefault();
+      showToast('Conteúdo Protegido | Mastercell B2B');
+    }
+  });
 </script>
 </body>
 </html>
