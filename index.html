@@ -520,8 +520,8 @@
       border-color: var(--samsung-blue);
     }
 
-    /* MODAL CARRINHO LATERAL */
-    .cart-drawer {
+    /* MODAL CARRINHO E DETALHES LATERAL */
+    .cart-drawer, .details-drawer {
       position: fixed;
       top: 0;
       right: -450px;
@@ -534,6 +534,93 @@
       display: flex;
       flex-direction: column;
       padding: 40px;
+    }
+    .details-drawer { z-index: 2001; width: 500px; right: -500px; }
+    .cart-drawer.active, .details-drawer.active { right: 0; }
+
+    .details-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--gray-medium);
+    }
+    .details-body { flex: 1; overflow-y: auto; }
+    .details-img { width: 100%; height: 250px; object-fit: contain; margin-bottom: 20px; }
+    .details-title { font-family: 'Montserrat'; font-weight: 800; font-size: 1.4rem; color: var(--mastercell-black); margin-bottom: 10px; }
+    .details-spec-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(0,0,0,0.05); font-size: 0.85rem; }
+    .details-spec-label { font-weight: 700; color: var(--text-secondary); }
+    .details-spec-val { font-weight: 600; color: var(--mastercell-black); }
+
+    .btn-compare-ghost {
+      margin-top: 30px;
+      width: 100%;
+      padding: 15px;
+      border: 1px solid var(--samsung-blue);
+      background: transparent;
+      color: var(--samsung-blue);
+      border-radius: 8px;
+      font-family: 'Montserrat';
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .btn-compare-ghost:hover { background: var(--samsung-blue); color: white; }
+
+    /* MODO SELEÇÃO COMPARAR */
+    .selection-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(3, 78, 162, 0.1);
+      backdrop-filter: blur(2px);
+      z-index: 1500;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+    .selection-overlay.active { display: flex; }
+    .selection-msg {
+      background: var(--mastercell-black);
+      color: white;
+      padding: 20px 40px;
+      border-radius: 50px;
+      font-family: 'Montserrat';
+      font-weight: 800;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    .compare-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: white;
+      z-index: 6000;
+      display: none;
+      padding: 40px;
+      overflow-y: auto;
+    }
+    .compare-modal.active { display: block; }
+    .compare-table { width: 100%; border-collapse: collapse; margin-top: 30px; }
+    .compare-table th, .compare-table td { padding: 20px; border-bottom: 1px solid var(--gray-medium); text-align: center; }
+    .compare-table th { font-family: 'Montserrat'; font-weight: 800; color: var(--samsung-blue); }
+    
+    .product-image-container { cursor: pointer; }
+    .product-image-container:hover::after {
+      content: 'Ver Detalhes';
+      position: absolute;
+      background: rgba(3, 78, 162, 0.8);
+      color: white;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.6rem;
+      font-weight: 800;
+      font-family: 'Montserrat';
     }
 
     .cart-drawer.active {
@@ -1067,7 +1154,30 @@
   </div>
 </footer>
 
-<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-overlay" id="cartOverlay" onclick="closeAllDrawers()"></div>
+
+<div class="selection-overlay" id="selectionOverlay">
+  <div class="selection-msg">Selecione o segundo produto para comparar</div>
+</div>
+
+<div class="details-drawer" id="detailsDrawer">
+  <div class="details-header">
+    <h2 id="detailsHeaderTitle">Detalhes Técnicos</h2>
+    <div class="close-cart" onclick="closeDetails()">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </div>
+  </div>
+  <div class="details-body" id="detailsBody"></div>
+</div>
+
+<div class="compare-modal" id="compareModal">
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:40px;">
+    <h2 style="font-family:'Montserrat'; font-weight:800; color:var(--mastercell-black);">Comparativo Técnico B2B</h2>
+    <button class="btn-admin-save" style="background:#ff4757" onclick="closeCompare()">Fechar</button>
+  </div>
+  <div id="compareTableContainer"></div>
+</div>
+
 <div class="cart-drawer" id="cartDrawer">
   <div class="cart-header">
     <h2>Sua Cotação</h2>
@@ -1125,6 +1235,8 @@
   let CATALOG = { categories: {} };
   let currentCategory = '';
   let cart = [];
+  let compareBase = null;
+  let isSelectingCompare = false;
 
   async function init() {
     try {
@@ -1156,7 +1268,7 @@
       const safeModel = p.modelo.replace(/'/g, "\\'");
       const inputId = `qty-${p.modelo.replace(/\s+/g, '-').replace(/'/g, '')}`;
       return `
-        <div class="product-card">
+        <div class="product-card" onclick="handleProductClick('${safeModel}', ${p.pix}, '${p.img}', '${p.familia}', '${category}')">
           ${(category === 'smartphones' || category === 'tablets' || category === 'dobráveis') ? `
             <div class="knox-badge">SAMSUNG KNOX</div>
           ` : ''}
@@ -1170,7 +1282,7 @@
               <div class="price-pix">${fmt(p.pix)}</div>
               <div class="price-installments">ou 10x de ${fmt((p.x10_total || p.pix * 1.15) / 10)}</div>
             </div>
-            <div class="card-controls">
+            <div class="card-controls" onclick="event.stopPropagation()">
               <div class="card-qty-selector">
                 <div class="card-qty-btn" onclick="updateCardQty('${inputId}', -1)">-</div>
                 <input type="number" class="card-qty-input" id="${inputId}" value="1" min="1" onchange="validateQty(this)">
@@ -1183,6 +1295,81 @@
       `;
     }).join('');
   }
+
+  function handleProductClick(modelo, pix, img, familia, category) {
+    if (isSelectingCompare) {
+      finishCompare(modelo, pix, img, familia);
+      return;
+    }
+    openDetails(modelo, pix, img, familia, category);
+  }
+
+  function openDetails(modelo, pix, img, familia, category) {
+    const body = document.getElementById('detailsBody');
+    body.innerHTML = `
+      <img src="${img}" class="details-img">
+      <div class="details-family">${familia}</div>
+      <h3 class="details-title">${modelo}</h3>
+      <div class="price-pix" style="margin-bottom:20px;">${fmt(pix)}</div>
+      
+      <div class="details-spec-item"><span class="details-spec-label">Segurança</span><span class="details-spec-val">Samsung Knox Integrado</span></div>
+      <div class="details-spec-item"><span class="details-spec-label">Garantia</span><span class="details-spec-val">12 Meses Oficial</span></div>
+      <div class="details-spec-item"><span class="details-spec-label">Categoria</span><span class="details-spec-val">${category.toUpperCase()}</span></div>
+      <div class="details-spec-item"><span class="details-spec-label">Suporte B2B</span><span class="details-spec-val">Consultoria Dedicada</span></div>
+      
+      <button class="btn-compare-ghost" onclick="startCompare('${modelo}', ${pix}, '${img}', '${familia}')">Comparar com outro modelo</button>
+    `;
+    document.getElementById('detailsDrawer').classList.add('active');
+    document.getElementById('cartOverlay').classList.add('active');
+  }
+
+  function closeDetails() {
+    document.getElementById('detailsDrawer').classList.remove('active');
+    if (!isSelectingCompare) document.getElementById('cartOverlay').classList.remove('active');
+  }
+
+  function closeAllDrawers() {
+    closeCart();
+    closeDetails();
+    if (isSelectingCompare) cancelCompare();
+  }
+
+  function startCompare(modelo, pix, img, familia) {
+    compareBase = { modelo, pix, img, familia };
+    isSelectingCompare = true;
+    closeDetails();
+    document.getElementById('selectionOverlay').classList.add('active');
+    showToast("Selecione o segundo produto na lista");
+  }
+
+  function cancelCompare() {
+    isSelectingCompare = false;
+    compareBase = null;
+    document.getElementById('selectionOverlay').classList.remove('active');
+    document.getElementById('cartOverlay').classList.remove('active');
+  }
+
+  function finishCompare(modelo2, pix2, img2, familia2) {
+    const p1 = compareBase;
+    const p2 = { modelo: modelo2, pix: pix2, img: img2, familia: familia2 };
+    
+    const container = document.getElementById('compareTableContainer');
+    container.innerHTML = `
+      <table class="compare-table">
+        <tr><th>Especificação</th><th>${p1.modelo}</th><th>${p2.modelo}</th></tr>
+        <tr><td>Imagem</td><td><img src="${p1.img}" style="height:120px; object-fit:contain;"></td><td><img src="${p2.img}" style="height:120px; object-fit:contain;"></td></tr>
+        <tr><td>Família</td><td>${p1.familia}</td><td>${p2.familia}</td></tr>
+        <tr><td>Preço PIX</td><td style="color:var(--samsung-blue); font-weight:800;">${fmt(p1.pix)}</td><td style="color:var(--samsung-blue); font-weight:800;">${fmt(p2.pix)}</td></tr>
+        <tr><td>Segurança Knox</td><td>Hardware Integrado</td><td>Hardware Integrado</td></tr>
+        <tr><td>Garantia B2B</td><td>12 Meses Oficial</td><td>12 Meses Oficial</td></tr>
+      </table>
+    `;
+    
+    cancelCompare();
+    document.getElementById('compareModal').classList.add('active');
+  }
+
+  function closeCompare() { document.getElementById('compareModal').classList.remove('active'); }
 
   function fmt(val) { return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(val); }
 
