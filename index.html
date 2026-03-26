@@ -19,13 +19,7 @@
       --accent: #0066CC;
     }
 
-    html.dark-mode {
-      --white: #1A1A1A;
-      --gray-light: #2D2D2D;
-      --gray-medium: #3A3A3A;
-      --text-primary: #E8E8E8;
-      --text-secondary: #A8A8A8;
-    }
+
 
     body {
       font-family: 'Open Sans', sans-serif;
@@ -1493,12 +1487,10 @@ const SPECS = {
   }
 };
 
-// DARK MODE AUTOMÁTICO
+// TEMA CLARO PADRÃO
 function initTheme() {
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  if (prefersDark) {
-    document.documentElement.classList.add('dark-mode');
-  }
+  // Sempre usar tema claro
+  document.documentElement.classList.remove('dark-mode');
 }
 
 // SKELETON LOADING
@@ -1726,19 +1718,25 @@ function searchProducts(query) {
   }
   
   query = query.toLowerCase();
-  const data = CATALOG.categories[currentSection] || [];
-  const filtered = data.filter(p => 
-    p.modelo.toLowerCase().includes(query) || 
-    p.familia.toLowerCase().includes(query) ||
-    (p.obs && p.obs.toLowerCase().includes(query))
-  );
+  const allResults = [];
+  
+  // Buscar em todas as categorias
+  Object.entries(CATALOG.categories).forEach(([section, products]) => {
+    products.forEach((p, idx) => {
+      if (p.modelo.toLowerCase().includes(query) || 
+          p.familia.toLowerCase().includes(query) ||
+          (p.obs && p.obs.toLowerCase().includes(query))) {
+        allResults.push({ ...p, section, productIdx: idx });
+      }
+    });
+  });
   
   const grid = document.getElementById(`grid-${currentSection}`);
   if (grid) {
-    if (filtered.length === 0) {
+    if (allResults.length === 0) {
       grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1"><div class="empty-state-icon"></div><p>Nenhum produto encontrado para "' + query + '"</p></div>';
     } else {
-      grid.innerHTML = filtered.map((p, idx) => `
+      grid.innerHTML = allResults.map((p) => `
         <div class="product-card">
           <div class="product-image-container">
             ${p.img ? `<img class="product-img" src="${p.img}" alt="${p.modelo}" onerror="this.style.display='none'; this.parentNode.querySelector('.product-img-placeholder').style.display='block';">` : ''}
@@ -1754,7 +1752,7 @@ function searchProducts(query) {
               ${p.x10 ? `<div class="price-parcel"><span>ou 10x de</span> <span>${fmt(p.x10)}</span></div>` : ''}
             </div>
             ${p.obs ? `<div class="obs-badge">Promoção: ${p.obs}</div>` : ''}
-            <button class="btn btn-primary" onclick="openQtyModal('${currentSection}', ${idx}, '${p.modelo}', ${p.pix})">Adicionar ao Carrinho</button>
+            <button class="btn btn-primary" onclick="openQtyModal('${p.section}', ${p.productIdx}, '${p.modelo}', ${p.pix})">Adicionar ao Carrinho</button>
           </div>
         </div>
       `).join('');
