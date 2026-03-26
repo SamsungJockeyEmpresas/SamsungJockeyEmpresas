@@ -1153,24 +1153,66 @@
     renderCartItems();
   }
 
+  function generateQuoteMessage() {
+    const now = new Date();
+    const dateStr = now.toLocaleDateString('pt-BR');
+    let totalItems = cart.reduce((acc, item) => acc + item.qty, 0);
+    let totalPrice = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
+    
+    let msg = `SOLICITAÇÃO DE COTAÇÃO - SAMSUNG B2B\n`;
+    msg += `══════════════════════════════════════════════════════════════════════\n`;
+    msg += `Data da Solicitação: ${dateStr}\n`;
+    msg += `Empresa Solicitante: [Seu Negócio]\n\n`;
+    msg += `PRODUTOS SOLICITADOS:\n`;
+    msg += `──────────────────────────────────────────────────────────────────────\n`;
+    
+    cart.forEach((item, idx) => {
+      msg += `${idx + 1}. ${item.name}\n`;
+      msg += `   Quantidade: ${item.qty} unidade(s)\n`;
+      msg += `   Valor Unitário: ${fmt(item.price)}\n`;
+      msg += `   Valor Total: ${fmt(item.price * item.qty)}\n`;
+      msg += `──────────────────────────────────────────────────────────────────────\n`;
+    });
+    
+    msg += `RESUMO DA COTAÇÃO:\n`;
+    msg += `Total de Itens: ${totalItems}\n`;
+    msg += `Valor Total: ${fmt(totalPrice)}\n`;
+    msg += `══════════════════════════════════════════════════════════════════════\n\n`;
+    
+    msg += `INFORMAÇÕES IMPORTANTES:\n`;
+    msg += `* Cotação válida por 7 dias\n`;
+    msg += `* Sujeita a confirmação de disponibilidade em estoque\n`;
+    msg += `* Condições comerciais e prazos de entrega serão informados na proposta\n`;
+    msg += `* Solicitamos confirmação de interesse para prosseguimento\n\n`;
+    
+    msg += `ATENDIMENTO ESPECIALIZADO B2B:\n`;
+    msg += `* Condições comerciais exclusivas\n`;
+    msg += `* Projetos sob medida\n`;
+    msg += `* Suporte consultivo\n`;
+    msg += `* Pós-venda dedicado\n\n`;
+    
+    msg += `Atenciosamente,\n`;
+    msg += `Samsung B2B - Mastercell\n`;
+    msg += `Departamento Comercial\n`;
+    msg += `Telefone: (41) 98903-1156\n`;
+    msg += `E-mail: samsungb2b@mastercell.com.br\n\n`;
+    msg += `Gerado através do Catálogo B2B Samsung`;
+    
+    return msg;
+  }
+
   function checkoutWhatsApp() {
     if (cart.length === 0) return;
-    let text = "Olá Mastercell, gostaria de uma cotação B2B para os seguintes itens:\n\n";
-    cart.forEach(item => text += `- ${item.qty}x ${item.name}\n`);
-    text += `\nTotal Estimado: ${document.getElementById('cartTotal').innerText}`;
-    text += `\n\nPor favor, enviem as condições comerciais para o meu negócio.`;
-    const url = `https://wa.me/5541989031156?text=${encodeURIComponent(text)}`;
+    const msg = generateQuoteMessage();
+    const url = `https://wa.me/5541989031156?text=${encodeURIComponent(msg)}`;
     window.open(url, '_blank');
   }
 
   function checkoutEmail() {
     if (cart.length === 0) return;
-    let subject = "Solicitação de Orçamento B2B - Mastercell";
-    let body = "Olá Mastercell,\n\nGostaria de solicitar uma cotação corporativa para os seguintes itens:\n\n";
-    cart.forEach(item => body += `- ${item.qty}x ${item.name}\n`);
-    body += `\nTotal Estimado: ${document.getElementById('cartTotal').innerText}\n`;
-    body += "\nPor favor, enviem as condições comerciais e prazos de faturamento para o meu negócio.";
-    const mailto = `mailto:samsungb2b@mastercell.com.br?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    const msg = generateQuoteMessage();
+    const subject = "Solicitação de Orçamento B2B - Mastercell";
+    const mailto = `mailto:samsungb2b@mastercell.com.br?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(msg)}`;
     window.location.href = mailto;
   }
 
