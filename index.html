@@ -583,22 +583,83 @@
       transform: translate(-50%, -50%) scale(1);
     }
 
-    /* DETALHES DRAWER (MANTIDO LATERAL MAS REFINADO) */
+    /* DETALHES DRAWER PREMIUM (GLASSMORPHISM) */
     .details-drawer {
       position: fixed;
       top: 0;
-      right: -500px;
-      width: 500px;
+      right: -550px;
+      width: 550px;
       height: 100%;
-      background: var(--white);
-      box-shadow: -10px 0 50px rgba(0,0,0,0.1);
+      background: rgba(255, 255, 255, 0.96) !important;
+      backdrop-filter: blur(40px) !important;
+      -webkit-backdrop-filter: blur(40px) !important;
+      box-shadow: -20px 0 60px rgba(0,0,0,0.1) !important;
       z-index: 2500;
-      transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: right 0.5s cubic-bezier(0.23, 1, 0.32, 1);
       display: flex;
       flex-direction: column;
       padding: 0;
+      border-left: 1px solid rgba(255, 255, 255, 0.4) !important;
     }
     .details-drawer.active { right: 0; }
+
+    /* GRID DE ESPECIFICAÇÕES TÉCNICAS */
+    .specs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-top: 25px;
+    }
+
+    .spec-card {
+      background: rgba(248, 249, 250, 0.8);
+      padding: 15px;
+      border-radius: 16px;
+      border: 1px solid rgba(0,0,0,0.03);
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      transition: all 0.3s ease;
+    }
+
+    .spec-card:hover {
+      background: white;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+      border-color: var(--samsung-blue);
+    }
+
+    .spec-label {
+      font-size: 0.6rem;
+      font-weight: 800;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .spec-value {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--mastercell-black);
+    }
+
+    .details-img-container {
+      background: #fdfdfd;
+      border-radius: 24px;
+      padding: 40px;
+      margin-bottom: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: inset 0 0 30px rgba(0,0,0,0.02);
+    }
+
+    .details-img {
+      max-width: 100%;
+      max-height: 280px;
+      object-fit: contain;
+      filter: drop-shadow(0 15px 30px rgba(0,0,0,0.1));
+    }
 
     /* LAYOUT DUAS COLUNAS CHECKOUT */
     .checkout-container {
@@ -2080,18 +2141,29 @@
     const p = CATALOG.categories[category].find(x => x.modelo === modelo);
     const body = document.getElementById('detailsBody');
     body.innerHTML = `
-      <img src="${img}" class="details-img">
-      <div class="details-family">${familia}</div>
-      <h3 class="details-title">${modelo}</h3>
-      <div class="price-pix" style="margin-bottom:20px;">${fmt(pix)}</div>
-      
-      <div class="details-spec-item"><span class="details-spec-label">Processador</span><span class="details-spec-val">${p.processador || 'Octa-Core'}</span></div>
-      <div class="details-spec-item"><span class="details-spec-label">Memória/RAM</span><span class="details-spec-val">${p.memoria || 'Consulte'}</span></div>
-      <div class="details-spec-item"><span class="details-spec-label">Tela</span><span class="details-spec-val">${p.tela || 'Super AMOLED'}</span></div>
-      <div class="details-spec-item"><span class="details-spec-label">Segurança</span><span class="details-spec-val">Samsung Knox Integrado</span></div>
-      <div class="details-spec-item"><span class="details-spec-label">Garantia</span><span class="details-spec-val">12 Meses Oficial</span></div>
-      
-      <button class="btn-compare-ghost" onclick="startCompare('${modelo}', ${pix}, '${img}', '${familia}', '${category}')">Comparar com outro modelo</button>
+      <div class="details-img-container">
+        <img src="${img}" class="details-img">
+      </div>
+      <div style="padding: 0 10px;">
+        <div class="details-family" style="font-size:0.75rem; font-weight:800; color:var(--samsung-blue); text-transform:uppercase; letter-spacing:1.5px; margin-bottom:8px;">${familia}</div>
+        <h3 class="details-title" style="font-size:1.8rem; line-height:1.1; margin-bottom:15px;">${modelo}</h3>
+        <div class="price-pix" style="font-size:2rem; margin-bottom:30px;">${fmt(pix)}</div>
+        
+        <div style="font-size:0.7rem; font-weight:800; color:var(--text-secondary); text-transform:uppercase; letter-spacing:1px; margin-bottom:15px; border-bottom:1px solid #eee; padding-bottom:8px;">Especificações Técnicas</div>
+        
+        <div class="specs-grid">
+          <div class="spec-card"><span class="spec-label">Processador</span><span class="spec-value">${p.processador || 'Octa-Core'}</span></div>
+          <div class="spec-card"><span class="spec-label">Memória / RAM</span><span class="spec-value">${p.memoria || 'Consulte'}</span></div>
+          <div class="spec-card"><span class="spec-label">Tela</span><span class="spec-value">${p.tela || 'Super AMOLED'}</span></div>
+          <div class="spec-card"><span class="spec-label">Segurança</span><span class="spec-value">Samsung Knox</span></div>
+          <div class="spec-card" style="grid-column: span 2;"><span class="spec-label">Garantia Oficial</span><span class="spec-value">12 Meses Oficial Samsung Brasil</span></div>
+        </div>
+        
+        <button class="btn-compare-ghost" style="margin-top:40px; padding:20px; border-radius:16px; font-size:0.9rem;" onclick="startCompare('${modelo.replace(/'/g, "\\'")}', ${pix}, '${img}', '${familia}', '${category}')">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="vertical-align:middle; margin-right:8px;"><path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>
+          Comparar com outro modelo
+        </button>
+      </div>
     `;
     document.getElementById('detailsDrawer').classList.add('active');
     document.getElementById('cartOverlay').classList.add('active');
