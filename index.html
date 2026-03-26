@@ -1235,10 +1235,48 @@
   function saveCompanyName(val) { localStorage.setItem('quote_company_name', val); }
 
   function generateQuoteMessage() {
-    const companyName = document.getElementById('companyName').value || "[Não Informado]";
-    let msg = `SOLICITAÇÃO DE COTAÇÃO - SAMSUNG B2B\nEmpresa: ${companyName}\n\n`;
-    cart.forEach((item, idx) => { msg += `${idx + 1}. ${item.name} (${item.qty}x) - Total: ${fmt(item.price * item.qty)}\n`; });
-    msg += `\nVALOR TOTAL: ${fmt(cart.reduce((acc, i) => acc + (i.price * i.qty), 0))}\n\nGerado via Catálogo Mastercell B2B`;
+    const companyName = document.getElementById('companyName').value || "[Seu Negócio]";
+    const date = new Date().toLocaleDateString('pt-BR');
+    const totalValue = cart.reduce((acc, i) => acc + (i.price * i.qty), 0);
+    const totalItems = cart.reduce((acc, i) => acc + i.qty, 0);
+
+    let msg = `SOLICITAÇÃO DE COTAÇÃO - SAMSUNG B2B\n`;
+    msg += `══════════════════════════════════════════════════════════════════════\n`;
+    msg += `Data da Solicitação: ${date}\n`;
+    msg += `Empresa Solicitante: ${companyName}\n`;
+    msg += `PRODUTOS SOLICITADOS:\n`;
+    msg += `──────────────────────────────────────────────────────────────────────\n`;
+    
+    cart.forEach((item, idx) => {
+      msg += `${idx + 1}. ${item.name}\n`;
+      msg += `   Quantidade: ${item.qty} unidade(s)\n`;
+      msg += `   Valor Unitário: ${fmt(item.price)}\n`;
+      msg += `   Valor Total: ${fmt(item.price * item.qty)}\n`;
+      if (idx < cart.length - 1) msg += `──────────────────────────────────────────────────────────────────────\n`;
+    });
+
+    msg += `──────────────────────────────────────────────────────────────────────\n`;
+    msg += `RESUMO DA COTAÇÃO:\n`;
+    msg += `Total de Itens: ${totalItems}\n`;
+    msg += `Valor Total: ${fmt(totalValue)}\n`;
+    msg += `══════════════════════════════════════════════════════════════════════\n`;
+    msg += `INFORMAÇÕES IMPORTANTES:\n`;
+    msg += `* Cotação válida por 7 dias\n`;
+    msg += `* Sujeita a confirmação de disponibilidade em estoque\n`;
+    msg += `* Condições comerciais e prazos de entrega serão informados na proposta\n`;
+    msg += `* Solicitamos confirmação de interesse para prosseguimento\n\n`;
+    msg += `ATENDIMENTO ESPECIALIZADO B2B:\n`;
+    msg += `* Condições comerciais exclusivas\n`;
+    msg += `* Projetos sob medida\n`;
+    msg += `* Suporte consultivo\n`;
+    msg += `* Pós-venda dedicado\n\n`;
+    msg += `Atenciosamente,\n`;
+    msg += `Samsung B2B - Mastercell\n`;
+    msg += `Departamento Comercial\n`;
+    msg += `Telefone: (41) 98903-1156\n`;
+    msg += `E-mail: samsungb2b@mastercell.com.br\n\n`;
+    msg += `Gerado através do Catálogo B2B Samsung`;
+    
     return msg;
   }
 
