@@ -2685,8 +2685,10 @@
     const grid = document.getElementById('productGrid');
     const body = document.body;
 
+    // Sempre oculta a lista suspensa conforme solicitado
+    resultsDiv.classList.remove('active');
+
     if (!query || query.length < 2) {
-      resultsDiv.classList.remove('active');
       body.classList.remove('search-mode-active');
       switchCategory(currentCategory);
       return;
@@ -2702,34 +2704,9 @@
     });
 
     if (results.length > 0) {
-      resultsDiv.innerHTML = results.slice(0, 6).map(p => `
-        <div class="search-result-item" onclick="openDetails('${p.modelo.replace(/'/g, "\\'")}', ${p.pix}, '${p.img}', '${p.familia}', '${p.category}'); document.getElementById('globalSearchResults').classList.remove('active');">
-          <div class="search-result-img-container">
-            <img src="${p.img || 'https://via.placeholder.com/50'}" class="search-result-img">
-          </div>
-          <div class="search-result-info">
-            <div class="search-result-name">${p.modelo}</div>
-            <div class="search-result-meta">
-              <span class="search-result-cat">${p.category}</span>
-            </div>
-          </div>
-          <div class="search-result-price-tag">
-            <span class="search-result-price-val">${fmt(p.pix)}</span>
-          </div>
-        </div>
-      `).join('');
-      resultsDiv.classList.add('active');
-      
       body.classList.add('search-mode-active');
       renderProducts(results, "Busca Global");
     } else {
-      resultsDiv.innerHTML = `
-        <div class="search-no-results">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <p>Nenhum produto encontrado</p>
-        </div>
-      `;
-      resultsDiv.classList.add('active');
       grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:100px 20px; color:#999;">
         <h2 style="font-family:'Montserrat'; font-weight:800; color:#ddd; font-size:4rem; margin-bottom:20px;">OPS!</h2>
         <p style="font-size:1.2rem;">Não encontramos nenhum produto com "${query}".</p>
