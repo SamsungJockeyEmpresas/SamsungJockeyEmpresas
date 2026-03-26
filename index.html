@@ -451,15 +451,50 @@
       border-bottom: 1px solid rgba(0,0,0,0.03);
     }
 
-    .cart-item-info h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 4px; }
-    .cart-item-info p { font-size: 0.8rem; color: var(--text-secondary); }
+    .cart-item-info h4 { font-size: 0.85rem; font-weight: 700; margin-bottom: 4px; color: var(--mastercell-black); }
+    .cart-item-info p { font-size: 0.8rem; color: var(--samsung-blue); font-weight: 700; }
+
+    .cart-item-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--gray-light);
+      padding: 5px 10px;
+      border-radius: 20px;
+    }
+
+    .qty-btn {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--white);
+      border-radius: 50%;
+      cursor: pointer;
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--samsung-blue);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      user-select: none;
+    }
+
+    .qty-val {
+      font-size: 0.9rem;
+      font-weight: 800;
+      min-width: 20px;
+      text-align: center;
+    }
 
     .remove-item {
       color: #ff4757;
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       font-weight: 700;
       cursor: pointer;
       text-transform: uppercase;
+      margin-top: 8px;
+      display: block;
+      text-align: right;
     }
 
     .cart-footer {
@@ -768,7 +803,12 @@
   }
 
   function addToCart(name, price) {
-    cart.push({name, price});
+    const existing = cart.find(item => item.name === name);
+    if (existing) {
+      existing.qty++;
+    } else {
+      cart.push({name, price, qty: 1});
+    }
     updateCartBadge();
     renderCartItems();
     showToast(`${name} adicionado ao carrinho!`);
@@ -776,8 +816,9 @@
 
   function updateCartBadge() {
     const badge = document.getElementById('cartBadge');
-    badge.innerText = cart.length;
-    badge.style.display = cart.length > 0 ? 'inline' : 'none';
+    const totalQty = cart.reduce((acc, item) => acc + item.qty, 0);
+    badge.innerText = totalQty;
+    badge.style.display = totalQty > 0 ? 'inline' : 'none';
   }
 
   function showToast(msg) {
@@ -803,20 +844,35 @@
     let total = 0;
     
     container.innerHTML = cart.map((item, idx) => {
-      total += item.price;
+      const subtotal = item.price * item.qty;
+      total += subtotal;
       return `
         <div class="cart-item">
           <div class="cart-item-info">
             <h4>${item.name}</h4>
-            <p>${fmt(item.price)}</p>
+            <p>${fmt(subtotal)}</p>
+            <div class="remove-item" onclick="removeFromCart(${idx})">Remover</div>
           </div>
-          <div class="remove-item" onclick="removeFromCart(${idx})">Remover</div>
+          <div class="cart-item-controls">
+            <div class="qty-btn" onclick="updateQty(${idx}, -1)">-</div>
+            <div class="qty-val">${item.qty}</div>
+            <div class="qty-btn" onclick="updateQty(${idx}, 1)">+</div>
+          </div>
         </div>
       `;
     }).join('');
     
     totalEl.innerText = fmt(total);
     if (cart.length === 0) container.innerHTML = '<p style="text-align:center; padding:40px; color:var(--text-secondary);">Seu carrinho está vazio.</p>';
+  }
+
+  function updateQty(idx, delta) {
+    cart[idx].qty += delta;
+    if (cart[idx].qty <= 0) {
+      cart.splice(idx, 1);
+    }
+    updateCartBadge();
+    renderCartItems();
   }
 
   function removeFromCart(idx) {
@@ -828,7 +884,8 @@
   function checkoutWhatsApp() {
     if (cart.length === 0) return;
     let text = "Olá, gostaria de uma cotação para os seguintes itens:\n\n";
-    cart.forEach(item => text += `- ${item.name}: ${fmt(item.price)}\n`);
+    cart.forEach(item => text += `- ${item.qty}x ${item.name}: ${fmt(item.price * item.qty)}\n`);
+    text += `\n*Total Estimado: ${document.getElementById('cartTotal').innerText}*`;
     const url = `https://wa.me/5541989031156?text=${encodeURIComponent(text)}`;
     window.open(url, '_blank');
   }
@@ -837,7 +894,8 @@
     if (cart.length === 0) return;
     let subject = "Solicitação de Orçamento B2B - Mastercell";
     let body = "Olá Mastercell,\n\nGostaria de solicitar uma cotação para os seguintes itens:\n\n";
-    cart.forEach(item => body += `- ${item.name}: ${fmt(item.price)}\n`);
+    cart.forEach(item => body += `- ${item.qty}x ${item.name}: ${fmt(item.price * item.qty)}\n`);
+    body += `\nTotal Estimado: ${document.getElementById('cartTotal').innerText}\n`;
     body += "\nPor favor, enviem as condições comerciais para o meu negócio.";
     const mailto = `mailto:samsungb2b@mastercell.com.br?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     window.location.href = mailto;
