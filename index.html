@@ -272,9 +272,22 @@
 
     /* HERO */
     .hero {
-      background: linear-gradient(135deg, var(--gray-light) 0%, var(--white) 100%);
-      padding: 60px 60px 40px;
+      background: var(--white);
+      padding: 80px 60px 60px;
       text-align: center;
+      position: relative;
+    }
+    
+    /* Adicionando um detalhe sutil de borda inferior para separar do conteúdo */
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 10%;
+      right: 10%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gray-medium), transparent);
+      opacity: 0.5;
     }
 
     .hero-tagline {
@@ -731,7 +744,8 @@
         display: none;
       }
       .top-bar { display: none; }
-      .hero { padding: 40px 20px; }
+      .hero { padding: 60px 20px; }
+      .hero::after { left: 20%; right: 20%; }
       .hero h1 { font-size: 2.2rem; }
       .product-grid { padding: 0 20px; gap: 20px; }
       footer { padding: 40px 20px; margin-top: 50px; }
