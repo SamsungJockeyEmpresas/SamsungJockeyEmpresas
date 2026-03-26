@@ -1467,9 +1467,8 @@
         <input type="text" id="companyName" placeholder="Identificação da Empresa" oninput="saveCompanyName(this.value)" style="background:white; border:1px solid #ddd; padding:15px; border-radius:12px; font-size:1rem;">
       </div>
 
-      <div class="summary-panel" style="background:transparent; padding:0; border:none;">
-        <div class="summary-row"><span>Itens na Cotação:</span> <span id="cartTotalItems">0</span></div>
-        <div class="summary-row total" style="font-size:1.8rem; margin-top:15px; border:none; padding:0;"><span>Total PIX:</span> <span id="cartTotalPix">R$ 0,00</span></div>
+      <div class="cart-total" style="margin-bottom:0;">
+        <!-- Injetado via JS -->
       </div>
 
       <div class="cart-footer" style="background:transparent; padding:0; border:none; margin-top:30px; display:flex; flex-direction:column; gap:12px;">
@@ -1813,11 +1812,23 @@
     const badge = document.getElementById('cartBadge');
     const totalItems = cart.reduce((acc, i) => acc + i.qty, 0);
     const totalPix = cart.reduce((acc, i) => acc + (i.price * i.qty), 0);
+    const totalX6 = cart.reduce((acc, i) => acc + ((i.x6 || i.price * 1.08) * i.qty), 0);
+    const totalX10 = cart.reduce((acc, i) => acc + ((i.x10 || i.price * 1.15) * i.qty), 0);
 
     badge.innerText = totalItems;
     badge.style.display = totalItems > 0 ? 'inline' : 'none';
-    document.getElementById('cartTotalItems').innerText = totalItems;
-    document.getElementById('cartTotalPix').innerText = fmt(totalPix);
+
+    const summaryDiv = document.querySelector('.cart-total');
+    summaryDiv.innerHTML = `
+      <div class="summary-panel">
+        <div class="summary-row"><span>Total em 10x:</span><span>${fmt(totalX10)}</span></div>
+        <div class="summary-row"><span>Total em 6x:</span><span>${fmt(totalX6)}</span></div>
+        <div class="summary-row total"><span>Total no PIX:</span><span style="font-size:1.4rem;">${fmt(totalPix)}</span></div>
+        <div style="font-size:0.7rem; color:var(--text-secondary); text-align:right; font-weight:800; text-transform:uppercase; margin-top:10px;">
+          Economia de ${fmt(totalX10 - totalPix)} no PIX
+        </div>
+      </div>
+    `
 
     container.innerHTML = cart.map((item, idx) => {
       let imgUrl = 'https://via.placeholder.com/100';
