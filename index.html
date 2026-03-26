@@ -906,24 +906,108 @@
     .btn-email { background: var(--mastercell-black); color: white; }
     .btn-email:hover { background: #333; transform: translateY(-2px); }
 
-    /* DESIGN BUSCA GLOBAL PREMIUM (GLASSMORPHISM) */
+    /* DESIGN BUSCA GLOBAL ULTRA PREMIUM */
     .search-results-global {
       position: absolute;
       top: calc(100% + 15px);
       left: 0;
       width: 100%;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
-      border-radius: 20px;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border-radius: 24px;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      box-shadow: 0 30px 70px rgba(0,0,0,0.15);
       z-index: 1100;
-      max-height: 450px;
+      max-height: 500px;
       overflow-y: auto;
       display: none;
-      padding: 10px;
-      animation: searchFadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      padding: 15px;
+      animation: searchFadeIn 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    /* ABA DE COTAÇÃO LUXURY DESIGN */
+    .cart-drawer {
+      background: rgba(255, 255, 255, 0.92) !important;
+      backdrop-filter: blur(30px) !important;
+      -webkit-backdrop-filter: blur(30px) !important;
+      border-left: 1px solid rgba(255, 255, 255, 0.3) !important;
+    }
+
+    .cart-item-card {
+      background: rgba(255, 255, 255, 0.6) !important;
+      border: 1px solid rgba(0,0,0,0.03) !important;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.02) !important;
+      border-radius: 16px !important;
+      padding: 20px !important;
+      margin-bottom: 12px !important;
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1) !important;
+    }
+
+    .cart-item-card:hover {
+      transform: translateY(-3px) scale(1.02);
+      background: white !important;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.06) !important;
+      border-color: var(--samsung-blue) !important;
+    }
+
+    .cart-item-img {
+      width: 85px !important;
+      height: 85px !important;
+      padding: 10px !important;
+      background: #fdfdfd !important;
+      border-radius: 12px !important;
+      object-fit: contain !important;
+    }
+
+    .summary-panel {
+      background: linear-gradient(145deg, #f8f9fa, #ffffff) !important;
+      border: 1px solid rgba(0,0,0,0.05) !important;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.03) !important;
+      padding: 25px !important;
+      border-radius: 20px !important;
+    }
+
+    .summary-row.total {
+      background: var(--samsung-blue) !important;
+      color: white !important;
+      padding: 15px 20px !important;
+      border-radius: 12px !important;
+      margin-top: 15px !important;
+      border-top: none !important;
+      box-shadow: 0 10px 20px rgba(3, 78, 162, 0.2) !important;
+    }
+
+    .summary-row.total span { color: white !important; }
+
+    .btn-checkout {
+      height: 60px !important;
+      border-radius: 16px !important;
+      font-size: 1rem !important;
+      letter-spacing: 1px !important;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1) !important;
+    }
+
+    /* SEARCH MODE ACTIVE STYLES */
+    .search-mode-active .tab-btn, 
+    .search-mode-active .hero-tagline, 
+    .search-mode-active .hero h1, 
+    .search-mode-active .hero p {
+      opacity: 0.3;
+      filter: blur(2px);
+      transition: all 0.5s ease;
+    }
+
+    .search-mode-active .product-grid {
+      animation: fadeInUpSearch 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    @keyframes fadeInUpSearch {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     @keyframes searchFadeIn {
@@ -1123,24 +1207,108 @@
     .btn-email { background: var(--mastercell-black); color: white; }
     .btn-email:hover { background: #333; transform: translateY(-2px); }
 
-    /* DESIGN BUSCA GLOBAL PREMIUM (GLASSMORPHISM) */
+    /* DESIGN BUSCA GLOBAL ULTRA PREMIUM */
     .search-results-global {
       position: absolute;
       top: calc(100% + 15px);
       left: 0;
       width: 100%;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
-      border-radius: 20px;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border-radius: 24px;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      box-shadow: 0 30px 70px rgba(0,0,0,0.15);
       z-index: 1100;
-      max-height: 450px;
+      max-height: 500px;
       overflow-y: auto;
       display: none;
-      padding: 10px;
-      animation: searchFadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      padding: 15px;
+      animation: searchFadeIn 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    /* ABA DE COTAÇÃO LUXURY DESIGN */
+    .cart-drawer {
+      background: rgba(255, 255, 255, 0.92) !important;
+      backdrop-filter: blur(30px) !important;
+      -webkit-backdrop-filter: blur(30px) !important;
+      border-left: 1px solid rgba(255, 255, 255, 0.3) !important;
+    }
+
+    .cart-item-card {
+      background: rgba(255, 255, 255, 0.6) !important;
+      border: 1px solid rgba(0,0,0,0.03) !important;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.02) !important;
+      border-radius: 16px !important;
+      padding: 20px !important;
+      margin-bottom: 12px !important;
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1) !important;
+    }
+
+    .cart-item-card:hover {
+      transform: translateY(-3px) scale(1.02);
+      background: white !important;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.06) !important;
+      border-color: var(--samsung-blue) !important;
+    }
+
+    .cart-item-img {
+      width: 85px !important;
+      height: 85px !important;
+      padding: 10px !important;
+      background: #fdfdfd !important;
+      border-radius: 12px !important;
+      object-fit: contain !important;
+    }
+
+    .summary-panel {
+      background: linear-gradient(145deg, #f8f9fa, #ffffff) !important;
+      border: 1px solid rgba(0,0,0,0.05) !important;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.03) !important;
+      padding: 25px !important;
+      border-radius: 20px !important;
+    }
+
+    .summary-row.total {
+      background: var(--samsung-blue) !important;
+      color: white !important;
+      padding: 15px 20px !important;
+      border-radius: 12px !important;
+      margin-top: 15px !important;
+      border-top: none !important;
+      box-shadow: 0 10px 20px rgba(3, 78, 162, 0.2) !important;
+    }
+
+    .summary-row.total span { color: white !important; }
+
+    .btn-checkout {
+      height: 60px !important;
+      border-radius: 16px !important;
+      font-size: 1rem !important;
+      letter-spacing: 1px !important;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1) !important;
+    }
+
+    /* SEARCH MODE ACTIVE STYLES */
+    .search-mode-active .tab-btn, 
+    .search-mode-active .hero-tagline, 
+    .search-mode-active .hero h1, 
+    .search-mode-active .hero p {
+      opacity: 0.3;
+      filter: blur(2px);
+      transition: all 0.5s ease;
+    }
+
+    .search-mode-active .product-grid {
+      animation: fadeInUpSearch 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    @keyframes fadeInUpSearch {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     @keyframes searchFadeIn {
@@ -2020,8 +2188,13 @@
 
   function handleGlobalSearch(query) {
     const resultsDiv = document.getElementById('globalSearchResults');
+    const grid = document.getElementById('productGrid');
+    const body = document.body;
+
     if (!query || query.length < 2) {
       resultsDiv.classList.remove('active');
+      body.classList.remove('search-mode-active');
+      switchCategory(currentCategory);
       return;
     }
 
@@ -2035,7 +2208,7 @@
     });
 
     if (results.length > 0) {
-      resultsDiv.innerHTML = results.slice(0, 8).map(p => `
+      resultsDiv.innerHTML = results.slice(0, 6).map(p => `
         <div class="search-result-item" onclick="openDetails('${p.modelo.replace(/'/g, "\\'")}', ${p.pix}, '${p.img}', '${p.familia}', '${p.category}'); document.getElementById('globalSearchResults').classList.remove('active');">
           <div class="search-result-img-container">
             <img src="${p.img || 'https://via.placeholder.com/50'}" class="search-result-img">
@@ -2044,16 +2217,17 @@
             <div class="search-result-name">${p.modelo}</div>
             <div class="search-result-meta">
               <span class="search-result-cat">${p.category}</span>
-              <span style="font-size:0.65rem; color:#999; font-weight:600;">${p.familia}</span>
             </div>
           </div>
           <div class="search-result-price-tag">
-            <span class="search-result-price-label">À vista PIX</span>
             <span class="search-result-price-val">${fmt(p.pix)}</span>
           </div>
         </div>
       `).join('');
       resultsDiv.classList.add('active');
+      
+      body.classList.add('search-mode-active');
+      renderProducts(results, "Busca Global");
     } else {
       resultsDiv.innerHTML = `
         <div class="search-no-results">
@@ -2062,6 +2236,11 @@
         </div>
       `;
       resultsDiv.classList.add('active');
+      grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:100px 20px; color:#999;">
+        <h2 style="font-family:'Montserrat'; font-weight:800; color:#ddd; font-size:4rem; margin-bottom:20px;">OPS!</h2>
+        <p style="font-size:1.2rem;">Não encontramos nenhum produto com "${query}".</p>
+        <button class="btn-header" style="margin: 30px auto;" onclick="document.querySelector('.search-input').value=''; handleGlobalSearch('')">Limpar Busca</button>
+      </div>`;
     }
   }
 
