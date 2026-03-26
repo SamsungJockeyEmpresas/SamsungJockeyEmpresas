@@ -196,7 +196,7 @@
     .btn-admin-add {
       padding: 8px 15px;
       border: 1px dashed var(--samsung-blue);
-      border-radius: 5px;
+      border-radius: 50px;
       background: transparent;
       color: var(--samsung-blue);
       font-family: 'Montserrat';
@@ -385,111 +385,6 @@
     .product-card:hover .product-img {
       transform: scale(1.05);
     }
-    .product-img {
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
-      transition: transform 0.4s ease;
-    }
-
-    /* SKELETON LOADING */
-    .skeleton {
-      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-      background-size: 200% 100%;
-      animation: skeleton-loading 1.5s infinite;
-    }
-    @keyframes skeleton-loading {
-      0% { background-position: 200% 0; }
-      100% { background-position: -200% 0; }
-    }
-
-    /* FILTROS RÁPIDOS */
-    .filter-container {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 40px;
-      flex-wrap: wrap;
-    }
-    .filter-btn {
-      padding: 8px 15px;
-      border: 1px solid var(--gray-medium);
-      background: var(--white);
-      border-radius: 4px;
-      font-size: 0.7rem;
-      font-weight: 700;
-      cursor: pointer;
-      color: var(--text-secondary);
-      transition: all 0.2s;
-      text-transform: uppercase;
-    }
-    .filter-btn.active {
-      border-color: var(--samsung-blue);
-      color: var(--samsung-blue);
-      background: rgba(3, 78, 162, 0.05);
-    }
-
-    /* COMPARADOR */
-    .compare-bar {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%) translateY(150%);
-      background: var(--mastercell-black);
-      color: white;
-      padding: 15px 30px;
-      border-radius: 50px;
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      z-index: 4000;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-    .compare-bar.active { transform: translateX(-50%) translateY(0); }
-    .compare-btn {
-      background: var(--samsung-blue);
-      color: white;
-      border: none;
-      padding: 8px 20px;
-      border-radius: 20px;
-      font-weight: 700;
-      cursor: pointer;
-      font-size: 0.8rem;
-    }
-    .compare-modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: white;
-      z-index: 6000;
-      display: none;
-      padding: 40px;
-      overflow-y: auto;
-    }
-    .compare-modal.active { display: block; }
-    .compare-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 30px;
-    }
-    .compare-table th, .compare-table td {
-      padding: 20px;
-      border-bottom: 1px solid var(--gray-medium);
-      text-align: center;
-    }
-    .compare-table th { font-family: 'Montserrat'; font-weight: 800; color: var(--samsung-blue); }
-    .compare-checkbox {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      z-index: 10;
-      cursor: pointer;
-      width: 20px;
-      height: 20px;
-    }
 
     .knox-badge {
       position: absolute;
@@ -520,6 +415,7 @@
       max-width: 100%;
       max-height: 100%;
       object-fit: contain;
+      transition: transform 0.4s ease;
     }
 
     .product-info {
@@ -1090,29 +986,7 @@
 
 <div class="tabs-container" id="tabsContainer"></div>
 
-<div class="filter-container" id="filterContainer">
-  <button class="filter-btn active" onclick="applyFilter('all', this)">Todos</button>
-  <button class="filter-btn" onclick="applyFilter('5G', this)">Tecnologia 5G</button>
-  <button class="filter-btn" onclick="applyFilter('Knox', this)">Knox Suite</button>
-  <button class="filter-btn" onclick="applyFilter('Bateria', this)">Bateria Longa</button>
-  <button class="filter-btn" onclick="applyFilter('DeX', this)">Suporte DeX</button>
-</div>
-
 <div class="product-grid" id="productGrid"></div>
-
-<div class="compare-bar" id="compareBar">
-  <span id="compareText">Selecione 2 produtos para comparar</span>
-  <button class="compare-btn" onclick="openCompare()">Comparar Agora</button>
-  <span style="cursor:pointer; opacity:0.7;" onclick="clearCompare()">Limpar</span>
-</div>
-
-<div class="compare-modal" id="compareModal">
-  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:40px;">
-    <h2 style="font-family:'Montserrat'; font-weight:800; color:var(--mastercell-black);">Comparativo Técnico B2B</h2>
-    <button class="btn-admin-save" style="background:#ff4757" onclick="closeCompare()">Fechar</button>
-  </div>
-  <div id="compareTableContainer"></div>
-</div>
 
 <section class="faq-section">
   <h2 class="faq-title">Dúvidas Frequentes B2B</h2>
@@ -1251,8 +1125,6 @@
   let CATALOG = { categories: {} };
   let currentCategory = '';
   let cart = [];
-  let compareList = [];
-  let activeFilter = 'all';
 
   async function init() {
     try {
@@ -1280,31 +1152,16 @@
 
   function renderProducts(products, category) {
     const grid = document.getElementById('productGrid');
-    
-    // Aplicar Filtro
-    let filtered = products;
-    if (activeFilter !== 'all') {
-      filtered = products.filter(p => {
-        if (activeFilter === '5G') return p.modelo.includes('5G') || p.familia.includes('S24') || p.familia.includes('S23');
-        if (activeFilter === 'Knox') return category === 'smartphones' || category === 'tablets';
-        if (activeFilter === 'Bateria') return p.modelo.includes('Ultra') || p.modelo.includes('Plus') || p.modelo.includes('Active');
-        if (activeFilter === 'DeX') return p.familia.includes('S24') || p.familia.includes('S23') || p.familia.includes('Tab S');
-        return true;
-      });
-    }
-
-    grid.innerHTML = filtered.map((p, idx) => {
+    grid.innerHTML = products.map((p, idx) => {
       const safeModel = p.modelo.replace(/'/g, "\\'");
       const inputId = `qty-${p.modelo.replace(/\s+/g, '-').replace(/'/g, '')}`;
-      const isComparing = compareList.some(c => c.modelo === p.modelo);
       return `
         <div class="product-card">
-          <input type="checkbox" class="compare-checkbox" ${isComparing ? 'checked' : ''} onchange="toggleCompare('${safeModel}', ${p.pix}, '${p.img}', '${p.familia}', this.checked)">
           ${(category === 'smartphones' || category === 'tablets' || category === 'dobráveis') ? `
             <div class="knox-badge">SAMSUNG KNOX</div>
           ` : ''}
           <div class="product-image-container">
-            <img class="product-img" src="${p.img || 'https://via.placeholder.com/300'}" alt="${p.modelo}" loading="lazy" onerror="this.src='https://via.placeholder.com/300?text=Samsung+B2B'">
+            <img class="product-img" src="${p.img || 'https://via.placeholder.com/300'}" alt="${p.modelo}" loading="lazy">
           </div>
           <div class="product-info">
             <div class="product-family">${p.familia}</div>
@@ -1326,82 +1183,6 @@
       `;
     }).join('');
   }
-
-  function applyFilter(filter, btn) {
-    activeFilter = filter;
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    renderProducts(CATALOG.categories[currentCategory], currentCategory);
-  }
-
-  function toggleCompare(modelo, pix, img, familia, checked) {
-    if (checked) {
-      if (compareList.length >= 3) {
-        alert("Máximo de 3 produtos para comparar.");
-        event.target.checked = false;
-        return;
-      }
-      compareList.push({modelo, pix, img, familia});
-    } else {
-      compareList = compareList.filter(c => c.modelo !== modelo);
-    }
-    updateCompareBar();
-  }
-
-  function updateCompareBar() {
-    const bar = document.getElementById('compareBar');
-    const text = document.getElementById('compareText');
-    if (compareList.length > 0) {
-      bar.classList.add('active');
-      text.innerText = `${compareList.length} produto(s) selecionado(s)`;
-    } else {
-      bar.classList.remove('active');
-    }
-  }
-
-  function clearCompare() {
-    compareList = [];
-    updateCompareBar();
-    renderProducts(CATALOG.categories[currentCategory], currentCategory);
-  }
-
-  function openCompare() {
-    if (compareList.length < 2) {
-      alert("Selecione ao menos 2 produtos.");
-      return;
-    }
-    const container = document.getElementById('compareTableContainer');
-    let html = `<table class="compare-table">
-      <tr>
-        <th>Especificação</th>
-        ${compareList.map(c => `<th>${c.modelo}</th>`).join('')}
-      </tr>
-      <tr>
-        <td>Imagem</td>
-        ${compareList.map(c => `<td><img src="${c.img}" style="height:100px; object-fit:contain;"></td>`).join('')}
-      </tr>
-      <tr>
-        <td>Família</td>
-        ${compareList.map(c => `<td>${c.familia}</td>`).join('')}
-      </tr>
-      <tr>
-        <td>Preço PIX</td>
-        ${compareList.map(c => `<td style="color:var(--samsung-blue); font-weight:800;">${fmt(c.pix)}</td>`).join('')}
-      </tr>
-      <tr>
-        <td>Segurança Knox</td>
-        ${compareList.map(c => `<td>Integrada (Hardware)</td>`).join('')}
-      </tr>
-      <tr>
-        <td>Garantia B2B</td>
-        ${compareList.map(c => `<td>12 Meses Oficial</td>`).join('')}
-      </tr>
-    </table>`;
-    container.innerHTML = html;
-    document.getElementById('compareModal').classList.add('active');
-  }
-
-  function closeCompare() { document.getElementById('compareModal').classList.remove('active'); }
 
   function fmt(val) { return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(val); }
 
