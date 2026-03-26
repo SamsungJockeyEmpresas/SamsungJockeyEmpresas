@@ -47,6 +47,46 @@
       --gray-medium: #e9ecef;
       --text-primary: #333333;
       --text-secondary: #666666;
+      --card-bg: #ffffff;
+      --modal-bg: rgba(255, 255, 255, 0.8);
+      --border-color: #e9ecef;
+      --shadow: 0 10px 30px rgba(0,0,0,0.08);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* DARK MODE ADAPTATIVO (AMOLED) */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --white: #0a0a0a;
+        --gray-light: #1a1a1a;
+        --gray-medium: #333333;
+        --text-primary: #f5f5f5;
+        --text-secondary: #aaaaaa;
+        --card-bg: #151515;
+        --modal-bg: rgba(10, 10, 10, 0.85);
+        --border-color: #2a2a2a;
+        --shadow: 0 10px 40px rgba(0,0,0,0.5);
+      }
+      header { background: #0a0a0a !important; border-bottom: 1px solid #222; }
+      .product-card { background: #151515 !important; border: 1px solid #222 !important; }
+      .tab-btn { background: #1a1a1a; color: #888; border: 1px solid #222; }
+      .tab-btn.active { background: var(--samsung-blue); color: #fff; }
+      .search-container { background: #1a1a1a !important; border: 1px solid #333 !important; }
+      .search-input { color: #fff !important; background: #1a1a1a !important; }
+      .hero { background: linear-gradient(135deg, #0a0a0a 0%, #151515 100%) !important; }
+      .faq-item { background: #151515 !important; border: 1px solid #222 !important; }
+      .faq-answer { color: #aaa !important; }
+      footer { background: #050505 !important; border-top: 1px solid #222; }
+      .top-bar { background: #050505 !important; border-bottom: 1px solid #222; }
+      .product-image-container { background: #1a1a1a !important; }
+      .card-qty-selector { background: #222 !important; border-color: #333 !important; }
+      .card-qty-input { color: #fff !important; }
+      .details-drawer, .cart-drawer { background: rgba(10, 10, 10, 0.95) !important; border: 1px solid #333 !important; }
+      .spec-card { background: #1a1a1a !important; border-color: #333 !important; }
+      .compare-product-card { background: #1a1a1a !important; border-color: #333 !important; }
+      .compare-row-label { background: #151515 !important; color: #fff !important; }
+      .cart-item-card { background: #1a1a1a !important; border-color: #333 !important; }
+      .summary-panel { background: #151515 !important; border-color: #333 !important; }
     }
 
     body {
@@ -55,8 +95,9 @@
       background-color: var(--white);
       line-height: 1.6;
       overflow-x: hidden;
-      user-select: none; /* Proteção contra cópia de texto */
+      user-select: none;
       -webkit-user-select: none;
+      transition: background-color 0.5s ease, color 0.5s ease;
     }
     
     /* Permitir seleção apenas em campos de entrada */
@@ -403,18 +444,19 @@
       margin: 0 auto 80px;
       width: 100%;
     }
-
     .product-card {
-      background: var(--white);
-      border: 1px solid var(--gray-medium);
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
       border-radius: 12px;
       overflow: hidden;
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transition: var(--transition);
       display: flex;
       flex-direction: column;
       position: relative;
       cursor: pointer;
+      box-shadow: var(--shadow);
     }
+
     .product-card.selecting-compare {
       border: 2px dashed var(--samsung-blue);
       animation: pulse-border 1.5s infinite;
@@ -426,13 +468,67 @@
     }
 
     .product-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+      transform: scale(1.03) translateY(-5px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.15);
       border-color: var(--samsung-blue);
     }
     .product-card:hover .product-img {
-      transform: scale(1.05);
+      transform: scale(1.08);
     }
+
+    /* EFEITO DE BRILHO METÁLICO (SHINE) */
+    .btn-header, .btn-whatsapp, .btn-email, .btn-add {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-header::after, .btn-whatsapp::after, .btn-email::after, .btn-add::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -60%;
+      width: 20%;
+      height: 200%;
+      background: rgba(255, 255, 255, 0.2);
+      transform: rotate(30deg);
+      transition: none;
+      animation: shine 4s infinite;
+    }
+
+    @keyframes shine {
+      0% { left: -60%; }
+      20% { left: 120%; }
+      100% { left: 120%; }
+    }
+
+    /* SKELETON LOADING */
+    .skeleton {
+      background: linear-gradient(90deg, var(--gray-medium) 25%, var(--gray-light) 50%, var(--gray-medium) 75%);
+      background-size: 200% 100%;
+      animation: skeleton-loading 1.5s infinite;
+    }
+
+    @keyframes skeleton-loading {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    .skeleton-card {
+      height: 450px;
+      border-radius: 12px;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .skeleton-img { height: 240px; width: 100%; }
+    .skeleton-info { padding: 25px; display: flex; flex-direction: column; gap: 10px; }
+    .skeleton-text { height: 15px; border-radius: 4px; }
+    .skeleton-title { height: 25px; width: 80%; border-radius: 4px; }
+    .skeleton-price { height: 30px; width: 60%; border-radius: 4px; }
+    .skeleton-btns { height: 45px; width: 100%; border-radius: 8px; margin-top: 10px; }
 
     .knox-badge {
       position: absolute;
@@ -2349,46 +2445,66 @@
     `).join('');
   }
 
+  function showSkeletons() {
+    const grid = document.getElementById('productGrid');
+    grid.innerHTML = Array(8).fill(0).map(() => `
+      <div class="skeleton-card">
+        <div class="skeleton skeleton-img"></div>
+        <div class="skeleton-info">
+          <div class="skeleton skeleton-text" style="width:40%"></div>
+          <div class="skeleton skeleton-title"></div>
+          <div class="skeleton skeleton-price"></div>
+          <div class="skeleton skeleton-btns"></div>
+        </div>
+      </div>
+    `).join('');
+  }
+
   function switchCategory(cat) {
     currentCategory = cat;
     renderTabs();
+    showSkeletons();
     renderProducts(CATALOG.categories[cat], cat);
   }
 
   function renderProducts(products, category) {
     const grid = document.getElementById('productGrid');
-        grid.innerHTML = products.map((p, idx) => {
-      const safeModel = p.modelo.replace(/'/g, "\\'");
-      const inputId = `qty-${p.modelo.replace(/\s+/g, '-').replace(/'/g, '')}`;
-      const imgUrl = p.img || 'https://via.placeholder.com/300';
-      const fam = p.familia || '';
-      return `
-        <div class="product-card" onclick="handleProductClick('${safeModel}', ${p.pix}, '${imgUrl}', '${fam}', '${category}')">
-          ${(category === 'smartphones' || category === 'tablets' || category === 'dobráveis') ? `
-            <div class="knox-badge">SAMSUNG KNOX</div>
-          ` : ''}
-          <div class="product-image-container">
-            <img class="product-img" src="${p.img || 'https://via.placeholder.com/300'}" alt="${p.modelo}" loading="lazy">
-          </div>
-          <div class="product-info">
-            <div class="product-family">${p.familia}</div>
-            <h3 class="product-name">${p.modelo}</h3>
-            <div class="price-container">
-              <div class="price-pix">${fmt(p.pix)}</div>
-              <div class="price-installments">ou 10x de ${fmt((p.x10 || p.pix * 1.15) / 10)}</div>
+    
+    // Pequeno delay para mostrar o skeleton e dar sensação de processamento premium
+    setTimeout(() => {
+      grid.innerHTML = products.map((p, idx) => {
+        const safeModel = p.modelo.replace(/'/g, "\\'");
+        const inputId = `qty-${p.modelo.replace(/\s+/g, '-').replace(/'/g, '')}`;
+        const imgUrl = p.img || 'https://via.placeholder.com/300';
+        const fam = p.familia || '';
+        return `
+          <div class="product-card" onclick="handleProductClick('${safeModel}', ${p.pix}, '${imgUrl}', '${fam}', '${category}')">
+            ${(category === 'smartphones' || category === 'tablets' || category === 'dobráveis') ? `
+              <div class="knox-badge">SAMSUNG KNOX</div>
+            ` : ''}
+            <div class="product-image-container">
+              <img class="product-img" src="${p.img || 'https://via.placeholder.com/300'}" alt="${p.modelo}" loading="lazy">
             </div>
-            <div class="card-controls" onclick="event.stopPropagation()">
-              <div class="card-qty-selector">
-                <div class="card-qty-btn" onclick="updateCardQty('${inputId}', -1)">-</div>
-                <input type="number" class="card-qty-input" id="${inputId}" value="1" min="1" onchange="validateQty(this)">
-                <div class="card-qty-btn" onclick="updateCardQty('${inputId}', 1)">+</div>
+            <div class="product-info">
+              <div class="product-family">${p.familia}</div>
+              <h3 class="product-name">${p.modelo}</h3>
+              <div class="price-container">
+                <div class="price-pix">${fmt(p.pix)}</div>
+                <div class="price-installments">ou 10x de ${fmt((p.x10 || p.pix * 1.15) / 10)}</div>
               </div>
-              <button class="btn-add" onclick="addWithQty('${safeModel}', ${p.pix}, ${p.x6 || p.pix * 1.08}, ${p.x10 || p.pix * 1.15}, '${inputId}')">Adicionar</button>
+              <div class="card-controls" onclick="event.stopPropagation()">
+                <div class="card-qty-selector">
+                  <div class="card-qty-btn" onclick="updateCardQty('${inputId}', -1)">-</div>
+                  <input type="number" class="card-qty-input" id="${inputId}" value="1" min="1" onchange="validateQty(this)">
+                  <div class="card-qty-btn" onclick="updateCardQty('${inputId}', 1)">+</div>
+                </div>
+                <button class="btn-add" onclick="addWithQty('${safeModel}', ${p.pix}, ${p.x6 || p.pix * 1.08}, ${p.x10 || p.pix * 1.15}, '${inputId}')">Adicionar</button>
+              </div>
             </div>
           </div>
-        </div>
-      `;
-    }).join('');
+        `;
+      }).join('');
+    }, 400);
   }
 
   /* 
@@ -2890,6 +3006,27 @@
       showToast('Conteúdo Protegido | Mastercell B2B');
     }
   });
+
+  // Placeholder Dinâmico B2B
+  const placeholders = [
+    "Encontre a solução tecnológica ideal para sua empresa...",
+    "Procurando a Linha Galaxy S25 para sua frota?",
+    "Precisa de Tablets corporativos para sua equipe?",
+    "Busque por Segurança Samsung Knox e MDM...",
+    "Faturamento direto via CNPJ: Busque o modelo...",
+    "Projetos sob medida para grandes volumes: Comece aqui..."
+  ];
+  let currentPlaceholderIdx = 0;
+  const searchInput = document.querySelector('.search-input');
+  
+  function rotatePlaceholder() {
+    if (document.activeElement !== searchInput && searchInput.value === "") {
+      searchInput.style.transition = "opacity 0.3s ease";
+      searchInput.placeholder = placeholders[currentPlaceholderIdx];
+      currentPlaceholderIdx = (currentPlaceholderIdx + 1) % placeholders.length;
+    }
+  }
+  setInterval(rotatePlaceholder, 4000);
 </script>
 </body>
 </html>
