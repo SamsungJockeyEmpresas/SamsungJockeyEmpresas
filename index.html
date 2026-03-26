@@ -720,6 +720,67 @@
       opacity: 1;
     }
 
+    /* FAQ SECTION */
+    .faq-section {
+      max-width: 1000px;
+      margin: 100px auto;
+      padding: 0 20px;
+    }
+    .faq-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 1.8rem;
+      color: var(--samsung-blue);
+      text-align: center;
+      margin-bottom: 50px;
+      text-transform: uppercase;
+    }
+    .faq-item {
+      border-bottom: 1px solid var(--gray-medium);
+      margin-bottom: 10px;
+    }
+    .faq-question {
+      padding: 20px 0;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--mastercell-black);
+    }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out, padding 0.3s ease;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    .faq-item.active .faq-answer {
+      max-height: 200px;
+      padding-bottom: 20px;
+    }
+    .faq-icon {
+      width: 20px;
+      height: 20px;
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+    .faq-icon::before, .faq-icon::after {
+      content: '';
+      position: absolute;
+      background: var(--samsung-blue);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .faq-icon::before { width: 12px; height: 2px; }
+    .faq-icon::after { width: 2px; height: 12px; transition: opacity 0.3s; }
+    .faq-item.active .faq-icon { transform: rotate(90deg); }
+    .faq-item.active .faq-icon::after { opacity: 0; }
+
     /* FOOTER */
     footer {
       background: var(--white);
@@ -1011,7 +1072,52 @@
   <span id="toastMsg">Adicionado à cotação!</span>
 </div>
 
-<!-- PAINEL ADMIN -->
+  <!-- FAQ SECTION -->
+  <section class="faq-section">
+    <h2 class="faq-title">Dúvidas Frequentes B2B</h2>
+    
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        Como funciona o faturamento para empresas (CNPJ)?
+        <div class="faq-icon"></div>
+      </div>
+      <div class="faq-answer">
+        Oferecemos condições especiais de faturamento para empresas, com prazos flexíveis (28 dias ou parcelamento em até 10x) sujeitos a análise de crédito. Aceitamos faturamento direto da fábrica Samsung para grandes volumes.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        A segurança Samsung Knox já vem inclusa nos aparelhos?
+        <div class="faq-icon"></div>
+      </div>
+      <div class="faq-answer">
+        Sim, a plataforma de segurança Knox é integrada ao hardware dos dispositivos Samsung. Oferecemos também consultoria para licenciamento do Knox Suite (Manage, E-FOTA, Asset), garantindo controle total da sua frota.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        Como funciona a garantia e o suporte técnico corporativo?
+        <div class="faq-icon"></div>
+      </div>
+      <div class="faq-answer">
+        Todos os produtos possuem garantia oficial Samsung de 12 meses. Como parceiros B2B, auxiliamos no processo de abertura de chamados e oferecemos suporte consultivo para garantir que sua operação não pare.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        Vocês atendem projetos sob medida para grandes volumes?
+        <div class="faq-icon"></div>
+      </div>
+      <div class="faq-answer">
+        Com certeza! Para projetos acima de 50 unidades, desenvolvemos propostas personalizadas com preços diferenciados, logística dedicada e suporte na implementação de softwares de gestão (MDM).
+      </div>
+    </div>
+  </section>
+
+  <!-- PAINEL ADMIN -->
   <div class="admin-panel" id="adminPanel">
   <div class="admin-header">
     <h2 style="font-family:'Montserrat'; font-weight:800;">Painel Administrativo Mastercell B2B</h2>
@@ -1398,6 +1504,11 @@
     cart.splice(idx, 1);
     updateCartBadge();
     renderCartItems();
+  }
+
+  function toggleFaq(el) {
+    const item = el.parentElement;
+    item.classList.toggle('active');
   }
 
   function saveCompanyName(val) {
