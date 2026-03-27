@@ -2885,19 +2885,27 @@
     cart.forEach((item, idx) => {
       msg += `${idx + 1}. ${item.name}\n`;
       msg += `   Quantidade: ${item.qty} unidade(s)\n`;
-      msg += `   Valor Unitário (PIX): ${fmt(item.price)}\n`;
-      msg += `   Valor Total (PIX): ${fmt(item.price * item.qty)}\n`;
-      msg += `   Valor Total (6x): ${fmt((item.x6 || item.price * 1.08) * item.qty)}\n`;
-      msg += `   Valor Total (10x): ${fmt((item.x10 || item.price * 1.15) * item.qty)}\n`;
+      if (CATALOG.showPrices) {
+        msg += `   Valor Unitário (PIX): ${fmt(item.price)}\n`;
+        msg += `   Valor Total (PIX): ${fmt(item.price * item.qty)}\n`;
+        msg += `   Valor Total (6x): ${fmt((item.x6 || item.price * 1.08) * item.qty)}\n`;
+        msg += `   Valor Total (10x): ${fmt((item.x10 || item.price * 1.15) * item.qty)}\n`;
+      } else {
+        msg += `   [Valores a serem definidos em proposta personalizada]\n`;
+      }
       if (idx < cart.length - 1) msg += `──────────────────────────────────────────────────────────────────────\n`;
     });
 
     msg += `──────────────────────────────────────────────────────────────────────\n`;
     msg += `RESUMO DA COTAÇÃO:\n`;
     msg += `Total de Itens: ${totalItems}\n`;
-    msg += `VALOR TOTAL (PIX): ${fmt(totalPix)} (Economia Real)\n`;
-    msg += `VALOR TOTAL (6x): ${fmt(totalX6)}\n`;
-    msg += `VALOR TOTAL (10x): ${fmt(totalX10)}\n`;
+    if (CATALOG.showPrices) {
+      msg += `VALOR TOTAL (PIX): ${fmt(totalPix)} (Economia Real)\n`;
+      msg += `VALOR TOTAL (6x): ${fmt(totalX6)}\n`;
+      msg += `VALOR TOTAL (10x): ${fmt(totalX10)}\n`;
+    } else {
+      msg += `VALORES: A serem definidos conforme volume e condições comerciais\n`;
+    }
     msg += `══════════════════════════════════════════════════════════════════════\n`;
     msg += `INFORMAÇÕES IMPORTANTES:\n`;
     msg += `* Cotação válida por 7 dias\n`;
