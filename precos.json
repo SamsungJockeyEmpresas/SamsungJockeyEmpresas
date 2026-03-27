@@ -232,7 +232,8 @@
         "processador": "Snapdragon 8 Elite",
         "memoria": "12GB/16GB RAM",
         "tela": "8.0\" Dynamic AMOLED 2X"
-      },    ],
+      }
+    ],
     "tablets": [
       {
         "familia": "Tab A11",
@@ -365,7 +366,8 @@
         "processador": "Snapdragon 8 Gen 3",
         "memoria": "12GB RAM",
         "tela": "11.0\" Dynamic AMOLED 2X"
-      },    ],
+      }
+    ],
     "notebooks": [
       {
         "familia": "Book Go",
