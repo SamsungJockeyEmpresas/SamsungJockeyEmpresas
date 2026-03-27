@@ -2399,7 +2399,7 @@
      QUALQUER ALTERAÇÃO NA FUNÇÃO generateQuoteMessage() OU NO PAINEL ADM
      PODE QUEBRAR A INTEGRAÇÃO COM O WHATSAPP E O GITHUB.
   */
-  let CATALOG = { categories: {} };
+  let CATALOG = { categories: {}, showPrices: true };
   let currentCategory = '';
   let cart = [];
   let compareBase = null;
@@ -2466,10 +2466,11 @@
             <div class="product-info">
               <div class="product-family">${p.familia}</div>
               <h3 class="product-name">${p.modelo}</h3>
-              <div class="price-container">
+              <div class="price-container" ${CATALOG.showPrices ? '' : 'style="display:none;"'}>
                 <div class="price-pix">${fmt(p.pix)}</div>
                 <div class="price-installments">ou 10x de ${fmt((p.x10 || p.pix * 1.15) / 10)}</div>
               </div>
+              <div class="price-placeholder" ${CATALOG.showPrices ? 'style="display:none;"' : ''} style="text-align:center; color:#999; font-weight:700; font-size:0.9rem; padding:15px 0;">Solicite uma Cotação</div>
               <div class="card-controls" onclick="event.stopPropagation()">
                 <div class="card-qty-selector">
                   <div class="card-qty-btn" onclick="updateCardQty('${inputId}', -1)">-</div>
@@ -2516,7 +2517,8 @@
         <div class="price-badge">Oferta Exclusiva B2B</div>
         <div class="details-family" style="font-size:0.8rem; font-weight:800; color:var(--samsung-blue); text-transform:uppercase; letter-spacing:2px; margin-bottom:10px;">${familia}</div>
         <h3 class="details-title" style="font-size:2.2rem; line-height:1; letter-spacing:-1px; margin-bottom:20px;">${modelo}</h3>
-        <div class="price-pix" style="font-size:2.5rem; font-weight:800; margin-bottom:40px; color:var(--mastercell-black);">${fmt(pix)}<span style="font-size:0.9rem; color:var(--text-secondary); font-weight:600; margin-left:10px;">à vista no PIX</span></div>
+        <div class="price-pix" ${CATALOG.showPrices ? '' : 'style="display:none;"'} style="font-size:2.5rem; font-weight:800; margin-bottom:40px; color:var(--mastercell-black);">${fmt(pix)}<span style="font-size:0.9rem; color:var(--text-secondary); font-weight:600; margin-left:10px;">à vista no PIX</span></div>
+        <div class="price-placeholder-details" ${CATALOG.showPrices ? 'style="display:none;"' : ''} style="font-size:1.5rem; font-weight:800; margin-bottom:40px; color:#999; text-align:center;">Cotação Personalizada</div>
         
         <div style="display:flex; align-items:center; gap:10px; margin-bottom:25px;">
           <div style="height:2px; background:var(--samsung-blue); width:40px;"></div>
@@ -2742,7 +2744,8 @@
           <img src="${imgUrl}" class="cart-item-img">
           <div class="cart-item-info">
             <div class="cart-item-name">${item.name}</div>
-            <div class="cart-item-price">PIX: ${fmt(item.price * item.qty)}</div>
+            <div class="cart-item-price" ${CATALOG.showPrices ? '' : 'style="display:none;"'}>PIX: ${fmt(item.price * item.qty)}</div>
+            <div class="cart-item-price" ${CATALOG.showPrices ? 'style="display:none;"' : ''} style="color:#999; font-weight:700;">Cotação Personalizada</div>
           </div>
           <div class="cart-item-actions">
             <div class="cart-item-remove" onclick="removeFromCart(${idx})">
@@ -2763,16 +2766,29 @@
     const totalX10 = cart.reduce((acc, item) => acc + ((item.x10 || item.price * 1.15) * item.qty), 0);
 
     const summaryDiv = document.querySelector('.cart-total');
-    summaryDiv.innerHTML = `
-      <div class="summary-panel">
-        <div class="summary-row"><span>Total em 10x:</span><span>${fmt(totalX10)}</span></div>
-        <div class="summary-row"><span>Total em 6x:</span><span>${fmt(totalX6)}</span></div>
-        <div class="summary-row total"><span>Total no PIX:</span><span style="font-size:1.4rem;">${fmt(totalPix)}</span></div>
-        <div style="font-size:0.7rem; color:var(--text-secondary); text-align:right; font-weight:800; text-transform:uppercase; margin-top:10px;">
-          Economia de ${fmt(totalX10 - totalPix)} no PIX
+    if (CATALOG.showPrices) {
+      summaryDiv.innerHTML = `
+        <div class="summary-panel">
+          <div class="summary-row"><span>Total em 10x:</span><span>${fmt(totalX10)}</span></div>
+          <div class="summary-row"><span>Total em 6x:</span><span>${fmt(totalX6)}</span></div>
+          <div class="summary-row total"><span>Total no PIX:</span><span style="font-size:1.4rem;">${fmt(totalPix)}</span></div>
+          <div style="font-size:0.7rem; color:var(--text-secondary); text-align:right; font-weight:800; text-transform:uppercase; margin-top:10px;">
+            Economia de ${fmt(totalX10 - totalPix)} no PIX
+          </div>
         </div>
-      </div>
-    `;
+      `;
+    } else {
+      summaryDiv.innerHTML = `
+        <div class="summary-panel" style="background:rgba(3, 78, 162, 0.05); border:2px solid rgba(3, 78, 162, 0.2);">
+          <div style="text-align:center; color:var(--samsung-blue); font-weight:800; font-size:1.1rem; padding:20px;">
+            📋 Cotação Personalizada
+          </div>
+          <div style="text-align:center; color:#666; font-size:0.9rem; font-weight:600; line-height:1.6;">
+            Selecione os produtos e quantidades desejadas.<br>Envie para nossa equipe comercial para receber uma proposta customizada com preços e condições especiais.
+          </div>
+        </div>
+      `;
+    }
   }
 
   function handleGlobalSearch(query) {
@@ -2914,9 +2930,26 @@
   function openAdmin() { renderAdmin(); document.getElementById('adminPanel').classList.add('active'); document.body.style.overflow = 'hidden'; }
   function closeAdmin() { document.getElementById('adminPanel').classList.remove('active'); document.body.style.overflow = 'auto'; switchCategory(currentCategory); }
 
+  function togglePricesVisibility(show) { CATALOG.showPrices = show; renderAdmin(); }
+
   function renderAdmin() {
     const container = document.getElementById('adminContent');
-    let html = '';
+    let html = `
+      <div style="grid-column: 1/-1; padding: 30px; background: linear-gradient(145deg, #f0f4ff, #ffffff); border-radius: 12px; margin-bottom: 30px; border: 2px solid rgba(3, 78, 162, 0.2);">
+        <div style="display: flex; align-items: center; gap: 20px; justify-content: space-between;">
+          <div>
+            <h3 style="font-size: 1.2rem; font-weight: 800; color: var(--samsung-blue); margin-bottom: 8px;">⚙️ Configurações de Exibição</h3>
+            <p style="color: #666; font-size: 0.9rem; font-weight: 600;">Controle se os preços devem ser exibidos ou ocultos no catálogo</p>
+          </div>
+          <div style="display: flex; align-items: center; gap: 15px;">
+            <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; font-weight: 800; color: var(--samsung-blue);">
+              <input type="checkbox" ${CATALOG.showPrices ? 'checked' : ''} onchange="togglePricesVisibility(this.checked)" style="width: 20px; height: 20px; cursor: pointer;">
+              Exibir Preços
+            </label>
+          </div>
+        </div>
+      </div>
+    `;
     Object.entries(CATALOG.categories).forEach(([cat, products]) => {
       html += `<div style="grid-column: 1/-1; margin-top: 40px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #ddd; padding-bottom:10px;">
         <h3 style="text-transform:uppercase; color:var(--samsung-blue);">${cat}</h3>
@@ -2964,12 +2997,13 @@
       const repo = "SamsungJockeyEmpresas/SamsungJockeyEmpresas";
       const resGet = await fetch(`https://api.github.com/repos/${repo}/contents/precos.json`, { headers: { 'Authorization': `token ${token}` } });
       const fileData = await resGet.json();
+      const catalogToSave = { ...CATALOG, showPrices: CATALOG.showPrices };
       const resPut = await fetch(`https://api.github.com/repos/${repo}/contents/precos.json`, {
         method: 'PUT',
         headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: "Update via Admin", content: btoa(unescape(encodeURIComponent(JSON.stringify(CATALOG, null, 2)))), sha: fileData.sha })
+        body: JSON.stringify({ message: "Update via Admin - Preços e Configurações", content: btoa(unescape(encodeURIComponent(JSON.stringify(catalogToSave, null, 2)))), sha: fileData.sha })
       });
-      if (resPut.ok) { alert("Salvo!"); }
+      if (resPut.ok) { alert("Configurações salvas com sucesso! Preços: " + (CATALOG.showPrices ? "Visíveis" : "Ocultos")); }
     } catch (e) { alert("Erro!"); }
     finally { btn.innerText = "Salvar no GitHub"; }
   }
