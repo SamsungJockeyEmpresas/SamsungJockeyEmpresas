@@ -692,8 +692,10 @@
       flex-direction: column;
       padding: 0;
       border-left: 1px solid rgba(255, 255, 255, 0.5) !important;
+      visibility: hidden;
+      opacity: 0;
     }
-    .details-drawer.active { right: 0; }
+    .details-drawer.active { right: 0; visibility: visible; opacity: 1; }
 
     /* GRID DE ESPECIFICAÇÕES TÉCNICAS */
     .specs-grid {
@@ -851,8 +853,10 @@
         top: auto;
         bottom: -100%;
         transition: bottom 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        visibility: hidden;
+        opacity: 0;
       }
-      .details-drawer.active { bottom: 0; right: 0; }
+      .details-drawer.active { bottom: 0; right: 0; visibility: visible; opacity: 1; }
       
       .product-grid { padding: 0 12px; gap: 10px; }
       .tabs-container { 
